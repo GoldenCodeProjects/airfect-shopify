@@ -181,6 +181,7 @@
         "318aa7d9-2f8f-4a89-81dd-9aa62a9b13c7": {
           "type": "Beneficios",
           "settings": {
+            "icon": "shopify:\/\/shop_images\/Group_805_250x_2d83e3ca-1cf6-4ff3-b4ff-402c6815a24c.webp",
             "head": "Nuestra pasión por las piezas",
             "des": "<p>Las personas detrás de KISTENMACHER son un equipo con muchos años de experiencia práctica y con una cosa en común: el amor por las “piezas”.<\/p>"
           }
@@ -188,6 +189,7 @@
         "ab1b865e-c0ad-4fd2-adbe-1ae28290d2cc": {
           "type": "Beneficios",
           "settings": {
+            "icon": "shopify:\/\/shop_images\/2pr2GI_250x_48eec9d9-b31d-4431-b3fc-6a2049fe7472.webp",
             "head": "Calidad desde nuestros empaques",
             "des": "<p>Todas nuestras cajas tienen el diseño que nos identifica así como una calidad superior que mantiene seguros nuestros productos para que lleguen sin defectos hasta ti<\/p>"
           }
@@ -195,6 +197,7 @@
         "26eefe5b-36e2-474a-880c-b1d9dfbf8f8c": {
           "type": "Beneficios",
           "settings": {
+            "icon": "shopify:\/\/shop_images\/ZKSf0G_250x_3b2b5c36-3892-416a-a16e-7c3b6fc6973d.webp",
             "head": "Experiencia, confiabilidad y logística",
             "des": "<p>Difícilmente hay un problema que no podamos resolver o una pieza que no podamos proveer. La estrecha colaboración con nuestros logistas garantiza una entrega rápida, flexible y totalmente confiable.<\/p>"
           }
@@ -202,6 +205,7 @@
         "33d8dbf7-c1d5-473a-95a6-919837dfc564": {
           "type": "Beneficios",
           "settings": {
+            "icon": "shopify:\/\/shop_images\/oDvBif_250x_1fd832c9-939d-4579-829b-eb9b26a84f92.webp",
             "head": "Realmente entendemos  a nuestros clientes",
             "des": "<p>Nuestros viajes regulares al extranjero crean nuevas relaciones con clientes y proveedores para mantener los estándares de calidad que nuestros clientes esperan y merecen.<\/p>"
           }
