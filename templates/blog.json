@@ -1,8 +1,19 @@
 {
   "sections": {
+    "feadtured": {
+      "type": "feadtured-article",
+      "settings": {
+        "article_selected": "noticias\/el-mejor-vino-para-el-verano"
+      }
+    },
     "main": {
-      "type": "main-blog"
+      "type": "main-blog",
+      "settings": {
+      }
     }
   },
-  "order": ["main"]
+  "order": [
+    "feadtured",
+    "main"
+  ]
 }

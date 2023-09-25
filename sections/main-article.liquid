@@ -1,13 +1,28 @@
+{{ 'component-article-card.css' | asset_url | stylesheet_tag }}
 {{ 'section-main-article.css' | asset_url | stylesheet_tag }}
 
-<div class="article o-container -medium">
-  {%- render 'component-article-card' -%}
+<div class="article o-container -large -wide u-pt-large u-pb-medium">
+  <h1 class="article_title">{{ article.title }}</h1>
+  <div class="article_content">
+    {{ article.content }}
+  </div>
+</div>
+
+<div class="related o-container -large -wide u-pv-medium">
+  {%- render 'relatedblogs' heading: section.settings.related_heading -%}
 </div>
 
 {% schema %}
 {
   "name": "t:sections.article.name",
   "tag": "article",
-  "settings": []
+  "settings": [
+    {
+      "type": "text",
+      "id": "related_heading",
+      "label": "Titulo de seccion relacionada",
+      "default": "Te puede interesar"
+    }
+  ]
 }
 {% endschema %}

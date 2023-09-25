@@ -1,0 +1,11 @@
+{
+  "sections": {
+    "banner": {
+      "type": "category-banner"
+    },
+    "main": {
+      "type": "box-collection"
+    }
+  },
+  "order": ["banner", "main"]
+}

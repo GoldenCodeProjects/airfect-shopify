@@ -1,0 +1,11 @@
+<div class="c-collection-card">
+  <a class="c-collection-card_image" href="{{ collection.url }}">
+    <img src="{{ collection.featured_image | image_url: width: 350 }}" width="350" height="500" loading="lazy" alt="{{ collection.image.alt }}">
+  </a>
+  <h3 class="c-collection-card_title">
+    <a href="{{ collection.url }}" title="{{ collection.title }}">
+      {{ collection.title }}
+    </a>
+  </h3>
+  <a href="{{ collection.url }}" class="c-button -primary" title="{{ collection.title }}">Ver más</a>
+</div>

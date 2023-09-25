@@ -1,29 +1,7 @@
 {{ 'section-contact-form.css' | asset_url | stylesheet_tag }}
 
 {%- if section.settings.type_form != blank -%}
-  <div class="image">
-    {%- if section.settings.banner != blank -%}
-      <img src="{{ section.settings.banner | img_url: '1540x' }}"
-      alt="{{ section.settings.banner.alt }}"
-      width="{{ section.settings.banner.width }}"
-      height="{{ section.settings.banner.height }}"
-      loading="lazy">
-    {%- else -%}
-      {{ 'collection-1' | placeholder_svg_tag }}
-    {%- endif -%}
-  </div>
-
   {% form 'contact', return_to: 'back', class: section.settings.color %}
-    {%- if section.settings.type_form -%}
-      <h1>
-        {%- if page.title != blank -%}
-          {{ page.title }}
-        {%- else -%}
-          {{ section.settings.type_form | capitalize }}
-        {%- endif -%}
-      </h1>
-    {%- endif -%}
-
     {%- if page.content != blank -%}
       <div class="content">
         {{ page.content }}
@@ -87,7 +65,7 @@
       <label for="body" class="c-field_label">Mensaje</label>
     </div>
 
-    <button type="submit" class="c-button -dark formulario">
+    <button type="submit" class="c-button -primary">
       Enviar
     </button>
   {% endform %}
@@ -104,11 +82,6 @@
       "id": "type_form",
       "label": "Tipo de formulario",
       "info": "Nombre del formulario para distinguirlo en los correos"
-    },
-    {
-      "type": "image_picker",
-      "id": "banner",
-      "label": "Imagen de decoración"
     },
     {
       "type": "radio",

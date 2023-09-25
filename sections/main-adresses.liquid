@@ -1,74 +1,222 @@
 {{ 'section-main-adresses.css' | asset_url | stylesheet_tag }}
 
-{%- paginate customer.addresses by 6 -%}
-<div class="addresses o-container -wide -medium">
-  <div class="head">
-    <h1 class="title c-heading -h1">Mi cuenta</h1>
+<script src="{{ 'component-customer.js' | asset_url }}" type="module" defer></script>
 
-    <a href="/account/logout" class="c-button -secondary logout">
-      Cerrar sesión
+{%- paginate customer.addresses by 5 -%}
+  <div class="customer addresses" data-customer-addresses>
+    <svg style="display: none">
+      <symbol id="icon-caret" viewBox="0 0 10 6">
+        <path fill-rule="evenodd" clip-rule="evenodd" d="M9.354.646a.5.5 0 00-.708 0L5 4.293 1.354.646a.5.5 0 00-.708.708l4 4a.5.5 0 00.708 0l4-4a.5.5 0 000-.708z" fill="currentColor">
+      </symbol>
+    </svg>
+    <h1>Direcciones</h1>
+    <a href="{{ routes.account_url }}">
+      Regresar
     </a>
-  </div>
 
-  <div class="menu">
-    <a href="/account" class="menu_link">
-      {% render 'component-icon' icon: 'history', icon_size: 25 %}
-      <span>Pedidos</span>
-    </a>
-    <a href="/account/addresses" class="menu_link -active">
-      {% render 'component-icon' icon: 'map-marker', icon_size: 25 %}
-      <span>Direcciones</span>
-    </a>
-    <a href="/account/details" class="menu_link u-hide-sm-down">
-      {% render 'component-icon' icon: 'checkmark', icon_size: 25 %}
-      <span>Ayuda</span>
-    </a>
-    <a href="/account/logout" class="menu_link u-hide-md-up">
-      {% render 'component-icon' icon: 'signout', icon_size: 25 %}
-      <span>Cerrar sesión</span>
-    </a>
-  </div>
-
-  <div class="main">
-    <div class="actions">
-      <a href="/pages/add-address"
-        class="c-button -primary"
-        aria-label="Agregar dirección"
+    <div data-address>
+      <button
+      class="c-button -secondary"
+        type="button"
+        aria-expanded="false"
+        aria-controls="AddAddress"
       >
-        Agregar dirección
-      </a>
+        Agregar nueva
+      </button>
+      <div id="AddAddress">
+        <h2 id="AddressNewHeading" class="u-align-center">Agregar nueva</h2>
+        {%- form 'customer_address', customer.new_address, aria-labelledBy: 'AddressNewHeading' -%}
+          <div class="c-field">
+            <input class="c-field_input" type="text" id="AddressFirstNameNew" name="address[first_name]" value="{{ form.first_name }}" autocomplete="given-name" placeholder="Nombre(s)">
+            <label class="c-field_label" for="AddressFirstNameNew">Nombre(s)</label>
+          </div>
+          <div class="c-field">
+            <input class="c-field_input" type="text" id="AddressLastNameNew" name="address[last_name]" value="{{ form.last_name }}" autocomplete="family-name" placeholder="Apellido(s)">
+            <label class="c-field_label" for="AddressLastNameNew">Apellido(s)</label>
+          </div>
+          <div class="c-field">
+            <input class="c-field_input" type="text" id="AddressCompanyNew" name="address[company]" value="{{ form.company }}" autocomplete="organization" placeholder="Empresa">
+            <label class="c-field_label" for="AddressCompanyNew">Empresa</label>
+          </div>
+          <div class="c-field">
+            <input class="c-field_input" type="text" id="AddressAddress1New" name="address[address1]" value="{{ form.address1 }}" autocomplete="address-line1" placeholder="Dirección 1">
+            <label class="c-field_label" for="AddressAddress1New">Dirección 1</label>
+          </div>
+          <div class="c-field">
+            <input class="c-field_input" type="text" id="AddressAddress2New" name="address[address2]" value="{{ form.address2 }}" autocomplete="address-line2" placeholder="Dirección 2">
+            <label class="c-field_label" for="AddressAddress2New">Dirección 2</label>
+          </div>
+          <div class="c-field">
+            <input class="c-field_input" type="text" id="AddressCityNew" name="address[city]" value="{{ form.city }}" autocomplete="address-level2" placeholder="Ciudad">
+            <label class="c-field_label" for="AddressCityNew">Ciudad</label>
+          </div>
+          <div class="c-field -select">
+            <select
+            class="c-field_input"
+            id="AddressCountryNew"
+            name="address[country]"
+            data-default="{{ form.country }}"
+            autocomplete="country">
+              {{ all_country_option_tags }}
+            </select>
+            <label class="c-field_label" for="AddressCountryNew">País</label>
+            <label class="c-field_button">
+              <svg aria-hidden="true" focusable="false" viewBox="0 0 10 6">
+                <use href="#icon-caret" />
+              </svg>
+            </label>
+          </div>
+          <div id="AddressProvinceContainerNew" style="display: none" class="c-field -select">
+            <select
+            class="c-field_input"
+            id="AddressProvinceNew"
+            name="address[province]"
+            data-default="{{ form.province }}"
+            autocomplete="address-level1">
+            </select>
+            <label class="c-field_label" for="AddressProvinceNew">Estado</label>
+            <label class="c-field_button">
+              <svg aria-hidden="true" focusable="false" viewBox="0 0 10 6">
+                <use href="#icon-caret" />
+              </svg>
+            </label>
+          </div>
+          <div class="c-field">
+            <input class="c-field_input" type="text" id="AddressZipNew" name="address[zip]" value="{{ form.zip }}" autocapitalize="characters" autocomplete="postal-code" placeholder="Codigo Postal">
+            <label class="c-field_label" for="AddressZipNew">Codigo Postal</label>
+          </div>
+          <div class="c-field">
+            <input class="c-field_input" type="tel" id="AddressPhoneNew" name="address[phone]" value="{{ form.phone }}" autocomplete="tel" placeholder="Telefono">
+            <label class="c-field_label" for="AddressPhoneNew">Telefono</label>
+          </div>
+          <div>
+            {{ form.set_as_default_checkbox }}
+            <label for="address_default_address_new">Usar por defecto</label>
+          </div>
+          <div>
+            <button class="c-button -primary">Agregar</button>
+            <button class="c-button -secondary" type="reset">Cancelar</button>
+          </div>
+        {%- endform -%}
+      </div>
     </div>
 
-    <nav class="list" role="list">
+    <ul role="list">
       {%- for address in customer.addresses -%}
-        <div class="address">
+        <li data-address>
           {%- if address == customer.default_address -%}
-            <h3 class="address_title">Dirección principal:</h3>
+            <h2 class="u-align-center">Predeterminado</h2>
           {%- endif -%}
           {{ address | format_address }}
-          <div class="address_buttons">
-            <a href="/pages/edit-address?id={{ address.id }}"
-              class="c-button -primary"
-              aria-label="Editar {{ forloop.index }}"
-            >
-              {% render 'component-icon' icon: 'edit', icon_size: 15 %}
-            </a>
-            {%- unless address == customer.default_address -%}
-              <button
-                class="c-button -secondary"
-                type="button"
-                delete-address
-                aria-label="Eliminar {{ forloop.index }}"
-                data-target="{{ address.url }}"
-                data-confirm-message="¿Estás seguro de que deseas eliminar esta dirección?"
-              >
-                {% render 'component-icon' icon: 'trash', icon_size: 15 %}
-              </button>
-            {%- endunless -%}
+          <button
+          class="c-button -primary"
+            type="button"
+            id="EditFormButton_{{ address.id }}"
+            aria-label="Editar {{ forloop.index }}"
+            aria-controls="EditAddress_{{ address.id }}"
+            aria-expanded="false"
+            data-address-id="{{ address.id }}"
+          >
+            Editar
+          </button>
+          <button
+          class="c-button -secondary"
+            type="button"
+            aria-label="Eliminar {{ forloop.index }}"
+            data-target="{{ address.url }}"
+            data-confirm-message="Confimar"
+          >
+            Eliminar
+          </button>
+          <div id="EditAddress_{{ address.id }}">
+            <h2 class="u-align-center">Editar</h2>
+            {%- form 'customer_address', address -%}
+              <div class="c-field">
+                <input class="c-field_input" type="text" id="AddressFirstName_{{ form.id }}" name="address[first_name]" value="{{ form.first_name }}" autocomplete="given-name" placeholder="Nombre(s)">
+                <label class="c-field_label" for="AddressFirstName_{{ form.id }}">Nombre(s)</label>
+              </div>
+              <div class="c-field">
+                <input class="c-field_input" type="text" id="AddressLastName_{{ form.id }}" name="address[last_name]" value="{{ form.last_name }}" autocomplete="family-name" placeholder="Apellido(s)">
+                <label class="c-field_label" for="AddressLastName_{{ form.id }}">Apellido(s)</label>
+              </div>
+              <div class="c-field">
+                <input class="c-field_input" type="text" id="AddressCompany_{{ form.id }}" name="address[company]" value="{{ form.company }}" autocomplete="organization" placeholder="Empres">
+                <label class="c-field_label" for="AddressCompany_{{ form.id }}">Empres</label>
+              </div>
+              <div class="c-field">
+                <input class="c-field_input" type="text" id="AddressAddress1_{{ form.id }}" name="address[address1]" value="{{ form.address1 }}" autocomplete="address-line1" placeholder="Dirección 1">
+                <label class="c-field_label" for="AddressAddress1_{{ form.id }}">Dirección 1</label>
+              </div>
+              <div class="c-field">
+                <input class="c-field_input" type="text" id="AddressAddress2_{{ form.id }}" name="address[address2]" value="{{ form.address2 }}" autocomplete="address-line2" placeholder="Dirección 2">
+                <label class="c-field_label" for="AddressAddress2_{{ form.id }}">Dirección 2</label>
+              </div>
+              <div class="c-field">
+                <input class="c-field_input" type="text" id="AddressCity_{{ form.id }}" name="address[city]" value="{{ form.city }}" autocomplete="address-level2" placeholder="Ciudad">
+                <label class="c-field_label" for="AddressCity_{{ form.id }}">Ciudad</label>
+              </div>
+              <div class="c-field -select -bordered">
+                <select
+                class="c-field_input"
+                  id="AddressCountry_{{ form.id }}"
+                  name="address[country]"
+                  data-address-country-select -bordered
+                  data-default="{{ form.country }}"
+                  data-form-id="{{ form.id }}"
+                  autocomplete="country"
+                >
+                  {{ all_country_option_tags }}
+                </select>
+                <label class="c-field_label" for="AddressCountry_{{ form.id }}">
+                  País
+                </label>
+                <label class="c-field_button" for="AddressCountry_{{ form.id }}">
+                  <svg aria-hidden="true" focusable="false" viewBox="0 0 10 6">
+                    <use href="#icon-caret" />
+                  </svg>
+                </label>
+              </div>
+              <div class="c-field -select -bordered" id="AddressProvinceContainer_{{ form.id }}" style="display:none;">
+                <select
+                class="c-field_input"
+                  id="AddressProvince_{{ form.id }}"
+                  name="address[province]"
+                  data-default="{{ form.province }}"
+                  autocomplete="address-level1"
+                >
+                </select>
+                <label class="c-field_label" for="AddressProvince_{{ form.id }}">
+                  Estado
+                </label>
+                <label class="c-field_button" for="AddressCountry_{{ form.id }}">
+                  <svg aria-hidden="true" focusable="false" viewBox="0 0 10 6">
+                    <use href="#icon-caret" />
+                  </svg>
+                </label>
+              </div>
+              <div class="c-field">
+                <input class="c-field_input" type="text" id="AddressZip_{{ form.id }}" name="address[zip]" value="{{ form.zip }}" autocapitalize="characters" autocomplete="postal-code" placeholder="Codigo Postal">
+                <label class="c-field_label" for="AddressZip_{{ form.id }}">Codigo Postal</label>
+              </div>
+              <div class="c-field">
+                <input class="c-field_input" type="tel" id="AddressPhone_{{ form.id }}"  name="address[phone]" value="{{ form.phone }}" autocomplete="tel" placeholder="Telefono">
+                <label class="c-field_label" for="AddressPhone_{{ form.id }}">Telefono</label>
+              </div>
+              <div>
+                {{ form.set_as_default_checkbox }}
+                <label for="address_default_address_{{ form.id }}">
+                  Usar por defecto</label>
+                </label>
+              </div>
+              <div>
+                <button class="c-button -primary">Actualizar</button>
+                <button class="c-button -secondary" type="reset">Cancelar</button>
+              </div>
+            {%- endform -%}
           </div>
-        </div>
+        </li>
       {%- endfor -%}
-    </nav>
+    </ul>
 
     {%- if paginate.pages > 1 -%}
       {%- if paginate.parts.size > 0 -%}
@@ -112,38 +260,13 @@
       {%- endif -%}
     {%- endif -%}
   </div>
-</div>
 {%- endpaginate -%}
-
-<script defer>
-  const deleteAddressButtons = document.querySelectorAll('button[delete-address]');
-
-  const deleteAddress = (e) => {
-    const target = e.currentTarget;
-    const url = target.dataset.target;
-    const confirmMessage = target.dataset.confirmMessage;
-
-    if (confirm(confirmMessage)) {
-      Shopify.postLink(url, {
-        parameters: {
-          _method: 'delete'
-        }
-      });
-    }
-  }
-
-  deleteAddressButtons.forEach(btn => {
-    btn.addEventListener('click', deleteAddress)
-  })
-</script>
 
 {% schema %}
 {
   "name": "t:sections.adresses.name",
   "tag": "section",
-  "class": "section--main-adresses",
-  "settings": [
-
-  ]
+  "class": "section-adresses",
+  "settings": []
 }
 {% endschema %}

@@ -1,6 +1,9 @@
 {{ 'section-main-page.css' | asset_url | stylesheet_tag }}
 
-<div class="page o-container -medium"></div>
+<div class="page page-content o-container -wide -medium u-pv-medium">
+  <h1>{{ page.title }}</h1>
+  <div class="content">{{ page.content }}</div>
+</div>
 
 
 {% schema %}

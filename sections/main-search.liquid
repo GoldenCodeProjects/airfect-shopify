@@ -1,11 +1,55 @@
-{{ 'section-main-search.css' | asset_url | stylesheet_tag }}
+{{ 'component-facets.css' | asset_url | stylesheet_tag }}
+{{ 'component-product-card.css' | asset_url | stylesheet_tag }}
+{{ 'component-pagination.css' | asset_url | stylesheet_tag }}
 
-<div class="search o-container -medium"></div>
+{{ 'section-main-collection.css' | asset_url | stylesheet_tag }}
+
+<script src="{{ 'component-facets.js' | asset_url }}" type="module" defer="defer"></script>
+
+{%- if search.performed -%}
+  {%- if search.filters != empty -%}
+    {%- render 'facets', results: search -%}
+  {%- endif -%}
+
+  <div id="products-grid" data-id="{{ section.id }}" class="products-grid o-container -large u-mv-medium {% if search.filters == empty %}-full{% endif %}">
+    <h2>
+      Resultados de "{{ search.terms }}"
+      <span id="ProductCount"></span>
+    </h2>
+
+    <open-filter class="u-hide-md-up">
+      <button class="c-button -transparent filter-open">
+        Filtrar productos
+        {%- render 'component-icon' icon: 'filter', icon_size: 30 -%}
+      </button>
+    </open-filter>
+
+    {% paginate search.results by 24 %}
+      {%- for item in search.results -%}
+        {%- case item.object_type -%}
+          {%- when 'product' -%}
+            {%- render 'component-product-card', product: item -%}
+
+          {%- comment -%}
+            {%- when 'article' -%}
+            {%- when 'page' -%}
+          {%- endcomment -%}
+        {%- endcase -%}
+      {%- else -%}
+        <h4 class="no-products c-heading -h2">No hay resultados</h4>
+      {%- endfor -%}
+
+      {%- if paginate.pages > 1 -%}
+        {% render 'pagination', paginate: paginate %}
+      {%- endif -%}
+    {% endpaginate %}
+  </div>
+{%- endif -%}
 
 {% schema %}
 {
-  "name": "t:sections.search.name",
+  "name": "Busqueda",
   "tag": "section",
-  "settings": []
+  "class": "collection"
 }
 {% endschema %}

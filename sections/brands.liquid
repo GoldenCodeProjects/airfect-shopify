@@ -1,0 +1,74 @@
+{{ 'section-brands.css' | asset_url | stylesheet_tag }}
+
+<div class="brands">
+  <div class="bg">
+    <img src="{{ section.settings.bg | img_url: '1920x' }}" alt="{{ section.settings.bg.alt }}" width="1920" height="1080" loading="lazy">
+  </div>
+  <div class="o-container -smaller text">
+    <h2 class="section-title -light">
+      {{ section.settings.heading }}
+    </h2>
+    <div class="items -columns-{{ section.settings.columns }}">
+      {%- for block in section.blocks -%}
+        {%- assign collection = block.settings.collection -%}
+        {%- if collection != blank -%}
+          <a class="item" href="{{ collection.url }}">
+            <img src="{{ section.settings.card_bg | img_url: '350x' }}" alt="{{ section.settings.card_bg.alt }}" width="350" height="350" loading="lazy">
+            <span>{{ collection.title }}
+            </span>
+          </a>
+        {%- endif -%}
+      {%- endfor -%}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+  {
+    "name": "Marcas",
+    "tag": "section",
+    "class": "section--brands",
+    "blocks": [
+      {
+        "type": "collections",
+        "name": "Marcas",
+        "settings": [
+          {
+            "type": "collection",
+            "id": "collection",
+            "label": "Selecciona un catalogo"
+          }
+        ]
+      }
+    ],
+    "settings": [
+      {
+        "type": "text",
+        "id": "heading",
+        "label": "Titulo",
+        "default": "Busca partes por marca"
+      }, {
+        "type": "image_picker",
+        "id": "bg",
+        "label": "Imagen de fondo"
+      }, {
+        "type": "image_picker",
+        "id": "card_bg",
+        "label": "Fondo de cartas"
+      }, {
+        "type": "range",
+        "id": "columns",
+        "min": 1,
+        "max": 8,
+        "step": 1,
+        "label": "Numero de columnas",
+        "default": 3
+      }
+    ],
+    "presets": [
+      {
+        "name": "Marcas"
+      }
+    ]
+  }
+{% endschema %}

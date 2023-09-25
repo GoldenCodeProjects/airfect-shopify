@@ -1,0 +1,41 @@
+<img src="{{ section.settings.background | image_url: width: 1920 }}"
+alt="{{ section.settings.background.alt }}"
+width="{{ section.settings.background.width }}"
+height="{{ section.settings.background.height }}"
+loading="lazy">
+
+<h2 class="title">Vinos boutique</h2>
+
+<form class="content">
+  <label class="question">¿ERES MAYOR DE EDAD?</label>
+  <div class="buttons">
+    <button name="send" value="false" data-access="false"
+    type="submit" class="c-button -light">
+      <span>NO</span>
+    </button>
+    <button name="send" value="true" data-access="true"
+    type="submit" class="c-button -light -filled">
+      <span>SÍ</span>
+    </button>
+  </div>
+  <label for="remember" class="c-check -light">
+    <input type="checkbox" name="remember" id="remember">
+    <span box></span>
+    Recordar mi decisión
+  </label>
+</form>
+
+
+{% schema %}
+{
+  "name": "Validar edad",
+  "class": "age-validation-section",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "background",
+      "label": "Imagen de fondo"
+    }
+  ]
+}
+{% endschema %}

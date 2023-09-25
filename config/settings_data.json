@@ -1,10 +1,46 @@
 {
   "current": {
-    "social_facebook_link": "https:\/\/facebook.com\/shopify",
-    "social_instagram_link": "http:\/\/instagram.com\/shopify",
-    "social_tiktok_link": "https:\/\/tiktok.com\/@shopify",
-    "social_youtube_link": "https:\/\/www.youtube.com\/shopify",
+    "colors_text": "#636363",
+    "fonts_header": "titillium_web_n7",
+    "fonts_body": "titillium_web_n4",
+    "social_twitter_link": "",
+    "social_facebook_link": "",
+    "social_instagram_link": "https:\/\/www.instagram.com\/katgermany\/?hl=es-la",
+    "social_linkedin_link": "https:\/\/www.linkedin.com\/company\/kistenmacherautotechnik",
+    "social_youtube_link": "https:\/\/www.youtube.com\/channel\/UCpIqmJRiFuGtAPfyzxpK4Qw",
+    "favicon": "shopify:\/\/shop_images\/Favicon.png",
     "sections": {
+      "header": {
+        "type": "header",
+        "settings": {
+          "logo": "shopify:\/\/shop_images\/KAT_LogoWeb-Medium-Positiv-1.png",
+          "img_width": 170
+        }
+      },
+      "navigation": {
+        "type": "navigation",
+        "settings": {
+          "menu": "main-menu"
+        }
+      },
+      "footer": {
+        "type": "footer",
+        "settings": {
+          "logo-light": "shopify:\/\/shop_images\/KAT_LogoWeb-Medium-Positiv-1_8873f004-1b0b-4dde-b690-d5789ea7e9c2.png",
+          "bg": "shopify:\/\/shop_images\/Mask_Group_5.png",
+          "phone": "+52 (55) 540 47 864",
+          "email": "ventas.mex@kat-germany.de",
+          "map_url": "https:\/\/www.google.com\/maps\/place\/Av.+Paseo+de+la+Reforma+296,+Col.+Renacimiento,+Ju%C3%A1rez,+Cuauht%C3%A9moc,+06500+Ciudad+de+M%C3%A9xico,+CDMX\/@19.4305696,-99.1613011,17z\/data=!3m1!4b1!4m6!3m5!1s0x85d1ff334271ca6b:0x25d26be57c1db206!8m2!3d19.4305696!4d-99.1613011!16s%2Fg%2F11tt8lbtsg",
+          "extern_text": "www.kat-germany.de",
+          "extern_url": "https:\/\/www.kat-germany.de"
+        }
+      },
+      "main-age": {
+        "type": "main-age",
+        "settings": {
+          "background": "shopify:\/\/shop_images\/field_2x_34134a66-6941-440d-ad4a-b513356c393d.jpg"
+        }
+      },
       "cart-collapse": {
         "type": "cart-collapse",
         "settings": {
@@ -13,28 +49,7 @@
       "menu-navigation": {
         "type": "menu-navigation",
         "settings": {
-          "menu_list": "main-menu",
-          "special_url": ""
-        }
-      },
-      "header": {
-        "type": "header",
-        "settings": {
-          "logo": "shopify:\/\/shop_images\/6387659.jpg",
-          "img_width": 50,
-          "menu": "main-menu"
-        }
-      },
-      "footer": {
-        "type": "footer",
-        "settings": {
-          "logo-light": "shopify:\/\/shop_images\/6387659.jpg",
-          "address_text": "<p>São Paulo 1912, Providencia, 44630 Guadalajara, Jal.<\/p>",
-          "address_link": "https:\/\/goo.gl\/maps\/iUa9tyD52Cc5LjAJ6",
-          "follow_text": "Sígueme en mis redes",
-          "whatsapp_text": "300 300 0000",
-          "contact_email": "tuCorreo@service.com",
-          "phone_text": "300 300 0000"
+          "menu_list": "main-menu"
         }
       }
     },

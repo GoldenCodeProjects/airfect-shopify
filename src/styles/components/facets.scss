@@ -21,13 +21,12 @@ facet-filters-form {
     align-items: center;
     height: 100%;
     gap: 1.5rem;
-    background-color: $color-base-background-primary;
+    background-color: $color-base-background-secondary;
     overflow: hidden;
     position: relative;
     z-index: 1;
     @include mq-down('sm') {
       grid-template-rows: auto 1fr auto auto;
-      box-shadow: 0px 0px 7px 1px rgba(black, 0.25);
     }
 
     .groups {
@@ -42,7 +41,6 @@ facet-filters-form {
         position: relative;
         padding-bottom: 1rem;
         border-bottom: 1px solid #e3e3e3;
-        color: $color-base-text;
         &_summary {
           display: flex;
           align-items: center;
@@ -87,22 +85,6 @@ facet-filters-form {
             display: flex;
             flex-direction: column;
             gap: 0.5rem;
-          }
-          &__link-list {
-            background-color: $color-base-background-secondary;
-            a {
-              width: 100%;
-              padding: 0.5rem;
-              display: flex;
-              align-items: center;
-              justify-content: space-between;
-              color: $color-base-text;
-              font-size: 1rem;
-              font-weight: 400;
-              &:hover {
-                text-decoration: none;
-              }
-            }
           }
           &_submit {
             margin-top: 0.5rem;
@@ -257,7 +239,6 @@ facet-filters-form {
     }
 
     @include mq-down('sm') {
-      transform: translateX(-100%);
       &.-mobile {
         width: 100%;
         max-width: 350px;

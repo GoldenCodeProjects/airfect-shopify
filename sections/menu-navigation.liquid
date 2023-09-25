@@ -1,55 +1,69 @@
-<script src="{{- 'component-menu-navigation-script.js' | asset_url -}}" defer></script>
+<script src="{{- 'component-menu-navigation.js' | asset_url -}}" defer></script>
 
 <menu-navigation>
   <div class="menu">
+    {%- comment -%}<--------< Menu >-------->{%- endcomment -%}
     <nav>
-      <div class="wrapper">
-        {% for link in section.settings.menu_list.links %}
-          {% if link.links == blank %}
-            <a href="{{ link.url }}"
-              class="{% if link.current %}-active{% endif %}"
-              {% if link.current %}aria-current="page"{% endif %}>
-                {{ link.title }}
-              </a>
-          {%- else -%}
-            <div role="list" class="list">
-              <p {% if link.child_active %} active {% endif %} class="list_label {% if link.child_active %}-active{% endif %}">
+      {% for link in section.settings.menu_list.links %}
+        {% if link.links != blank %}
+          <details role="list" tabindex="-1">
+            <summary {% if link.child_active %} active {% endif %}>
+              <span class="c-navigation {% if link.child_active %}-active{% endif %} -menu">
                 {{ link.title | escape }}
-              </p>
-              <ul class="list_details">
-                {%- for childlink in link.links -%}
-                  <li>
-                    {%- if childlink.links == blank -%}
-                      <a href="{{ childlink.url }}" class="list_item {% if childlink.current %}-active{% endif %}"
-                      {% if childlink.current %}aria-current="page"{% endif %}>
+              </span>
+              {%- render 'component-icon' icon: 'caret', icon_size: 15 -%}
+            </summary>
+            <ul class="details-list">
+              {%- for childlink in link.links -%}
+                <li>
+                  {%- if childlink.links == blank -%}
+                    <a href="{{ childlink.url }}" class="c-navigation {% if childlink.current %}-active{% endif %}"
+                    {% if childlink.current %}aria-current="page"{% endif %}>
+                      {{ childlink.title | escape }}
+                    </a>
+                  {%- else -%}
+                    <details class="submenu" role="list" tabindex="-1">
+                      <summary class="c-navigation {% if childlink.child_active %}-active{% endif %}">
                         {{ childlink.title | escape }}
-                      </a>
-                    {%- endif -%}
-                  </li>
-                {%- endfor -%}
-              </ul>
-            </div>
-          {%- endif -%}
-        {% endfor %}
-      </div>
+                        {%- render 'component-icon' icon: 'caret', icon_size: 15 -%}
+                      </summary>
+                      <ul class="submenu__list">
+                        {%- for grandchildlink in childlink.links -%}
+                          <li>
+                            <a href="{{ grandchildlink.url }}" class="c-navigation {% if grandchildlink.current %}-active{% endif %}"
+                            {% if grandchildlink.current %} aria-current="page"{% endif %}>
+                              {{ grandchildlink.title | escape }}
+                            </a>
+                          </li>
+                        {%- endfor -%}
+                      </ul>
+                    </details>
+                  {%- endif -%}
+                </li>
+              {%- endfor -%}
+            </ul>
+          </details>
+        {%- else -%}
+          <a href="{{ link.url }}"
+          class="c-navigation {% if link.current %}-active{% endif %} -menu"
+          {% if link.current %}aria-current="page"{% endif %}>
+            {{ link.title }}
+          </a>
+        {%- endif -%}
+      {% endfor %}
     </nav>
   </div>
 </menu-navigation>
 
 {% schema %}
 {
-  "name": "Navigation menu",
+  "name": "Menu de navegacíon movil",
   "settings": [
     {
       "type": "link_list",
       "id": "menu_list",
-      "label": "Select a menu",
+      "label": "Selecciona un menu",
       "default": "main-menu"
-    },
-    {
-      "type": "url",
-      "id": "special_url",
-      "label": "Especial link"
     }
   ]
 }

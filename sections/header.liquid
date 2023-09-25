@@ -1,109 +1,94 @@
 {{ 'component-dark-mode-button.css' | asset_url | stylesheet_tag }}
-<script src="{{- 'component-dark-mode-button-script.js' | asset_url -}}" defer></script>
+{{ 'component-predictive-search.css' | asset_url | stylesheet_tag }}
+{{ 'component-social-list.css' | asset_url | stylesheet_tag }}
+<script src="{{- 'component-dark-mode-button.js' | asset_url -}}" defer></script>
+<script src="{{- 'component-predictive-search.js' | asset_url -}}" defer></script>
 
-{% style %}
-  .header_logo img{
-    min-width: 20px;
-    width: {{ section.settings.img_width }}px;
-  }
-
-  @media (max-width: 767px) {
-    .header_logo img{
-      width: {{ section.settings.img_width | times: 0.7 | floor }}px;
-    }
-  }
-{% endstyle %}
-
-<header class="header">
-  <a class="header_logo c-heading -bold" href="{{ shop.url }}" aria-label="Home">
+<header class="header o-container -medium">
+  <a href="{{ routes.root_url }}" class="header_logo c-heading -bold">
     {%- if section.settings.logo != blank -%}
-      <img
-        src="{{ section.settings.logo | image_url: width: 350 }}"
-        alt="{{ section.settings.logo.alt }}" loading="lazy"
-        width="{{ section.settings.logo.width }}"
-        height="{{ section.settings.logo.height }}"
-      >
+      <img src="{{ section.settings.logo | image_url: width: 350 }}"
+      alt="{{ section.settings.logo.alt }}" loading="lazy"
+      width="{{ section.settings.logo.width }}"
+      height="{{ section.settings.logo.height }}">
     {%- else -%}
       {{ shop.name }}
     {%- endif -%}
   </a>
 
-  <nav class="header_nav" role="navigation" aria-label="Main navigation">
-    {%- for link in section.settings.menu.links -%}
-      {%- if link.links == blank -%}
-        <a href="{{ link.url }}"
-          class="header_nav_item c-navigation {% if link.current %}-active{% endif %}"
-          {% if link.current %}aria-current="page"{% endif %}
-        >
-          {{ link.title }}
-        </a>
-      {%- else -%}
-        <div class="header_sublist" role="list" tabindex="-1">
-          <a class="header_sublist-title c-navigation">
-            {{ link.title | escape }}
-            {% render 'component-icon' icon: 'caret', icon_size: 15 %}
-          </a>
+  {%- if template.name != 'index' -%}
+    <predictive-search class="header_search search -hide -full" render="true">
+      <div class="search_btns">
+        <button close type="button" class="c-button -transparent u-hide-md-up">
+          {%- render 'component-icon' icon: 'arrow', icon_size: 25 -%}
+        </button>
+        <form class="search_form" method="get" role="search" tabindex="-1">
+          <input class="search_input" id="Search" type="search"
+          name="q" placeholder="Buscar productos, marcas y más..."
+          value="{{ search.terms | escape }}" role="combobox"
+          aria-expanded="false" aria-owns="predictive-search-results-list"
+          aria-controls="predictive-search-results-list" aria-haspopup="listbox"
+          aria-autocomplete="list" autocorrect="off" autocomplete="off"
+          autocapitalize="off"spellcheck="false">
+          <button class="search_button" type="submit">
+            {%- render 'component-icon' icon: 'search', icon_size: 25 -%}
+          </button>
 
-          <ul class="header_sublist-elements {% if link.handle == 'products' %}-products{% endif %}">
-            {%- for childlink in link.links -%}
-              <li>
-                {%- if childlink.links == blank -%}
-                  <a href="{{ childlink.url }}" class="header_sublist-item c-navigation">{{ childlink.title | escape }}</a>
-                {%- else -%}
-                  <div class="header_deepsublist" role="list" tabindex="-1">
-                    <span class="header_deepsublist-title c-navigation">{{ childlink.title | escape }}</span>
-                    <ul class="header_deepsublist-elements">
-                      {%- for grandchildlink in childlink.links -%}
-                        <li class="header_deepsublist-item">
-                          <a href="{{ grandchildlink.url }}" class="c-navigation {% if grandchildlink.current %}-active{% endif %}"
-                          {% if grandchildlink.current %} aria-current="page"{% endif %}>
-                            {{ grandchildlink.title | escape }}
-                          </a>
-                        </li>
-                      {%- endfor -%}
-                    </ul>
-                  </div>
-                {%- endif -%}
-              </li>
-            {%- endfor -%}
-          </ul>
-        </div>
-      {%- endif -%}
-    {%- endfor -%}
-  </nav>
+          <input name="options[prefix]" type="hidden" value="last">
+        </form>
+      </div>
+
+      <div id="predictive-search" class="predictive-search" tabindex="-1">
+        <div id="predictive-search-results" class="predictive-search_results"></div>
+        <button id="submit-bottom" type="submit" class="c-button -primary" tabindex="-1">
+          <span>Buscar “”</span>
+          {%- render 'component-icon' icon: 'search', icon_size: 15 -%}
+        </button>
+      </div>
+    </predictive-search>
+  {%- endif -%}
 
   <div class="header_buttons">
-    <dark-mode-button>
-      <span slot="moon">{%- render 'component-icon' icon: 'moon', icon_size: 18 -%}</span>
-      <span slot="sun">{%- render 'component-icon' icon: 'sun', icon_size: 18 -%}</span>
-    </dark-mode-button>
+    <div class="u-hide-sm-down">
+      {% render 'component-social-list' %}
+    </div>
 
-    <open-search>
-      <button class="header_buttons_btn">
-        {%- render 'component-icon' icon: 'search', icon_size: 18 -%}
+    <menu-open class="u-hide-md-up">
+      <button class="c-button -navigator">
+        {%- render 'component-icon' icon: 'hamburger', icon_size: 25 -%}
       </button>
-    </open-search>
+    </menu-open>
 
-    <cart-icon class="header_cart-icon">
-      <button class="header_buttons_btn -cart">
-        {%- render 'component-icon' icon: 'cart', icon_size: 18 -%}
-        <span class="data-quantity">0</span>
-      </button>
-    </cart-icon>
+    {%- if template.name != 'index' -%}
+      <open-search class="header_search-icon u-hide-md-up">
+        <button class="c-button -transparent" type="button">
+          {%- render 'component-icon' icon: 'search', icon_size: 30 -%}
+        </button>
+      </open-search>
+    {%- endif -%}
 
     {%- if shop.customer_accounts_enabled -%}
       {%- if customer -%}
-        <a class="header_buttons_btn" href="/account/">
-          {%- render 'component-icon' icon: 'account', icon_size: 18 -%}
+        <a class="c-button -navigator" href="/account">
+          {%- render 'component-icon' icon: 'account', icon_size: 30 -%}
+          <span class="u-hide-sm-down">Cuenta</span>
         </a>
       {%- else -%}
-        <a class="header_buttons_btn" href="/account/login">
-          {%- render 'component-icon' icon: 'account', icon_size: 18 -%}
+        <a class="c-button -navigator" href="/account/login">
+          {%- render 'component-icon' icon: 'account', icon_size: 30 -%}
+          <span class="u-hide-sm-down">Iniciar sesión</span>
         </a>
       {%- endif -%}
     {%- endif -%}
   </div>
 </header>
+
+{% style %}
+  .header_logo img{
+    min-width: 50px;
+    width: {{ section.settings.img_width }}px;
+  }
+{% endstyle %}
 
 {% schema %}
 {
@@ -117,17 +102,12 @@
     {
       "type": "range",
       "id": "img_width",
-      "label": "Logo size",
+      "label": "Tamaño del logo",
       "unit": "px",
       "min": 50,
       "max": 300,
       "step": 10,
       "default": 200
-    },
-    {
-      "type": "link_list",
-      "id": "menu",
-      "label": "Navigation menu"
     }
   ]
 }

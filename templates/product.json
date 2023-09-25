@@ -3,59 +3,42 @@
     "main": {
       "type": "main-product",
       "blocks": {
-        "300a0ebb-bb0d-479d-ab0a-88ad80b6a1cd": {
+        "04da44e0-b1b0-4002-a4e2-a3f087982e3f": {
           "type": "title",
-          "settings": {
-          }
+          "settings": {}
         },
-        "47043a47-7331-483f-8397-502e09f153a5": {
-          "type": "vendor",
-          "settings": {
-          }
-        },
-        "2a0f9cd7-e5ac-4720-a2fd-fca377abe899": {
+        "5957557a-bbb8-495b-bbda-3b7ec8fbcf4e": {
           "type": "description",
+          "settings": {}
+        },
+        "dfa1472c-fbab-4064-bf99-03909a2dc318": {
+          "type": "custom_liquid",
           "settings": {
+            "custom_liquid": "{%- if product.metafields.basic.aplication != 'N\/A' -%}\n<p class=\"page-product_extra\"><strong>Aplicación:<\/strong> {{ product.metafields.basic.aplication }}<\/p>\n{%- endif -%}"
           }
         },
-        "eb397b33-70f2-4ede-a68a-efbf0fca3375": {
-          "type": "price",
+        "ea85fe2a-ba41-484f-a6ac-617907606bc7": {
+          "type": "custom_liquid",
           "settings": {
-          }
-        },
-        "caaa9716-2cb9-46d7-8edc-47bfc2180066": {
-          "type": "variant_picker",
-          "settings": {
-          }
-        },
-        "59ab47e0-8863-48ec-8805-a59802e0c8af": {
-          "type": "buy_buttons",
-          "settings": {
-            "show_dynamic_checkout": true
+            "custom_liquid": "{%- if product.metafields.basic.unitsPerPackage != 0 -%}\n<p class=\"page-product_extra\">{%- render 'component-icon' icon: 'box', icon_size: 30 -%} {{ product.metafields.basic. unitsPerPackage }}<\/p>\n{%- endif -%}"
           }
         }
       },
       "block_order": [
-        "300a0ebb-bb0d-479d-ab0a-88ad80b6a1cd",
-        "47043a47-7331-483f-8397-502e09f153a5",
-        "2a0f9cd7-e5ac-4720-a2fd-fca377abe899",
-        "eb397b33-70f2-4ede-a68a-efbf0fca3375",
-        "caaa9716-2cb9-46d7-8edc-47bfc2180066",
-        "59ab47e0-8863-48ec-8805-a59802e0c8af"
+        "04da44e0-b1b0-4002-a4e2-a3f087982e3f",
+        "5957557a-bbb8-495b-bbda-3b7ec8fbcf4e",
+        "dfa1472c-fbab-4064-bf99-03909a2dc318",
+        "ea85fe2a-ba41-484f-a6ac-617907606bc7"
       ],
-      "settings": {
-      }
+      "settings": {}
     },
-    "3305b4e4-6449-4f35-a4fd-621be981a9e3": {
-      "type": "product-recommendations",
-      "settings": {
-        "title": "Productos Recomendados",
-        "limit": 4
-      }
+    "metafields": {
+      "type": "product-metafield",
+      "settings": {}
     }
   },
   "order": [
     "main",
-    "3305b4e4-6449-4f35-a4fd-621be981a9e3"
+    "metafields"
   ]
 }

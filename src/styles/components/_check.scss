@@ -1,0 +1,42 @@
+.c-check {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  gap: 0.5rem;
+  font-size: 1.25rem;
+  font-weight: 300;
+  user-select: none;
+  input {
+    display: none;
+  }
+  [box] {
+    display: inline-flex !important;
+    align-items: center;
+    justify-content: center;
+    width: 1.25em;
+    height: 1.25em;
+    border: 1px solid $color-base-text;
+    position: relative;
+    &::after {
+      content: '✓';
+      font-size: 1.1em;
+      color: $color-base-text;
+      opacity: 0.25;
+      transition: opacity 0.2s ease-in-out;
+    }
+  }
+
+  input:checked + [box]:after {
+    opacity: 1;
+  }
+
+  &.-light {
+    [box] {
+      border-color: $color-base-background-primary;
+      &::after {
+        color: $color-base-background-primary;
+      }
+    }
+  }
+}

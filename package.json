@@ -77,10 +77,11 @@
     "graphql": "^16.6.0",
     "gsap": "^3.11.3",
     "inversify": "^6.0.1",
+    "knockout": "^3.5.1",
     "lit": "^2.4.1",
     "paper-range-slider": "^3.0.0",
     "reflect-metadata": "^0.1.13",
-    "rxjs": "^7.6.0",
+    "rxjs": "^7.8.1",
     "sweetalert2": "^11.4.5",
     "swiper": "^8.0.7",
     "toastify-js": "^1.11.2"

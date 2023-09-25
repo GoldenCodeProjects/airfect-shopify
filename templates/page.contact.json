@@ -1,5 +1,13 @@
 {
   "sections": {
+    "d394c0a0-f6a7-4d05-885d-8056e6e55023": {
+      "type": "image-with-text",
+      "settings": {
+        "header": "¿De que forma podemos ayudarte?",
+        "body": "",
+        "banner": "shopify:\/\/shop_images\/Piezas_de_calidad_alemanas_aqui.jpg"
+      }
+    },
     "main": {
       "type": "contact-form",
       "blocks": {
@@ -7,7 +15,7 @@
           "type": "field",
           "settings": {
             "name": "name",
-            "placeholder": "Juan",
+            "placeholder": "",
             "info": "Nombre",
             "required": true
           }
@@ -16,17 +24,18 @@
           "type": "field",
           "settings": {
             "name": "phone",
-            "placeholder": "33 1717 1717",
+            "placeholder": "",
             "info": "Teléfono",
-            "required": true
+            "required": false
           }
         },
         "f3112a68-aa5d-4cd9-a024-715c906bc791": {
           "type": "field",
+          "disabled": true,
           "settings": {
-            "name": "city",
-            "placeholder": "Guadalajara",
-            "info": "Ciudad",
+            "name": "type",
+            "placeholder": "",
+            "info": "Tipo de servicio",
             "required": false
           }
         }
@@ -38,12 +47,51 @@
       ],
       "settings": {
         "type_form": "contact",
-        "banner": "shopify:\/\/shop_images\/Vinos_Boutique_18_Feb_2022-27.jpg",
         "color": "-primary"
+      }
+    },
+    "3f6707db-2cc4-4285-986f-e650f1e5441a": {
+      "type": "locations",
+      "blocks": {
+        "2416bb7e-3239-4afa-a5b9-7adf69e91ad3": {
+          "type": "location",
+          "settings": {
+            "name": "Guadalajara",
+            "body": "<p>Anillo Perif. Sur Manuel Gómez Morín 6255, Lopez Cotilla, 45610 San Pedro Tlaquepaque, Jal.<\/p>",
+            "map": "<iframe src=\"https:\/\/www.google.com\/maps\/embed?pb=!1m18!1m12!1m3!1d3735.2848055140876!2d-103.36435848560004!3d20.576423608442962!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8428ad5680c5b7b9%3A0x1a69a5240a54695c!2sAnillo%20Perif.%20Sur%20Manuel%20G%C3%B3mez%20Mor%C3%ADn%206255%2C%20Lopez%20Cotilla%2C%2045615%20San%20Pedro%20Tlaquepaque%2C%20Jal.!5e0!3m2!1ses!2smx!4v1678292986953!5m2!1ses!2smx\" width=\"600\" height=\"450\" style=\"border:0;\" allowfullscreen=\"\" loading=\"lazy\" referrerpolicy=\"no-referrer-when-downgrade\"><\/iframe>"
+          }
+        },
+        "9c518bed-0fcc-4f06-be61-7a886f36b7bc": {
+          "type": "location",
+          "settings": {
+            "name": "México",
+            "body": "<p>Av. Paseo de la Reforma 296, Juárez, Cuauhtémoc, 06600 Ciudad de México, CDMX<\/p>",
+            "map": "<iframe src=\"https:\/\/www.google.com\/maps\/embed?pb=!1m18!1m12!1m3!1d3762.5793075327865!2d-99.16348978561788!3d19.43057464578172!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x85d1ff334271ca6b%3A0x25d26be57c1db206!2sAv.%20Paseo%20de%20la%20Reforma%20296%2C%20Col.%20Renacimiento%2C%20Ju%C3%A1rez%2C%20Cuauht%C3%A9moc%2C%2006500%20Ciudad%20de%20M%C3%A9xico%2C%20CDMX!5e0!3m2!1ses!2smx!4v1678299310207!5m2!1ses!2smx\" width=\"600\" height=\"450\" style=\"border:0;\" allowfullscreen=\"\" loading=\"lazy\" referrerpolicy=\"no-referrer-when-downgrade\"><\/iframe>"
+          }
+        },
+        "c9fe9d80-2245-4ee0-b4b4-6cf0f52d4017": {
+          "type": "location",
+          "settings": {
+            "name": "Querétaro",
+            "body": "<p>-<\/p>",
+            "map": "<iframe src=\"https:\/\/www.google.com\/maps\/embed?pb=!1m18!1m12!1m3!1d954561.2617726485!2d-100.3802177126868!3d20.841600475907484!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x85d344d16144705f%3A0x9146b1c4a44869bb!2sQuer%C3%A9taro!5e0!3m2!1ses!2smx!4v1678293119817!5m2!1ses!2smx\" width=\"600\" height=\"450\" style=\"border:0;\" allowfullscreen=\"\" loading=\"lazy\" referrerpolicy=\"no-referrer-when-downgrade\"><\/iframe>"
+          }
+        }
+      },
+      "block_order": [
+        "2416bb7e-3239-4afa-a5b9-7adf69e91ad3",
+        "9c518bed-0fcc-4f06-be61-7a886f36b7bc",
+        "c9fe9d80-2245-4ee0-b4b4-6cf0f52d4017"
+      ],
+      "settings": {
+        "header": "Visítanos",
+        "subheader": "En todas nuestras sucursales"
       }
     }
   },
   "order": [
-    "main"
+    "d394c0a0-f6a7-4d05-885d-8056e6e55023",
+    "main",
+    "3f6707db-2cc4-4285-986f-e650f1e5441a"
   ]
 }

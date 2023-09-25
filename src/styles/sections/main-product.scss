@@ -7,75 +7,69 @@
 @import './../tools/functions';
 @import './../tools/mixins';
 
-.product {
+.page-product {
+  border-bottom: 2px solid rgba(var(--color-base-text), 0.25);
   > div {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1.35fr 1fr;
     gap: 1.5rem 7%;
     align-items: start;
-    @include mq-only('sm') {
-      grid-template-columns: 1fr 1.25fr;
-    }
     @include mq-down('xs') {
       grid-template-columns: 1fr;
     }
   }
   &_media {
     position: sticky;
-    top: 128px;
+    top: 2rem;
     width: 100%;
     overflow: hidden;
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: 1fr 3fr;
+    align-items: start;
+    .thumbs, .previews{
+      width: 100%;
+      overflow: hidden;
+      max-height: 370px;
+    }
     @include mq-down('xs') {
-      position: relative;
-      top: 0px;
-      margin-bottom: 2rem;
+      grid-template-columns: 1fr 4fr;
+      .thumbs, .previews{
+        max-height: 170px;
+      }
     }
-    .previews {
-      margin-bottom: 1rem;
-    }
-    .previews img {
+    .previews{
       aspect-ratio: 4 / 3;
+      img{
+        cursor: zoom-in;
+      }
     }
-    .previews.-box img {
-      aspect-ratio: 16 / 9;
+    &.-placeholder{
+      grid-template-columns: 1fr;
     }
-    [preview] {
-      display: block;
-    }
-    .thumbs img {
-      cursor: pointer;
-      aspect-ratio: 4 / 3;
+    .thumbs {
+      overflow: hidden;
+      height: 100%;
+      .swiper-slide{
+        width: 100%;
+        box-sizing: border-box;
+        img{aspect-ratio: 1 / 1}
+      }
     }
     img {
       width: 100%;
-      height: auto;
+      height: 100%;
       object-fit: contain;
       object-position: center;
       vertical-align: top;
-    }
-    .previews,
-    img {
-      border-radius: rem(14px);
-      border: 1px solid $color-base-background-secondary;
-      overflow: hidden;
-    }
-    .swiper-button-prev,
-    .swiper-button-next {
-      display: block !important;
-      color: $color-base-background-primary;
-      @include mq-down('xxs') {
-        display: none !important;
-      }
-    }
-    .swiper-button-disabled {
-      opacity: 0 !important;
+      user-select: none;
     }
   }
   &_content {
     position: relative;
     display: flex;
     flex-direction: column;
-    gap: 1.2rem;
+    gap: .75rem;
     font-size: 1rem;
   }
   &_title {
@@ -86,6 +80,10 @@
     @include mq-down('xs') {
       font-size: rem(24px);
     }
+  }
+  &_extra{
+    color: $color-base-primary;
+    font-size: 1.2rem;
   }
   &_price {
     display: flex;
@@ -104,39 +102,6 @@
       text-decoration: line-through;
     }
   }
-  &_point-title {
-    font-size: 1.25rem;
-    font-weight: 700;
-    color: $color-base-primary;
-  }
-  &_point-data {
-    font-size: 1rem;
-    font-weight: 400;
-    color: $color-base-text;
-    span {
-      font-weight: 600;
-    }
-    p{
-      line-break: anywhere;
-    }
-  }
-  &_download-pdf {
-    display: flex;
-    grid-column: 1 / -1;
-    color: $color-base-primary;
-    text-decoration: none;
-    &:hover {
-      text-decoration: none;
-    }
-    span {
-      color: $color-base-text;
-    }
-  }
-  &_wine {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-    gap: 1.5rem;
-  }
   &_rating {
     align-self: start;
     font-size: rem(24px);
@@ -151,10 +116,11 @@
     }
   }
   &_description {
-    font-size: 1.1rem;
+    font-size: 1.4rem;
     line-height: 1.65rem;
     letter-spacing: 0px;
-    color: rgba(var(--color-base-text), 0.85);
+    font-weight: 600;
+    color: rgba(var(--color-base-text), 0.8);
   }
   &_variants {
     display: flex;
@@ -173,6 +139,36 @@
     color: $color-base-text;
     @include truncate;
   }
+  .select {
+    width: max-content;
+    cursor: pointer;
+    position: relative;
+    &_select {
+      cursor: pointer;
+      position: relative;
+      z-index: 2;
+      padding: 0.5rem 2rem;
+      border-radius: 21px;
+      min-width: 150px;
+      text-align: center;
+      color: $color-base-secondary;
+      font-weight: 700;
+      box-shadow: 1px 3px 7px 0px rgba(black, 0.2);
+    }
+    .c-icon {
+      position: absolute;
+      z-index: 1;
+      top: 50%;
+      right: 1rem;
+      transform: translateY(-50%);
+      color: $color-base-secondary;
+      font-size: 1.5rem;
+      transition: all 0.2s ease-in-out;
+      @include mq-down('xs') {
+        font-size: 1.2rem;
+      }
+    }
+  }
   &_form,
   .product-form {
     &__error-message-wrapper {
@@ -185,7 +181,7 @@
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 1rem;
-      align-items: flex-start;
+      align-items: center;
       justify-content: center;
       @include mq-down('xxs') {
         grid-template-columns: 1fr;

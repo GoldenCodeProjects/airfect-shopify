@@ -1,0 +1,87 @@
+{{ 'section-double-banner.css' | asset_url | stylesheet_tag }}
+
+<img src="{{ section.settings.decoration_image | img_url: '450x' }}" class="decoration_image"
+alt="{{ image.alt }}" width="1080" height="720" loading="lazy">
+
+<div class="banners">
+  {%- for block in section.blocks -%}
+    {%- if block.type == 'image' -%}
+      {%- assign image = block.settings.image -%}
+      {%- if image != blank -%}
+        <div class="banner" data-swiper-parallax-y="0%">
+          <img src="{{ image | img_url: '1080x' }}" alt="{{ image.alt }}"
+          width="1080" height="720" loading="lazy">
+          {%- if block.settings.title != blank -%}
+            <div class="text {{ block.settings.pos }}">
+              {%- if block.settings.subtitle != blank -%}
+                <h3>{{ block.settings.subtitle }}</h3>
+              {%- endif -%}
+              <h2>{{ block.settings.title }}</h2>
+
+              {%- if block.settings.button_text != blank and block.settings.button_url != blank -%}
+                <span class="down">⇓</span>
+                <a href="{{ block.settings.button_url }}" class="c-button -light">
+                  {{ block.settings.button_text }}
+                </a>
+              {%- endif -%}
+            </div>
+          {%- endif -%}
+        </div>
+      {%- endif -%}
+    {%- endif -%}
+  {%- endfor -%}
+</div>
+
+{% schema %}
+{
+  "name": "Doble banner",
+  "tag": "section",
+  "class": "section--double-banner",
+  "blocks": [
+    {
+      "type": "image",
+      "name": "Imagen",
+      "limit": 2,
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Insertar imagen"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Titulo"
+        },
+        {
+          "type": "text",
+          "id": "subtitle",
+          "label": "Subtitulo"
+        },
+        {
+          "type": "text",
+          "id": "button_text",
+          "label": "Texto del boton"
+        },
+        {
+          "type": "url",
+          "id": "button_url",
+          "label": "Url del boton"
+        }
+      ]
+    }
+  ],
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "decoration_image",
+      "label": "Imagen de decoración"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Doble banner"
+    }
+  ]
+}
+{% endschema %}

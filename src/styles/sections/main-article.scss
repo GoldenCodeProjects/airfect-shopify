@@ -1,3 +1,184 @@
 // ==========================================================================
 // ## SHOPIFY STATIC SECTION: MAIN ARTICLE
 // ==========================================================================
+@import './../settings/colors';
+@import './../settings/fonts';
+@import './../settings/breakpoints';
+@import './../tools/functions';
+@import './../tools/mixins';
+
+.article {
+  &_image {
+    max-width: 350px;
+    float: left;
+    margin-right: 3rem;
+    margin-bottom: 2rem;
+    padding: 0.5rem;
+    background-color: $color-base-background-secondary;
+    border: 1px solid rgba(var(--color-base-text), 0.25);
+    box-shadow: 0 0 3px 0px rgba(var(--color-base-text), 0.25);
+    @include mq-down(xs) {
+      max-width: 100%;
+      float: none;
+      margin-right: 0;
+      margin-bottom: 2rem;
+    }
+  }
+  &_title {
+    color: $color-base-secondary;
+    line-height: 1;
+    font-size: 2rem;
+    margin-bottom: 2rem;
+    font-weight: 800;
+    @include mq-down(xs) {
+      margin-bottom: 1rem;
+    }
+  }
+  &_content {
+    font-size: 1.2rem;
+    @include mq-down(xs) {
+      font-size: 1rem;
+    }
+    img,
+    video,
+    iframe {
+      max-width: 100%;
+      margin-bottom: 2rem;
+    }
+    p {
+      color: $color-base-text;
+      font-weight: 400;
+      font-size: 1em;
+      margin-bottom: 2rem;
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+      color: $color-base-primary;
+      font-weight: 700;
+      margin-bottom: 1rem;
+    }
+    h6 {
+      font-size: 1.2rem;
+    }
+    h5 {
+      font-size: 1.4rem;
+    }
+    h4 {
+      font-size: 1.6rem;
+    }
+    h3 {
+      font-size: 1.8rem;
+    }
+    h2 {
+      font-size: 2rem;
+    }
+    h1 {
+      font-size: 2.4rem;
+    }
+    &::first-letter {
+      color: $color-base-text;
+      font-size: 2rem;
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+    ul {
+      list-style: disc;
+    }
+    ol {
+      list-style: decimal;
+    }
+    ul,
+    ol {
+      margin-left: 1rem;
+      padding-left: 1rem;
+      margin-bottom: 2rem;
+      li {
+        font-size: 1em;
+        margin-bottom: 0.5rem;
+        &:last-child {
+          margin-bottom: 0;
+        }
+      }
+    }
+    blockquote {
+      margin-left: 1.5rem;
+      border: 1px solid rgba(var(--color-base-text), 0.25);
+      border-left: 3px solid $color-base-primary;
+      background-color: $color-base-background-secondary;
+      box-shadow: 0 0 3px 0px rgba(var(--color-base-text), 0.25);
+      margin-bottom: 2rem;
+      padding: 0.5rem 1rem;
+      p {
+        margin-bottom: 0.5rem;
+      }
+    }
+    a {
+      color: $color-base-primary;
+      font-size: 1em;
+      text-decoration: underline;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      border-spacing: 0;
+      border: 1px solid rgba(var(--color-base-text), 0.25);
+      box-shadow: 0 0 3px 0px rgba(var(--color-base-text), 0.25);
+      margin-bottom: 2rem;
+      td,
+      th {
+        border: 1px solid rgba(var(--color-base-text), 0.25);
+        padding: 0.5rem;
+        &:first-child {
+          border-left: none;
+          border-top-left-radius: 0.5rem;
+          border-bottom-left-radius: 0.5rem;
+        }
+        &:last-child {
+          border-right: none;
+          border-top-right-radius: 0.5rem;
+          border-bottom-right-radius: 0.5rem;
+        }
+      }
+      th {
+        background-color: $color-base-background-secondary;
+        color: $color-base-text;
+        font-weight: 700;
+      }
+    }
+  }
+}
+
+.related {
+  clear: both;
+  @include mq-down(xs) {
+    padding-top: 0 !important;
+  }
+  .related-title {
+    text-align: center;
+    margin-bottom: 2rem;
+    font-size: 1.75rem;
+    text-transform: uppercase;
+    color: $color-base-secondary;
+    font-weight: 300;
+    @include mq-down(xs) {
+      margin-bottom: 1rem;
+      font-size: 1.25rem;
+    }
+  }
+  .related-articles {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(225px, 1fr));
+    gap: 2rem;
+    @include mq-down(xs) {
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+    }
+  }
+}

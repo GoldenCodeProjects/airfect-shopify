@@ -1,0 +1,116 @@
+@import './../settings/colors';
+@import './../animations/menu-open.scss';
+@import './../tools/mixins';
+
+.navigation {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.25rem;
+  background-color: $color-base-primary;
+  color: $color-base-background-primary;
+  box-shadow: 0 3px 4px 0 rgba(0, 0, 0, 0.05);
+
+  .messages {
+    display: block !important;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    transform: translateY(100%);
+    width: 100%;
+    box-shadow: 0 3px 4px 0 rgba(0, 0, 0, 0.422);
+    .message {
+      position: relative;
+      display: block;
+      width: 100%;
+      text-align: center;
+      padding: 0.5rem 1rem;
+      background-color: $color-base-secondary;
+      color: $color-base-background-primary;
+      button {
+        width: 100%;
+        color: inherit;
+        padding: 0;
+        border: none;
+        background-color: inherit;
+        &::after,
+        &::before {
+          display: none;
+        }
+      }
+      &_close {
+        font-size: 2rem;
+        background-color: $color-base-text !important;
+        width: 3rem !important;
+        height: 100%;
+        position: absolute;
+        top: 0;
+        right: 0;
+        padding: 0.5rem;
+      }
+    }
+  }
+}
+
+details-disclosure {
+  summary[active] {
+    color: rgba(black, 0.9);
+  }
+  details > summary > svg {
+    transition: transform 0.3s ease;
+  }
+  details[open] > summary > svg {
+    transform: rotateX(180deg);
+  }
+  details {
+    position: relative;
+    summary {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .details-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.85rem;
+      position: absolute;
+      transform: translateY(0) translateX(-50%);
+      left: 50%;
+      top: 100%;
+      background-color: $color-base-secondary;
+      animation: 0.3s animateMenuOpen ease-in-out 1;
+      padding: 10px 0px;
+      border: 1px solid rgba(0, 0, 0, 0.15);
+      z-index: 27;
+      box-shadow: 2px 3px 6px 0px rgba(var(--color-base-text), 0.15);
+      a,
+      summary {
+        color: $color-base-background-primary;
+        opacity: 1;
+      }
+      a {
+        padding: 0px 15px;
+        @include truncate;
+        display: block;
+      }
+      .submenu {
+        padding: 0px 15px;
+        position: relative;
+        &[open] summary {
+          margin-bottom: 0.5rem;
+        }
+        &__list {
+          display: flex;
+          flex-direction: column;
+          gap: 0.85rem;
+          animation: 0.3s animateList ease-in-out 1;
+        }
+      }
+    }
+  }
+}
+
+.is-dark .details-list {
+  filter: invert(1);
+}

@@ -1,0 +1,46 @@
+// ==========================================================================
+// ## COMPONENT: PRODUCT CARD
+// ==========================================================================
+@import './../settings/colors';
+@import './../settings/fonts';
+@import './../settings/breakpoints';
+@import './../tools/functions';
+@import './../tools/mixins';
+
+.product{
+  display: grid;
+  grid-template-columns: 170px 1fr;
+  &.-skeleton{height: 170px}
+  @include mq-down('xs'){grid-template-columns: 1fr}
+  &:hover{text-decoration: none}
+  &_image img{
+    display: block;
+    width: 100%;
+    padding-right: .5rem;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+  }
+  &_content{
+    padding: 1rem 2rem;
+    background-color: $color-base-background-secondary;
+    display: grid;
+    grid-template-columns: 100%;
+    gap: 3rem;
+    align-items: center;
+    overflow: hidden;
+    @include mq-down('xs'){padding: 1rem}
+  }
+  &_title{
+    color: $color-base-primary;
+    font-size: 1.5rem;
+  }
+  &_description{
+    max-width: 100%;
+    @include truncate;
+    margin-bottom: 1rem;
+  }
+  &_application, &_items{
+    font-weight: 500;
+    color: $color-base-primary;
+  }
+}

@@ -1,0 +1,40 @@
+@import './../settings/colors';
+@import './../settings/fonts';
+@import './../settings/breakpoints';
+@import './../tools/functions';
+@import './../tools/mixins';
+
+.c-collection-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  &_image {
+    width: 70%;
+    max-width: 200px;
+    margin: auto;
+    height: auto;
+    img {
+      width: 100%;
+      aspect-ratio: 1 / 1;
+      object-fit: contain;
+    }
+  }
+  &_title a {
+    display: inline-block;
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: $color-base-secondary;
+    transition: color 0.3s ease-in-out;
+    @include mq-up(md) {
+      @include truncate;
+    }
+    @include mq-down(xs) {
+      font-size: 1rem;
+    }
+    &:hover {
+      text-decoration: none;
+      color: $color-base-primary;
+    }
+  }
+}

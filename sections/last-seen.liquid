@@ -1,6 +1,6 @@
-{{ 'component-product-card-style.css' | asset_url | stylesheet_tag }}
+{{ 'component-product-card.css' | asset_url | stylesheet_tag }}
 {{ 'section-last-seen.css' | asset_url | stylesheet_tag }}
-<script src="{{ 'component-last-seen-script.js' | asset_url }}" defer=defer></script>
+<script src="{{ 'component-last-seen.js' | asset_url }}" defer=defer></script>
 
 <div class="o-container -medium -narrow">
   <h2 class="c-heading -h2">{{ section.settings.heading }}</h2>
@@ -15,7 +15,7 @@
 {
   "name": "Vistos recientemente",
   "tag": "section",
-  "class": "last-seen",
+  "class": "last-seen u-hide",
   "settings": [
     {
       "type": "text",

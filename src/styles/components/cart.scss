@@ -1,11 +1,9 @@
 // ==========================================================================
 // ## COMPONENT: CART
 // ==========================================================================
-@import './../settings/colors';
 @import './../settings/fonts';
-@import './../settings/breakpoints';
+@import './../settings/colors';
 @import './../tools/functions';
-@import './../tools/mixins';
 
 cart-component {
   position: fixed;
@@ -24,88 +22,54 @@ cart-component {
   transition: opacity 0.7s ease-in-out;
 
   .cart {
-    overflow: visible;
     position: absolute;
     top: 0;
     right: 0;
     width: 100%;
     height: 100%;
-    max-width: 450px;
+    background-color: $color-base-background-primary;
+    max-width: 350px;
+    padding: rem(15px) rem(35px) rem(35px) rem(35px);
+    transition: transform 0.3s ease-in-out;
+    transform: translateX(100%);
     display: grid;
     grid-template-rows: auto 1fr auto;
-    background-color: $color-base-background-primary;
-
 
     h2 {
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-      button[close]{
-        width: 25px;
-        height: 25px;
-        color: $color-base-primary;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-      }
-      padding: {
-        top: 1rem;
-        bottom: 0.5rem;
-        left: 2rem;
-        right: 2rem;
-      };
-      text-align: left;
-      font-size: 1.325rem;
-      font-weight: 500;
-      text-transform: none;
-      letter-spacing: 1px;
+      font-size: rem(27px);
+      padding-bottom: rem(15px);
+      margin-bottom: rem(15px);
       color: $color-base-primary;
-      @include mq-down(sm) {
-        font-size: 1.1rem;
-        padding: {
-          top: 1rem;
-          bottom: 0.5rem;
-          left: 1rem;
-          right: 1rem;
-        };
-      }
+      border-bottom: 2px solid $color-base-secondary;
     }
 
     #items {
       overflow-y: auto;
       display: flex;
       flex-direction: column;
-      width: 100%;
-      max-height: 100%;
-      position: relative;
-      z-index: 0;
+      align-items: flex-start;
+      justify-content: flex-start;
+      padding-right: rem(15px);
+      gap: rem(50px);
     }
 
     .subtotal {
-      background-color: $color-base-background-primary;
-      padding: 2rem;
-      display: flex;
-      flex-direction: column;
-      gap: 1rem;
-      @include mq-down(sm) {
-        padding: 1rem;
+      font-size: rem(16px);
+      padding-top: rem(15px);
+      margin-top: rem(15px);
+      border-top: 2px solid $color-base-secondary;
+      font-weight: 600;
+      text-align: center;
+      .about,
+      .final-price {
+        margin-bottom: rem(25px);
       }
       .final-price {
-        font-weight: 300;
-        color: $color-base-primary;
+        font-weight: 700;
+        color: $color-base-secondary;
         font-size: 1.2em;
-        display: flex;
-        justify-content: space-between;
-        @include mq-down(sm) {
-          font-size: 1.1em;
-        }
-        .label{
-          font-weight: 400;
-          color: $color-base-secondary;
-        }
-        .value{
-          font-weight: 500;
-          color: $color-base-primary;
+        #total {
+          color: #433828;
         }
       }
       a {
@@ -114,8 +78,24 @@ cart-component {
     }
   }
 
+  button[close] {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 2rem;
+    height: 2rem;
+    font-size: 1.5rem !important;
+    color: $color-base-text;
+    border-left: 1px solid $color-base-text !important;
+    border-bottom: 1px solid $color-base-text !important;
+    box-shadow: 2px -2px 4px 0px rgba(black, 0.2) inset !important;
+  }
+
   &.-active {
     visibility: visible;
     opacity: 1;
+    .cart {
+      transform: translateX(0);
+    }
   }
 }

@@ -1,3 +1,76 @@
 // ==========================================================================
 // ## COMPONENT: PRICE
 // ==========================================================================
+.price {
+  align-items: flex-end;
+  justify-content: flex-start;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  &_regular {
+    display: block;
+    margin-right: 0.5rem;
+  }
+  &_sale {
+    display: none;
+  }
+  &_badge {
+    background-color: #ffc107;
+    border-radius: 7px;
+    color: #fff;
+    display: none;
+    font-size: 0.65rem;
+    font-weight: bold;
+    margin: 0.3rem 0;
+    padding: 0.15rem 0.35rem;
+    text-align: center;
+    text-transform: uppercase;
+    &.-sale {
+      background-color: #ffc107;
+    }
+    &.-sold-out {
+      background-color: #dc3545;
+    }
+  }
+
+  .price-item {
+    font-size: rem(18px);
+    font-weight: 700;
+    text-align: left;
+    color: $color-base-primary;
+    text-transform: capitalize;
+    @include truncate;
+  }
+
+  &.-on-sale & {
+    &_regular {
+      display: none;
+    }
+    &_badge.-sale {
+      display: block;
+    }
+    &_sale {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: flex-start;
+      .price-item {
+        &.-regular {
+          font-size: 0.75em;
+        }
+      }
+    }
+  }
+
+  &.-sold-out & {
+    &_regular {
+      display: block;
+    }
+    &_sale {
+      display: none;
+    }
+    &_badge.-sold-out {
+      display: block;
+    }
+  }
+}

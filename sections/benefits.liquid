@@ -1,0 +1,78 @@
+{{ 'section-benefits.css' | asset_url | stylesheet_tag }}
+
+<div class="benefits">
+  <div class="bg -one">
+    <img src="{{ section.settings.decotive_image_1 | img_url: '900x' }}" alt="{{ section.settings.bg.alt }}" width="900" height="1600" loading="lazy">
+  </div>
+
+  <div class="bg -two">
+    <img src="{{ section.settings.decotive_image_2 | img_url: '500x' }}" alt="{{ section.settings.bg.alt }}" width="500" height="500" loading="lazy">
+  </div>
+
+  <div class="o-container -wide text">
+    <h2 class="section-title">
+      {{ section.settings.heading }}
+    </h2>
+    <div class="items">
+      {%- for block in section.blocks -%}
+        <div class="item">
+          <div class="icon">
+            <img src="{{ block.settings.icon | img_url: '250x' }}" alt="{{ section.settings.bg.alt }}" width="250" height="250" loading="lazy">
+          </div>
+          <h3>{{ block.settings.head }}
+          </h3>
+          {{ block.settings.des }}
+        </div>
+      {%- endfor -%}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+  {
+    "name": "Beneficios",
+    "tag": "section",
+    "class": "section--benefits",
+    "blocks": [
+      {
+        "type": "Beneficios",
+        "name": "Beneficio",
+        "settings": [
+          {
+            "type": "image_picker",
+            "id": "icon",
+            "label": "Icono"
+          }, {
+            "type": "text",
+            "id": "head",
+            "label": "Beneficio"
+          }, {
+            "type": "richtext",
+            "id": "des",
+            "label": "Descripción"
+          }
+        ]
+      }
+    ],
+    "settings": [
+      {
+        "type": "richtext",
+        "id": "heading",
+        "label": "Titulo"
+      }, {
+        "type": "image_picker",
+        "id": "decotive_image_1",
+        "label": "Imagen decorativa de fondo 1"
+      }, {
+        "type": "image_picker",
+        "id": "decotive_image_2",
+        "label": "Imagen decorativa de fondo 2"
+      }
+    ],
+    "presets": [
+      {
+        "name": "Beneficios"
+      }
+    ]
+  }
+{% endschema %}

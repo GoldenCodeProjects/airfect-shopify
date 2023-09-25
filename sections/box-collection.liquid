@@ -1,0 +1,52 @@
+{{ 'component-box-card.css' | asset_url | stylesheet_tag }}
+{{ 'component-pagination.css' | asset_url | stylesheet_tag }}
+
+{{ 'section-main-collection.css' | asset_url | stylesheet_tag }}
+
+<div class="products-grid -box" id="products-grid" data-id="{{ section.id }}">
+  <h2 class="u-hide">
+    {%- if collection.title == blank -%}
+      Nuestros productos
+    {%- else -%}
+      {%- if collection.title contains 'Marca' -%}
+        {{ collection.title | replace: 'Marca', '' | strip }}
+      {%- elsif collection.title contains 'Categoría' -%}
+        {{ collection.title | replace: 'Categoría', '' | strip }}
+      {%- else -%}
+        {{ collection.title | strip }}
+      {%- endif -%}
+    {%- endif -%}
+    <span id="ProductCount"></span>
+  </h2>
+
+  {%- paginate collection.products by section.settings.products_per_page -%}
+    {%- for product in collection.products -%}
+      {%- render 'component-box-card' product: product -%}
+    {%- else -%}
+      <h4 class="no-products c-heading -h2">No hay productos</h4>
+    {%- endfor -%}
+
+    {%- if paginate.pages > 1 -%}
+      {% render 'pagination', paginate: paginate, anchor: '' %}
+    {%- endif -%}
+  {%- endpaginate -%}
+</div>
+
+{% schema %}
+{
+  "name": "t:sections.collection.name",
+  "tag": "section",
+  "class": "collection box",
+  "settings": [
+    {
+      "type": "range",
+      "id": "products_per_page",
+      "min": 12,
+      "max": 32,
+      "step": 4,
+      "default": 12,
+      "label": "Productos mostrados por pagina"
+    }
+  ]
+}
+{% endschema %}

@@ -35,7 +35,6 @@ if (!customElements.get('product-form')) {
           .then(this.onSuccess.bind(this))
           .catch(this.onError.bind(this))
           .finally(() => {
-            fbq('track', 'AddToCart');
             document.querySelectorAll('cart-icon').forEach((icon) => {
               console.log(icon)
               icon.calculateItems()

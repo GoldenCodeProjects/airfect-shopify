@@ -1,0 +1,60 @@
+@import './../settings/colors';
+@import './../settings/fonts';
+@import './../settings/breakpoints';
+@import './../tools/functions';
+@import './../tools/mixins';
+
+.section--category-banner {
+  position: relative;
+  img {
+    height: 30vh;
+    object-fit: cover;
+    background-color: $color-base-background-secondary;
+    position: relative;
+    z-index: -1;
+    user-select: none;
+    pointer-events: none;
+  }
+
+  .text {
+    user-select: none;
+    position: absolute;
+    top: 50%;
+    left: 10%;
+    transform: translateY(-50%);
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    h2, h2 span {
+      text-align: center;
+      color: $color-base-primary;
+      text-transform: uppercase;
+      font-size: 2rem;
+      font-weight: 700;
+    }
+    .filters{display: none}
+    @include mq-down('sm') {
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: calc(100% - 2rem);
+      align-items: flex-start;
+      h2{font-size: 1.4rem}
+      .filters{
+        margin-bottom: 1.3rem;
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        color: $color-base-primary;
+        button{padding: 0}
+        .view-as{
+          display: flex;
+          align-items: center;
+          gap: 1rem;
+        }
+      }
+    }
+  }
+}

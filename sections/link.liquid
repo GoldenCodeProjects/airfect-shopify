@@ -1,0 +1,77 @@
+{{ 'section-link.css' | asset_url | stylesheet_tag }}
+
+<div class="o-container -narrow">
+  {%- if section.settings.text != blank -%}
+    <h4>
+      {{ section.settings.text }}
+      {%- if section.settings.button_url != blank and section.settings.button_text != blank -%}
+        <a class="c-button {{ section.settings.button_color }}" href="{{ section.settings.button_url }}">
+          <span>{{ section.settings.button_text }}</span>
+          {%- if section.settings.show_arrow -%}
+            <span>{%- render 'component-icon' icon: 'arrow', icon_size: 25 -%}</span>
+          {%- endif -%}
+        </a>
+      {%- endif -%}
+    </h4>
+  {%- endif -%}
+</div>
+
+{% schema %}
+{
+  "name": "Enlace",
+  "tag": "section",
+  "class": "section--link",
+  "settings": [
+    {
+      "type": "text",
+      "id": "text",
+      "label": "Texto"
+    },
+    {
+      "type": "url",
+      "id": "button_url",
+      "label": "Enlace del boton"
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Texto del boton"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_arrow",
+      "label": "Mostrar flecha",
+      "default": true
+    },
+    {
+      "type": "radio",
+      "id": "button_color",
+      "label": "Color del boton",
+      "default": "-dark",
+      "options": [
+        {
+          "value": "-primary",
+          "label": "Primario"
+        },
+        {
+          "value": "-secondary",
+          "label": "Secundario"
+        },
+        {
+          "value": "-dark",
+          "label": "Oscuro"
+        },
+        {
+          "value": "-light",
+          "label": "Claro"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Enlace"
+    }
+  ]
+}
+{% endschema %}

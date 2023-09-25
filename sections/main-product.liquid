@@ -1,48 +1,49 @@
-{{ 'component-gallery-style.css' | asset_url | stylesheet_tag }}
-{{ 'component-gallery-script.css' | asset_url | stylesheet_tag }}
+{{ 'component-gallery.css' | asset_url | stylesheet_tag }}
 {{ 'section-main-product.css' | asset_url | stylesheet_tag }}
 
-{{ 'section-main-product.css' | asset_url | stylesheet_tag }}
-
-<script src="{{ 'component-gallery-script.js' | asset_url }}" defer=defer></script>
-<script src="{{ 'component-product-form-script.js' | asset_url }}" defer=defer></script>
-<script src="{{ 'component-variant-selects-script.js' | asset_url }}" defer=defer></script>
+<script src="{{ 'component-gallery.js' | asset_url }}" defer=defer></script>
+<script src="{{ 'component-product-form.js' | asset_url }}" defer=defer></script>
+<script src="{{ 'component-variant-selects.js' | asset_url }}" defer=defer></script>
 
 <div class="o-container -medium -wide u-pv-medium">
-  <div class="product_media">
-    <div class="swiper previews">
-      <div class="swiper-wrapper">
-        {% assign images = product.media | where: "media_type", "image" %}
-        {% for image in images %}
-          <div class="swiper-slide">
-            <a preview href="{{ image | image_url: width: 2048 }}">
-              <img src="{{ image | image_url: width: 850 }}"
+  <div class="page-product_media {% if product.images.size == 0 %}-placeholder{%- endif -%}">
+    {%- if product.images.size != 0 -%}
+      <div class="swiper thumbs">
+        <div class="swiper-wrapper">
+          {% assign images = product.media | where: "media_type", "image" %}
+          {% for image in images %}
+            <div class="swiper-slide">
+              <img src="{{ image | image_url: width: 200 }}"
               alt="{{ image.alt }}" width="{{ image.width }}"
               height="{{ image.height }}" loading="lazy">
-            </a>
-          </div>
-        {% endfor %}
+            </div>
+          {% endfor %}
+        </div>
       </div>
 
-      <div class="swiper-button-prev"></div>
-      <div class="swiper-button-next"></div>
-    </div>
+      <div class="swiper previews">
+        <div class="swiper-wrapper">
+          {% assign images = product.media | where: "media_type", "image" %}
+          {% for image in images %}
+            <div class="swiper-slide">
+              <a preview href="{{ image | image_url: width: 2048 }}">
+                <img src="{{ image | image_url: width: 850 }}"
+                alt="{{ image.alt }}" width="{{ image.width }}"
+                height="{{ image.height }}" loading="lazy">
+              </a>
+            </div>
+          {% endfor %}
+        </div>
 
-    <div class="swiper thumbs">
-      <div class="swiper-wrapper">
-        {% assign images = product.media | where: "media_type", "image" %}
-        {% for image in images %}
-          <div class="swiper-slide">
-            <img src="{{ image | image_url: width: 200 }}"
-            alt="{{ image.alt }}" width="{{ image.width }}"
-            height="{{ image.height }}" loading="lazy">
-          </div>
-        {% endfor %}
+        <div class="swiper-button-prev"></div>
+        <div class="swiper-button-next"></div>
       </div>
-    </div>
+    {%- else -%}
+      <img src="{{ 'placeholder.svg' | asset_url }}" alt="" width="1600" height="900" loading="lazy">
+    {%- endif -%}
   </div>
 
-  <div class="product_content">
+  <div class="page-product_content">
     {%- assign product_form_id = 'product-form-' | append: section.id -%}
 
     {%- for block in section.blocks -%}
@@ -51,10 +52,15 @@
           {% render block %}
 
         {%- when 'title' -%}
-          <h1 class="product_title" {{ block.shopify_attributes }}>{{ product.title }}</h1>
+          <h1 class="page-product_title" {{ block.shopify_attributes }}>{{ product.title }}</h1>
+
+        {%- when 'rating' -%}
+          <m3-stars class="page-product_rating" max="5"
+          current="{{ product.metafields.meta.rating.value }}">
+          </m3-stars>
 
         {%- when 'vendor' -%}
-          <p class="product_vendor" {{ block.shopify_attributes }}>
+          <p class="page-product_vendor" {{ block.shopify_attributes }}>
             por
             <a href="/collections/all?filter.p.vendor={{ product.vendor | replace: ' ', '+' }}">
               {{ product.vendor }}
@@ -62,32 +68,29 @@
           </p>
 
         {%- when 'price' -%}
-          {%- if product.price != 0 -%}
-            <div class="product_price" id="price-{{ section.id }}" role="status" {{ block.shopify_attributes }}>
-              {% if product.compare_at_price_max > product.price %}
-                <span class="compare">{{ product.compare_at_price_max | money_without_trailing_zeros }}</span>
-              {% endif %}
-              <span>{{ product.price | money_with_currency }}</span>
-            </div>
-          {% endif %}
+          <div class="page-product_price" id="price-{{ section.id }}" role="status" {{ block.shopify_attributes }}>
+            {% if product.compare_at_price_max > product.price %}
+              <span class="compare">{{ product.compare_at_price_max | money_without_trailing_zeros }}</span>
+            {% endif %}
+            <span>{{ product.price | money_with_currency }}</span>
+          </div>
 
         {%- when 'description' -%}
           {%- if product.description != blank -%}
-            <div class="product_description c-body">
-              <h4 class="product_point-title c-body">Maridaje</h4>
+            <div class="page-product_description c-body">
               {{ product.description }}
             </div>
           {%- endif -%}
 
         {%- when 'variant_picker' -%}
           {%- unless product.has_only_default_variant -%}
-            <variant-selects class="product_variants" data-section="{{ section.id }}" data-url="{{ product.url }}" {{ block.shopify_attributes }}>
+            <variant-selects class="page-product_variants" data-section="{{ section.id }}" data-url="{{ product.url }}" {{ block.shopify_attributes }}>
               {%- for option in product.options_with_values -%}
-                <div class="product_input">
-                  <label class="product_label" for="Option-{{ section.id }}-{{ forloop.index0 }}">
+                <div class="page-product_input">
+                  <label class="page-product_label" for="Option-{{ section.id }}-{{ forloop.index0 }}">
                     {{ option.name }}
                   </label>
-                  <div class="product_select select">
+                  <div class="page-product_select select">
                     <select id="Option-{{ section.id }}-{{ forloop.index0 }}"
                       class="select_select"
                       name="options[{{ option.name | escape }}]"
@@ -111,7 +114,7 @@
           {%- endunless -%}
 
         {%- when 'buy_buttons' -%}
-          <div class="product_form product-form" {{ block.shopify_attributes }}>
+          <div class="page-product_form product-form" {{ block.shopify_attributes }}>
             <product-form>
               <div class="product-form__error-message-wrapper c-body -error u-hide" role="alert">
                 {% render 'component-icon' icon: 'error', icon_size: 20 %}
@@ -137,26 +140,17 @@
                       </div>
                   </button>
                   {%- if block.settings.show_dynamic_checkout -%}
-                    <div onclick="fbq('track', 'AddPaymentInfo')">
-                      {{ form | payment_button }}
-                    </div>
-                    <style>
-                      [role=button]{
-                        padding: 0.5rem 1.25rem !important;
-                      }
-                      .shopify-payment-button__button {
-                        font-weight: 300 !important;
-                        font-size: 1.25rem !important;
-                      }
-                    </style>
+                    {{ form | payment_button }}
                   {%- endif -%}
                 </div>
               {%- endform -%}
             </product-form>
           </div>
 
+        {%- when 'call_buttons' -%}
+
         {%- when 'custom_liquid' -%}
-          <div class="product_custom c-body" {{ block.shopify_attributes }}>
+          <div class="page-product_custom c-body" {{ block.shopify_attributes }}>
             {{ block.settings.custom_liquid }}
           </div>
       {%- endcase -%}
@@ -168,26 +162,60 @@
   {{ product | json }}
 </script>
 
+{% comment %} Save to last seen {% endcomment %}
 <script defer=defer>
+  const exist = () => localStorage.getItem('visited') ? true : false;
+  const createHistory = () => localStorage.setItem('visited', JSON.stringify({ last_seen: [] }));
+  const saved = () => JSON.parse(localStorage.getItem('visited')).last_seen;
+  const wasVisitedBefore = (items, id) => items.find(item => item.id === id) ? true : false;
+  const pushProduct = (items, {id, url}) => {
+    items.push({ id, url });
+    items = visited.last_seen.slice(-6);
+    return items;
+  }
+  const arrangeItemToFirstPosition = (items, id) => {
+    const index = items.findIndex(item => item.id === id);
+    const saved = {...items[index]};
+    items.splice(index, 1);
+    items.push(saved);
+    return items;
+  }
+  const saveToStorage = (items) => localStorage.setItem('visited', JSON.stringify({last_seen: items}));
+
+  const getState = (id) => {
+    if (!exist()) return 'Unexistent';
+    const visited = saved();
+    if (wasVisitedBefore(visited, id)) return 'Visited';
+    return 'Unregistered';
+  }
+
+  const register = (id, url) => {
+    let items = exist() ? saved() : [];
+
+    const actualState = getState(id);
+    switch (actualState) {
+      // The history is unexisting and we created and saved a new one.
+      case 'Unexistent':
+        createHistory();
+        items = pushProduct(items, {id, url});
+        break;
+      // The product was already saved and we arranged to the first position again.
+      case 'Visited':
+        items = arrangeItemToFirstPosition(items, id);
+        break;
+      // This is the first that is visited and we will saved the product into the first position.
+      case 'Unregistered':
+        items = pushProduct(visited, {id, url});
+        break;
+    }
+
+    saveToStorage(items);
+  }
+
   const product = JSON.parse(document.querySelector('#product-json').textContent);
   const id = product.id;
   const url = '{{ product.url }}';
-  if (localStorage.getItem('visited')) {
-    const visited = JSON.parse(localStorage.getItem('visited'));
-    const was_visited = visited.last_seen.find(item => item.id === id) ? true : false;
-    if (!was_visited) {
-      visited.last_seen.push({ id, url });
-      visited.last_seen = visited.last_seen.slice(-6);
-      localStorage.setItem('visited', JSON.stringify(visited));
-    } else {
-      const index = visited.last_seen.findIndex(item => item.id === id);
-      visited.last_seen.splice(index, 1);
-      visited.last_seen.push({ id, url });
-      localStorage.setItem('visited', JSON.stringify(visited));
-    }
-  } else {
-    localStorage.setItem('visited', JSON.stringify({ last_seen: [{ id, url }] }));
-  }
+  register(id, url);
 </script>
 
 {%- liquid
@@ -198,6 +226,7 @@
   endif
 -%}
 
+{% comment %} Content for SEO {% endcomment %}
 <script type="application/ld+json">
   {
     "@context": "http://schema.org/",
@@ -239,7 +268,7 @@
 {
   "name": "t:sections.product.name",
   "tag": "section",
-  "class": "product",
+  "class": "page-product",
   "blocks": [
     {
       "type": "@app"
@@ -248,6 +277,17 @@
       "type": "title",
       "name": "Titulo del producto",
       "limit": 1
+    },
+    {
+      "type": "rating",
+      "name": "Calificación",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "paragraph",
+          "content": "t:sections.featured-product.blocks.rating.settings.paragraph.content"
+        }
+      ]
     },
     {
       "type": "vendor",
@@ -282,6 +322,11 @@
           "info": "Agrega un botón de compra dinámica a la página de producto"
         }
       ]
+    },
+    {
+      "type": "call_buttons",
+      "name": "Botones de llamada",
+      "limit": 1
     },
     {
       "type": "custom_liquid",

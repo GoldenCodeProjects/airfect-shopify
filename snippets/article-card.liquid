@@ -1,0 +1,29 @@
+<a href="{{ article.url }}" class="article-card" title="{{ article.title }}">
+  <div class="article-card_image">
+    <img src="{{ article.image.src | image_url: width: 400, height: 400 }}"
+    alt="{{ article.image.alt }}" width="400" height="400" loading="lazy">
+  </div>
+
+  <h3 class="article-card_title">{{ article.title }}</h3>
+
+  <time class="article-card_publish" id="time-{{ article.id }}"
+    datetime="{{ article.published_at }}">
+    {{ article.published_at | date: '%B %d, %Y' }}
+  </time>
+
+  <button type="button" class="c-button -small">
+    <span>Ver más</span>
+  </button>
+</a>
+
+<script defer>
+  (() => {
+    const time = document.querySelector('#time-{{ article.id }}');
+    const datetime = time.getAttribute('datetime').match(/\d{4,4}\-\d{2,2}\-\d{2,2}/g)[0].replace(/-/g, '/');
+    time.innerHTML = new Date(datetime).toLocaleDateString('es-ES', {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric'
+      });
+  })();
+</script>

@@ -1,0 +1,51 @@
+{{ 'section-events-filter.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'component-events-filter.js' | asset_url }}" defer></script>
+
+<div class="o-container -wide -medium u-pv-medium">
+  <h1>{{ section.settings.heading }}</h1>
+
+  <div class="filters">
+    <label>Filtrar por</label>
+    <div class="c-select" tabindex="0">
+      <select name="year" id="yearFilter">
+        <option value="all">Todos los años</option>
+      </select>
+      <label for="yearFilter">Año</label>
+    </div>
+    <div class="c-select" tabindex="0">
+      <select name="month" id="monthFilter" value="all">
+        <option value="all">Todos los meses</option>
+        <option value="Enero">Enero</option>
+        <option value="Febrero">Febrero</option>
+        <option value="Marzo">Marzo</option>
+        <option value="Abril">Abril</option>
+        <option value="Mayo">Mayo</option>
+        <option value="Junio">Junio</option>
+        <option value="Julio">Julio</option>
+        <option value="Agosto">Agosto</option>
+        <option value="Septiembre">Septiembre</option>
+        <option value="Octubre">Octubre</option>
+        <option value="Noviembre">Noviembre</option>
+        <option value="Diciembre">Diciembre</option>
+      </select>
+      <label for="monthFilter">Mes</label>
+    </div>
+  </div>
+</div>
+
+
+{% schema %}
+{
+  "name": "Filtros para eventos",
+  "tag": "section",
+  "class": "section--events-filter",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Titulo",
+      "default": "Eventos"
+    }
+  ]
+}
+{% endschema %}

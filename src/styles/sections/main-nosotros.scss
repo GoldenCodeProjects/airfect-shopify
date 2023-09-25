@@ -1,0 +1,31 @@
+@import './../settings/breakpoints';
+@import './../settings/fonts';
+@import './../settings/colors';
+@import './../tools/mixins';
+@import './../tools/functions';
+
+
+.nosotros{
+  padding-top: 2rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem 4rem;
+  .logo{
+    align-self: center;
+  }
+  .bottom{
+    grid-column: 1 / -1;
+    width: 80%;
+    justify-self: center;
+  }
+  @include mq-down('sm') {
+    grid-template-columns: 1fr;
+    .logo, .bottom{
+      align-self: center;
+      justify-self: center;
+    }
+    .bottom{
+      width: 90%;
+    }
+  }
+}

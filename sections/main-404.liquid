@@ -1,6 +1,16 @@
 {{ 'section-main-404.css' | asset_url | stylesheet_tag }}
 
-<div class="404 o-container -medium"></div>
+<div class="404 o-container -medium -wide u-align-center u-pv-large">
+  <h1>
+    Error 404
+  </h1>
+  <p class="u-mv-small">
+    La página que estás buscando no existe.
+  </p>
+  <button onclick="history.back()" class="c-button -primary">
+    Regresar
+  </button>
+</div>
 
 
 {% schema %}

@@ -1,0 +1,95 @@
+{{ 'section-custom-article.css' | asset_url | stylesheet_tag }}
+
+<div class="custom-article o-container -wide">
+  {%- for block in section.blocks -%}
+    {%- case block.type -%}
+      {%- when '@app' -%}
+        {% render block %}
+
+      {%- when 'title' -%}
+        <h2 class="custom-article_heading section-title" {{ block.shopify_attributes }}>
+          {{ block.settings.heading }}
+        </h2>
+
+      {%- when 'body' -%}
+        <div class="custom-article_body" {{ block.shopify_attributes }}>
+          {{ block.settings.body }}
+        </div>
+
+      {%- when 'image' -%}
+        <div class="custom-article_image" {{ block.shopify_attributes }}>
+          <img src="{{ block.settings.image | img_url: '1920x' }}" alt="{{ block.settings.image.alt }}" width="1920" height="1080" loading="lazy">
+        </div>
+
+      {%- when 'custom_liquid' -%}
+        <div class="liquid c-body" {{ block.shopify_attributes }}>
+          {{ block.settings.custom_liquid }}
+        </div>
+    {%- endcase -%}
+  {%- endfor -%}
+</div>
+
+{% schema %}
+  {
+    "name": "Articulo",
+    "tag": "section",
+    "class": "section--article",
+    "blocks": [
+      {
+        "type": "@app"
+      },
+      {
+        "type": "title",
+        "name": "Titulo",
+        "limit": 1,
+        "settings": [
+          {
+            "type": "text",
+            "id": "heading",
+            "label": "Titulo",
+            "default": "¡Hola!"
+          }
+        ]
+      },
+      {
+        "type": "body",
+        "name": "Cuerpo",
+        "limit": 1,
+        "settings": [
+          {
+            "type": "richtext",
+            "id": "body",
+            "label": "Cuerpo del articulo"
+          }
+        ]
+      },
+      {
+        "type": "image",
+        "name": "Imagen",
+        "limit": 1,
+        "settings": [
+          {
+            "type": "image_picker",
+            "id": "image",
+            "label": "Imagen"
+          }
+        ]
+      }, {
+        "type": "custom_liquid",
+        "name": "Liquid personalizado",
+        "settings": [
+          {
+            "type": "liquid",
+            "id": "custom_liquid",
+            "label": "Liquid personalizado"
+          }
+        ]
+      }
+    ],
+    "presets": [
+      {
+        "name": "Articulo"
+      }
+    ]
+  }
+{% endschema %}

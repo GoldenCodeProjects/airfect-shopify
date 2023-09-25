@@ -1,0 +1,67 @@
+{{ 'section-wine-types.css' | asset_url | stylesheet_tag }}
+
+<h2>{{ section.settings.heading }}</h2>
+
+<div class="o-container -wide u-mt-medium cards">
+  {%- for block in section.blocks -%}
+    <a href="{{ block.settings.wine_type_url }}" class="card">
+      <img src="{{ block.settings.icon | image_url: width: 178 }}"
+      alt="{{ block.settings.icon.alt }}" width="{{ block.settings.icon.width }}"
+      height="{{ block.settings.icon.width }}" loading="lazy">
+      <div class="card_info">
+        <h3>{{ block.settings.title }}</h3>
+        <h4>{{ block.settings.subtitle }}</h4>
+      </div>
+    </a>
+  {%- endfor -%}
+</div>
+
+{% schema %}
+{
+  "name": "Tipos de vino",
+  "tag": "section",
+  "class": "section--wine-types",
+  "blocks": [
+    {
+      "type": "products",
+      "name": "Tipos de vino",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Titulo"
+        },
+        {
+          "type": "text",
+          "id": "subtitle",
+          "label": "Subtitulo"
+        },
+        {
+          "type": "url",
+          "id": "wine_type_url",
+          "label": "Ingrese la URL",
+          "info": "Filtra los productos por tipo de vino y copia la URL."
+        },
+        {
+          "type": "image_picker",
+          "id": "icon",
+          "label": "Icono"
+        }
+      ]
+    }
+  ],
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Titulo",
+      "default": "Tipos de vino"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Tipos de vino"
+    }
+  ]
+}
+{% endschema %}

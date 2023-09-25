@@ -1,0 +1,82 @@
+{{ 'section-locations.css' | asset_url | stylesheet_tag }}
+
+<div class="locations u-pv-large">
+  <div class="o-container -wide-lg">
+    <h2 class="section-title">
+      {{ section.settings.header }}
+      {%- if section.settings.subheader -%}
+        <span>{{ section.settings.subheader }}</span>
+      {%- endif -%}
+    </h2>
+
+    <div class="locations_wrapper">
+      {%- for block in section.blocks -%}
+        <div class="location">
+          <div class="map">
+            {%- if block.settings.map -%}
+              {{ block.settings.map }}
+            {%- else -%}
+              {{ 'product-2' | placeholder_svg_tag }}
+            {%- endif -%}
+          </div>
+          <div class="content">
+            <h4>{{ block.settings.name }}</h4>
+            {{ block.settings.body }}
+          </div>
+        </div>
+      {%- endfor -%}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Ubicaciones",
+  "class": "section--locations",
+  "settings": [
+    {
+      "type": "text",
+      "id": "header",
+      "label": "Encabezado",
+      "default": "Visítanos"
+    },
+    {
+      "type": "text",
+      "id": "subheader",
+      "label": "Subencabezado",
+      "default": "En todas nuestras sucursales"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "location",
+      "name": "Ubicación",
+      "limit": 3,
+      "settings": [
+        {
+          "type": "text",
+          "id": "name",
+          "label": "Nombre"
+        },
+        {
+          "type": "richtext",
+          "id": "body",
+          "label": "Descripción",
+          "default": "<p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ratione, minus.</p>"
+        },
+        {
+          "type": "html",
+          "id": "map",
+          "label": "Codigo del mapa",
+          "info": "Inserte el html del mapa de google"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Ubicaciones"
+    }
+  ]
+}
+{% endschema %}

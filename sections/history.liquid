@@ -1,0 +1,75 @@
+{{ 'section-history.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'component-scrolling-images.js' | asset_url }}" defer></script>
+
+<div class="history">
+  <div class="bg">
+    <img src="{{ section.settings.bg | img_url: '1920x' }}" alt="{{ section.settings.bg.alt }}" width="1920" height="1080" loading="lazy">
+  </div>
+
+  <div class="o-container -wide history_wrapper">
+    <div class="text">
+      <div class="logo">
+        <img src="{{ section.settings.logo | img_url: '700x' }}" alt="{{ section.settings.logo.alt }}" width="700" height="300" loading="lazy">
+      </div>
+      {{ section.settings.body }}
+    </div>
+
+    <div class="images">
+      <scrolling-images startFrom="top">
+        <template name="line">
+          {%- for block in section.blocks -%}
+            {{ block.settings.image | image_url: width: 800 | image_tag }}
+          {%- endfor -%}
+        </template>
+      </scrolling-images>
+      <scrolling-images startFrom="bottom">
+        <template name="line">
+          {%- for block in section.blocks -%}
+            {{ block.settings.image | image_url: width: 800 | image_tag }}
+          {%- endfor -%}
+        </template>
+      </scrolling-images>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+  {
+    "name": "Historia",
+    "tag": "section",
+    "class": "section--history",
+    "blocks": [
+      {
+        "type": "images",
+        "name": "Imagenes",
+        "settings": [
+          {
+            "type": "image_picker",
+            "id": "image",
+            "label": "Sube una imagen"
+          }
+        ]
+      }
+    ],
+    "settings": [
+      {
+        "type": "image_picker",
+        "id": "logo",
+        "label": "Logo empresa"
+      }, {
+        "type": "richtext",
+        "id": "body",
+        "label": "Cuerpos"
+      }, {
+        "type": "image_picker",
+        "id": "bg",
+        "label": "Fondo"
+      }
+    ],
+    "presets": [
+      {
+        "name": "Historia"
+      }
+    ]
+  }
+{% endschema %}

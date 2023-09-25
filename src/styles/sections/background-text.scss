@@ -1,0 +1,76 @@
+@import './../settings/colors';
+@import './../settings/fonts';
+@import './../settings/breakpoints';
+@import './../tools/functions';
+@import './../tools/mixins';
+
+.section--background-text .bg {
+  max-width: 100vw;
+  overflow: hidden;
+  position: relative;
+  color: $color-base-background-primary;
+  padding: {
+    top: 8rem;
+    bottom: 8rem;
+  }
+  @include mq-down(sm) {
+    padding: {
+      top: 2rem;
+      bottom: 2rem;
+    }
+  }
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    position: absolute;
+    inset: 0;
+    user-select: none;
+    z-index: -1;
+    filter: brightness(0.7) contrast(1.2) saturate(1.2);
+  }
+
+  .text {
+    position: relative;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    h2 {
+      font-size: 2.5rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }
+    p {
+      font-size: 1.2rem;
+      font-weight: 300;
+      line-height: 2rem;
+      letter-spacing: 1px;
+    }
+    a {
+      width: fit-content;
+      display: inline-flex;
+      gap: 0.5rem;
+      align-items: center;
+      font-size: 1.2rem;
+      margin-top: 1rem;
+    }
+    @include mq-down(sm) {
+      h2 {
+        font-size: 1.75rem;
+      }
+      p {
+        font-size: 1rem;
+      }
+      a {
+        font-size: 1rem;
+      }
+    }
+  }
+}

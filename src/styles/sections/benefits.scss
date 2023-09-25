@@ -1,0 +1,126 @@
+@import './../settings/colors';
+@import './../settings/fonts';
+@import './../settings/breakpoints';
+@import './../tools/functions';
+@import './../tools/mixins';
+
+.benefits {
+  margin-top: -2rem;
+  padding: {
+    top: 3rem;
+    bottom: 4rem;
+  }
+  position: relative;
+  background-color: $color-base-background-secondary;
+  .bg {
+    position: absolute;
+    z-index: 0;
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      user-select: none;
+      pointer-events: none;
+    }
+    &.-one {
+      inset: 0;
+      width: 35%;
+      height: 100%;
+      padding: 1rem;
+      img {
+        object-position: left;
+      }
+      @include mq-down('xs') {
+        width: 100%;
+        height: 60%;
+        img {
+          object-position: center;
+          object-fit: cover;
+        }
+      }
+    }
+    &.-two {
+      top: 0;
+      right: 0;
+      padding: 1rem;
+      width: 20%;
+      max-width: 350px;
+      height: auto;
+      @include mq-down('xs') {
+        top: unset;
+        bottom: 0;
+        width: 100%;
+        img {
+          object-position: center;
+          object-fit: cover;
+        }
+      }
+    }
+  }
+
+  h2 p {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+    color: $color-base-primary;
+    font-size: 1.75rem;
+    font-weight: 700;
+    margin-top: 0;
+    margin-bottom: 3rem;
+    strong {
+      font-size: 1.3em;
+    }
+    @include mq-down(sm) {
+      font-size: 1.4rem;
+    }
+  }
+
+  .items {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+    @include mq-down('xs'){grid-template-columns: 1fr}
+    gap: 3rem;
+    text-align: center;
+    align-items: start;
+    justify-items: center;
+    .item {
+      width: 100%;
+      max-width: 350px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1rem;
+      h3 {
+        font-size: 1.3rem;
+        font-weight: 700;
+        color: $color-base-primary;
+      }
+      p {
+        color: $color-base-text;
+      }
+      .icon {
+        position: relative;
+        width: 40%;
+        background-color: $color-base-primary;
+        border-radius: 1.5rem;
+        aspect-ratio: 1 / 1;
+        transition: background-color 0.7s ease;
+        img {
+          position: absolute;
+          inset: 0;
+          width: 100%;
+          height: 100%;
+          padding: 1.5rem;
+          object-fit: contain;
+          pointer-events: none;
+          user-select: none;
+        }
+        &:hover {
+          background-color: $color-base-secondary;
+        }
+      }
+    }
+  }
+}

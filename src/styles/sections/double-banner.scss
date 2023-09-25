@@ -1,0 +1,87 @@
+@import './../settings/colors';
+@import './../settings/fonts';
+@import './../settings/breakpoints';
+@import './../tools/functions';
+@import './../tools/mixins';
+
+.section--double-banner {
+  margin-top: -3rem;
+  height: 75vh;
+  position: relative;
+  @include mq-down(xs) {
+    height: 120vh;
+  }
+
+  .decoration_image {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: auto;
+    height: 80%;
+    object-fit: contain;
+    z-index: 2;
+    user-select: none;
+    pointer-events: none;
+    @include mq-down(xs) {
+      display: none;
+    }
+  }
+
+  .banners {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    height: 100%;
+    background-color: $color-base-background-secondary;
+    clip-path: polygon(0 8%, 100% 0, 100% 100%, 0% 100%);
+    @include mq-down(xs) {
+      grid-template-columns: 1fr;
+      grid-template-rows: 1fr 1fr;
+      grid-template-areas:
+        'banner-1'
+        'banner-2';
+      clip-path: polygon(0 5%, 100% 0, 100% 100%, 0% 100%);
+    }
+
+    .banner {
+      position: relative;
+      img {
+        height: 100%;
+        object-fit: cover;
+        object-position: center;
+        pointer-events: none;
+        user-select: none;
+        filter: brightness(0.8) grayscale(1) contrast(1.2);
+      }
+      .text {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        padding: 1rem;
+        width: 100%;
+        text-align: center;
+        color: $color-base-background-primary;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-transform: uppercase;
+        .down {
+          margin-top: 0.5rem;
+          margin-bottom: 1rem;
+        }
+        h2 {
+          font-weight: 800;
+          font-size: 2rem;
+          margin-bottom: 0;
+        }
+        h3 {
+          font-weight: 500;
+          font-size: 1.2rem;
+          margin-top: 0;
+        }
+      }
+    }
+  }
+}

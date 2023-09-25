@@ -1,3 +1,38 @@
 // ==========================================================================
 // ## COMPONENT: PAGGINATION
 // ==========================================================================
+@import './../settings/colors';
+@import './../settings/fonts';
+@import './../settings/breakpoints';
+@import './../tools/functions';
+@import './../tools/mixins';
+
+.pagination {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  padding: 0rem 0.5rem;
+  &_item {
+    user-select: none;
+    cursor: pointer;
+    background-color: $color-base-background-secondary;
+    padding: 0.25rem 1rem;
+    border: 1px solid rgba(var(--color-base-text), 0.1);
+    border-bottom: 2px solid rgba(var(--color-base-text), 0.25);
+    transition: border-color 0.2s ease-in-out, opacity 0.2s ease-in-out;
+    &:hover {
+      text-decoration: none;
+      opacity: 0.7;
+      border-bottom: 2px solid $color-base-primary;
+    }
+    &.-current {
+      cursor: not-allowed;
+      border-bottom: 2px solid $color-base-secondary;
+      &:hover {
+        border-bottom: 2px solid $color-base-secondary;
+      }
+    }
+  }
+}

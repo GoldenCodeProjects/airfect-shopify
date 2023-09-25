@@ -1,7 +1,12 @@
 // ==========================================================================
+// ## LAYOUT: Vendors
+// ==========================================================================
+@import './vendors/toastify.scss';
+
+// ==========================================================================
 // ## LAYOUT: BASE
 // ==========================================================================
-
+@import 'toastify-js/src/toastify.css';
 /// @content
 ///   DO NOT ADD CLASSES OR RULES IN THIS FILE DIRECTLY.
 ///   Instead, use imports to add extensions or snippets you made along the project.
@@ -29,10 +34,6 @@
 @import './generic/print';
 @import './generic/elements';
 
-/// - LAYOUT
-/// Page.................Basic styles for the page.
-@import './layout/theme';
-
 /// - COMPONENTS
 // Build and include your project’s UI components.
 // Uncomment and add to this as necessary.
@@ -41,11 +42,18 @@
 /// Typeface............Specific styles for heading component and its size variations.
 /// Field...............Specific styles for field and input component.
 ///
-@import './components/button';
 @import './components/typeface';
-@import './components/field';
 @import './components/modal';
-// @import './components/price';
+@import './components/button';
+@import './components/menu-navigation';
+@import './components/field';
+@import './components/select';
+@import './components/check';
+@import './components/navigation';
+@import './components/price';
+@import './components/product';
+
+@import './layouts/theme';
 
 /// - SECTIONS
 // These are base section.

@@ -1,0 +1,16 @@
+{
+  "sections": {
+    "filters": {
+      "type": "events-filter"
+    },
+    "main": {
+      "type": "main-blog",
+      "settings": {
+      }
+    }
+  },
+  "order": [
+    "filters",
+    "main"
+  ]
+}

@@ -1,0 +1,29 @@
+.c-navigation {
+  display: inline-block;
+  color: $color-base-background-primary;
+  font-size: 1.1rem;
+  font-weight: 400;
+  overflow: hidden;
+  position: relative;
+  &:hover,
+  &.-active {
+    text-decoration: none;
+  }
+  &.-active {
+    font-weight: 600;
+  }
+  &.-icon {
+    display: flex;
+    align-items: flex-end;
+    gap: 0.5rem;
+    padding-bottom: 0.5rem;
+    span {
+      line-height: 1;
+    }
+  }
+  &.-menu{
+    color: $color-base-primary;
+    font-size: 1.2rem;
+    font-weight: 700;
+  }
+}

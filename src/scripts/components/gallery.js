@@ -1,9 +1,5 @@
+import { Fancybox } from '@fancyapps/ui/src/Fancybox/Fancybox.js'
 import Swiper, { Thumbs, EffectFade, Navigation } from 'swiper'
-import 'swiper/scss';
-import 'swiper/scss/navigation';
-import 'swiper/scss/effect-fade';
-import { Fancybox } from "@fancyapps/ui";
-
 
 Fancybox.bind('a[preview]', {
   groupAll: true,
@@ -22,34 +18,15 @@ Fancybox.bind('a[preview]', {
 })
 
 var thumbs = new Swiper('.thumbs', {
+  direction: 'vertical',
   spaceBetween: 10,
-  slidesPerView: 4,
-  slideToClickedSlide: true,
-  watchSlidesVisibility: true,
-  watchSlidesProgress: true,
-  breakpoints: {
-    320: {
-      slidesPerView: 3,
-    },
-    480: {
-      slidesPerView: 5,
-    },
-    768: {
-      slidesPerView: 3,
-    },
-    1024: {
-      slidesPerView: 4,
-    },
-  },
+  slidesPerView: 3,
+  //loop: true
 })
 
 var previews = new Swiper('.previews', {
   modules: [Thumbs, EffectFade, Navigation],
-  effect: 'fade',
-  navigation: {
-    nextEl: '.swiper-button-next',
-    prevEl: '.swiper-button-prev',
-  },
+  //effect: 'fade',
   thumbs: {
     swiper: thumbs,
   },

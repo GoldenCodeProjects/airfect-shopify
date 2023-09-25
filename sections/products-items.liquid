@@ -21,7 +21,7 @@
     {% if line_item.sku != blank %}
       <span class="product-item_sku">{{ line_item.sku }}</span>
     {% endif %}
-    {%- render 'component-price', product: line_item.product, show_badges: true -%}
+    {%- render 'price', product: line_item.product, show_badges: true -%}
     <update-quantity key="{{ line_item.key }}" max="100">
       <label>Piezas</label>
       <input quantity type="number" value="{{ line_item.quantity }}">

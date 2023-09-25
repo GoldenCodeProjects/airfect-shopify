@@ -1,0 +1,62 @@
+{{ 'section-promotions.css' | asset_url | stylesheet_tag }}
+
+<div class="o-container -wide promotions">
+  {%- for block in section.blocks -%}
+    <a class="promotion" href="{{ block.settings.link }}">
+      <img class="promotion_image"
+      width="350" height="600" loading="lazy"
+      src="{{ block.settings.image | image_url: width: 350 }}"
+      alt="{{ block.settings.image.alt }}">
+      <h3 class="promotion_title">{{ block.settings.heading }}</h3>
+      <h4 class="promotion_text">{{ block.settings.subheading }}</h4>
+    </a>
+  {%- endfor -%}
+</div>
+
+{% schema %}
+{
+  "name": "Promociones",
+  "tag": "section",
+  "class": "section--promotions",
+  "blocks": [
+    {
+      "type": "promotion",
+      "name": "Promocion",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Imagen o botella"
+        },
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "Titulo"
+        },
+        {
+          "type": "text",
+          "id": "subheading",
+          "label": "Subtitulo"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Enlace"
+        }
+      ]
+    }
+  ],
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Titulo"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Promociones"
+    }
+  ]
+}
+{% endschema %}

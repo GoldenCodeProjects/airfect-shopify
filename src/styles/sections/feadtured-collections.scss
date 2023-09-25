@@ -1,0 +1,60 @@
+@import './../settings/colors';
+@import './../settings/fonts';
+@import './../settings/breakpoints';
+@import './../tools/functions';
+@import './../tools/mixins';
+
+.section--featured-collections {
+  padding: {
+    top: 3rem;
+    bottom: 3rem;
+  };
+
+  h2 {
+    text-align: center;
+    color: $color-base-secondary;
+    font-size: 2rem;
+    margin-top: 0;
+    @include mq-down(sm) {
+      font-size: 1.75rem;
+    }
+  }
+
+  .collections {
+    position: relative;
+    padding: 0rem;
+    width: 100%;
+    max-width: 60rem;
+    margin: auto;
+
+    .swiper {
+      padding: 1rem;
+    }
+    .swiper-button{
+      display: flex !important;
+      width: 2.5rem;
+      height: 2.5rem;
+      background-color: $color-base-secondary;
+      border-radius: 50%;
+      align-items: center;
+      justify-content: center;
+      &::after {
+        color: $color-base-background-primary;
+        font-weight: 900;
+        font-size: 1.3rem;
+      }
+      @media (min-width: 1024px) {
+        display: none !important;
+      }
+    }
+    .swiper-slide-active .c-product-card {
+      transform: scale(1.2);
+      &:hover {
+        transform: scale(1.2);
+      }
+      @include mq-down(sm) {
+        transform: scale(1);
+      }
+    }
+  }
+}

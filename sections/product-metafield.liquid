@@ -1,0 +1,70 @@
+{{ 'section-product-metafield.css' | asset_url | stylesheet_tag }}
+<script src="{{- 'component-product-metafields.js' | asset_url -}}" defer></script>
+
+<div class="o-container -wide">
+  <div class="datasheet" data-bind="if: datasheet">
+    <a target="_blank" data-bind="attr: { href: datasheet, download: handle }">
+      {% render 'component-icon' icon: 'download', icon_size: 25 %}
+      Ficha técnica
+    </a>
+  </div>
+
+  <product-metafields>
+    <div class="data">
+      <div class="data-title">
+        Especificaciones técnicas
+      </div>
+      <div class="responsive-table">
+        <table class="table">
+          <tbody data-bind="foreach: details">
+            <tr>
+              <th data-bind="text: detail"></th>
+              <td data-bind="text: value"></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="data">
+      <div class="data-title">
+        Comparación OE
+      </div>
+      <div class="responsive-table">
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Fabricante</th>
+              <th class="u-align-right">Referencias originales</th>
+            </tr>
+          </thead>
+          <tbody data-bind="foreach: manufacturers">
+            <tr>
+              <td colspan="2">
+                <div class="details">
+                  <legend class="vendor">
+                    <p class="vendor_name" data-bind="text: vendor"></p>
+                    <p class="vendor_length">
+                      <span class="vendor_value" data-bind="text: references.length"></span>
+                    </p>
+                  </legend>
+                  <ul class="references" data-bind="foreach: references">
+                    <li data-bind="text: $data"></li>
+                  </ul>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </product-metafields>
+</div>
+
+{% schema %}
+  {
+    "name": "Campos extra producto",
+    "tag": "section",
+    "class": "product-metafields--section"
+  }
+{% endschema %}

@@ -87,7 +87,7 @@ button {
   justify-content: space-between;
   align-items: center;
   z-index: 999;
-  transform: translateY(-150%);
+  transform: translateY(-450%);
   transition: none;
 
   &:focus-within {
@@ -105,6 +105,7 @@ img {
   max-width: 100%; // [1]
   font-style: italic; // [2]
   vertical-align: middle; // [3]
+  height: auto;
 }
 
 // 4. Setting `vertical-align` removes the whitespace that appears under `img`
@@ -117,7 +118,6 @@ img,
 svg,
 video {
   vertical-align: middle; // [4]
-  height: auto;
 }
 
 // 5. SVG elements should fallback to their surrounding text color.

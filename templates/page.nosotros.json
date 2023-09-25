@@ -1,0 +1,14 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-nosotros",
+      "settings": {
+        "logo": "shopify:\/\/shop_images\/Mask_Group_3.png",
+        "bg": "shopify:\/\/shop_images\/bco.png"
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

@@ -1,0 +1,1 @@
+.nosotros{padding-top:2rem;display:grid;grid-template-columns:1fr 1fr;grid-gap:2rem 4rem;gap:2rem 4rem}.nosotros .logo{align-self:center}.nosotros .bottom{grid-column:1/-1;width:80%;justify-self:center}@media screen and (max-width: 991px){.nosotros{grid-template-columns:1fr}.nosotros .logo,.nosotros .bottom{align-self:center;justify-self:center}.nosotros .bottom{width:90%}}

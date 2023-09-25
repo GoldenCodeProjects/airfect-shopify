@@ -1,6 +1,5 @@
 import 'dile-checkbox/dile-checkbox.js'
 import 'paper-range-slider/paper-range-slider'
-import '@mat3e-ux/stars'
 import { debounce } from './../utils/debounce'
 
 const addListeners = () => {
@@ -153,13 +152,11 @@ class FacetFiltersForm extends HTMLElement {
     const parsedHTML = new DOMParser().parseFromString(html, 'text/html')
 
     const facetDetailsElements = parsedHTML.querySelectorAll(
-      '#FacetFiltersForm .filter-group[input-type]'
+      '#FacetFiltersForm .filter-group'
     )
 
     const matchesIndex = (element) => {
-      const jsFilter = event
-        ? event.target.closest('.filter-group[input-type]')
-        : undefined
+      const jsFilter = event ? event.target.closest('.filter-group') : undefined
       return jsFilter ? element.dataset.index === jsFilter.dataset.index : false
     }
 
@@ -182,7 +179,7 @@ class FacetFiltersForm extends HTMLElement {
     if (countsToRender)
       FacetFiltersForm.renderCounts(
         countsToRender,
-        event.target.closest('.filter-group[input-type]')
+        event.target.closest('.filter-group')
       )
   }
 

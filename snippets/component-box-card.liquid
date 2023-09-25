@@ -1,0 +1,32 @@
+<div class="c-box-card">
+  <a href="{{ product.url }}" class="c-box-card_image">
+    <img src="{{ product.featured_image | image_url: width: 350 }}"
+    width="350" height="500" loading="lazy"
+    alt="{{ product.image.alt }}">
+    {%- if product.available != true -%}
+      <span>Agotado</span>
+    {%- endif -%}
+  </a>
+
+  <h3 class="c-box-card_title">
+    <a href="{{ product.url }}" title="{{ product.title }}">
+      {{ product.title }}
+    </a>
+  </h3>
+
+  <add-product-button class="c-box-card_btn">
+    <button class="c-button -small"
+    {% if product.available != true %}disabled{% endif %}
+    data-id="{{ product.first_available_variant.id }}">
+      Agregar
+    </button>
+  </add-product-button>
+
+  <div class="c-box-card_price">
+    {{ product.price | money_with_currency }}
+  </div>
+
+  <div class="c-box-card_content">
+    {{ product.description }}
+  </div>
+</div>

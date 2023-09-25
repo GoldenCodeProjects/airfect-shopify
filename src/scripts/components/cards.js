@@ -1,9 +1,4 @@
 import Swiper, { Navigation, Autoplay } from 'swiper'
-import 'swiper/scss';
-import 'swiper/scss/navigation';
-import 'swiper/scss/pagination';
-import 'swiper/scss/autoplay';
-import 'swiper/scss/effect-fade';
 
 if (customElements.get('component-cards') === undefined) {
   class Cards extends HTMLElement {
@@ -34,14 +29,10 @@ if (customElements.get('component-cards') === undefined) {
     setCarousel() {
       this.carousel = new Swiper(this.swiper, {
         modules: [Navigation, Autoplay],
-        slidesPerView: 3,
+        slidesPerView: 4,
         spaceBetween: 40,
-        centeredSlides: true,
-        loop: true,
+        centerInsufficientSlides: true,
         speed: 700,
-        autoplay: {
-          delay: 5500,
-        },
         navigation: {
           nextEl: this.next,
           prevEl: this.prev,
@@ -52,11 +43,11 @@ if (customElements.get('component-cards') === undefined) {
             spaceBetween: 20,
           },
           768: {
-            slidesPerView: 2,
+            slidesPerView: 3,
             spaceBetween: 20,
           },
           1024: {
-            slidesPerView: 3,
+            slidesPerView: 4,
             spaceBetween: 40,
           },
         },

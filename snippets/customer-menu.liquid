@@ -1,0 +1,21 @@
+<div class="customer-menu">
+  <div class="customer-menu__profile">
+      <p class="customer-menu__image">{{ customer.first_name | slice: 0 }}{{ customer.last_name | slice: 0 }}</p>
+      <p class="customer-menu__name">{{ customer.name }}</p>
+  </div>
+
+  <a href="/account"
+  class="customer-menu__option c-button -secondary -full">
+    Perfil
+  </a>
+
+  <a href="/account/addresses"
+  class="customer-menu__option c-button -secondary -full">
+    Ver direcciones ({{ customer.addresses_count }})
+  </a>
+
+  <a href="/account/logout"
+  class="customer-menu__option c-button -secondary -full">
+    Salir
+  </a>
+</div>

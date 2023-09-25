@@ -1,11 +1,34 @@
+{{ 'component-article-card.css' | asset_url | stylesheet_tag }}
+{{ 'component-pagination.css' | asset_url | stylesheet_tag }}
 {{ 'section-main-blog.css' | asset_url | stylesheet_tag }}
 
-<div class="blog o-container -medium"></div>
+
+<div class="blog o-container -medium -wide">
+  {%- paginate blog.articles by 12 -%}
+    <div class="blog-articles">
+      {%- for article in blog.articles -%}
+        <div class="blog-articles_article">
+          {%- render 'article-card' article: article -%}
+        </div>
+      {%- else -%}
+        <h4 class="no">
+          No hay artículos para mostrar
+        </h4>
+      {%- endfor -%}
+    </div>
+    {%- if paginate.pages > 1 -%}
+      {%- render 'pagination', paginate: paginate -%}
+    {%- endif -%}
+  {%- endpaginate -%}
+</div>
+
 
 {% schema %}
 {
   "name": "t:sections.blog.name",
   "tag": "section",
-  "settings": []
+  "settings": [
+
+  ]
 }
 {% endschema %}

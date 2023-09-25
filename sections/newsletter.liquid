@@ -1,0 +1,96 @@
+{{ 'section-newsletter.css' | asset_url | stylesheet_tag }}
+
+<component-modal id="newsletter" size="small">
+  {%- form 'customer', class: 'newsletter-form' -%}
+    <input type="hidden" name="contact[tags]" value="newsletter">
+
+    <h2 class="u-align-center" title>SUSCRÍBETE A NUESTRO BLOG</h2>
+
+    <div class="c-field u-mb-small">
+      <input class="c-field_input"
+      id="newsletter-email" type="email"
+      placeholder="Ingresa tu email" required
+      name="contact[email]" value="{{ form.email }}"
+      aria-required="true" autocorrect="off"
+      autocapitalize="off" autocomplete="email"
+      {% if form.errors %}autofocus aria-invalid="true"{% endif %}>
+      <label class="c-field_label" for="newsletter-email">Correo electrónico</label>
+    </div>
+
+    {{ section.settings.description }}
+
+    <label for="show_again" class="c-check u-mt-small">
+      <input type="checkbox" name="show_again" id="show_again">
+      <span box></span>
+      No volver a mostrar este mensaje
+    </label>
+
+    <div buttons>
+      <button class="c-button" type="button" id="closeNewsletter" close>
+        <span>Cancelar</span>
+      </button>
+      <button class="c-button -filled" type="submit">
+        <span>Suscribirme</span>
+      </button>
+    </div>
+  {%- endform -%}
+</component-modal>
+
+<open-modal target="#newsletter" class="u-hide-visually">
+  <button type="button">
+    <span>open</span>
+  </button>
+</open-modal>
+
+<script defer>
+  document.addEventListener("DOMContentLoaded", () => {
+    const queryParams = new URLSearchParams(window.location.search);
+    const customer_posted = Boolean(queryParams.get("customer_posted"));
+
+    if(!localStorage.getItem('show_again')) {
+      const openModalBtn = document.querySelector('open-modal[target="#newsletter"]').querySelector('button');
+      openModalBtn.click();
+    }
+
+    if(customer_posted) {
+      localStorage.setItem('show_again', 'false');
+      document.querySelector('component-modal#newsletter [title]').innerText = 'Gracias por suscribirte';
+      document.querySelector('component-modal#newsletter [buttons] button[type="submit"]').setAttribute('disabled', 'disabled');
+    }
+
+    const form = document.querySelector('.newsletter-form');
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const showAgain = form.querySelector('#show_again').checked;
+      if (showAgain) localStorage.setItem('show_again', 'false');
+    });
+
+    const closeBtn = document.querySelector('#closeNewsletter');
+    closeBtn.addEventListener('click', () => {
+      const showAgain = form.querySelector('#show_again').checked;
+      if (showAgain) localStorage.setItem('show_again', 'false');
+    });
+  })
+</script>
+
+
+{% schema %}
+{
+  "name": "Noticias",
+  "tag": "section",
+  "class": "section--newsletter",
+  "settings": [
+    {
+      "type": "richtext",
+      "id": "description",
+      "label": "Descripción",
+      "default": "<p>Ouisque dignissim felis vitae eros fermentum. ul pretium risus pharetra.</p>"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Noticias"
+    }
+  ]
+}
+{% endschema %}

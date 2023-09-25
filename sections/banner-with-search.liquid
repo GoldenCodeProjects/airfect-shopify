@@ -1,0 +1,63 @@
+{{ 'section-searh-with-banner.css' | asset_url | stylesheet_tag }}
+
+<div class="searh-with-banner_wrapper">
+  {%- if section.settings.banner != blank -%}
+    <video playsinline="playsinline" preload="metadata" aria-label="Potion beats"
+      poster="{{ section.settings.banner | image_url: width: 1600 }}" muted="true" loop="true">
+      <source src="{{ section.settings.video }}" type="video/webm">
+      <img src="{{ section.settings.banner | image_url: width: 1600 }}" width="1920" height="900" loading="lazy">
+    </video>
+  {%- endif -%}
+
+  <div class="text">
+    <h2>{{ section.settings.header }}</h2>
+    <predictive-search class="search" render="false">
+      <form class="search_form" method="get" role="search" tabindex="-1">
+        <input class="search_input" id="Search" type="search" name="q" placeholder="Número de parte, fabricante del vehículo, referencia OE…" value="{{ search.terms | escape }}" role="combobox" aria-expanded="false" aria-owns="predictive-search-results-list" aria-controls="predictive-search-results-list" aria-haspopup="listbox" aria-autocomplete="list" autocorrect="off" autocomplete="off" autocapitalize="off" spellcheck="false">
+        <button class="search_button" type="submit">
+          {%- render 'component-icon' icon: 'search', icon_size: 25 -%}
+        </button>
+
+        <input name="options[prefix]" type="hidden" value="last">
+      </form>
+    </predictive-search>
+  </div>
+</div>
+
+<script defer>
+  window.addEventListener('load', function() {
+    const video = document.querySelector('.searh-with-banner_wrapper video');
+    video.muted = true
+    video.load()
+    video.play()
+  });
+</script>
+
+{% schema %}
+  {
+    "name": "Buscador con fondo",
+    "tag": "section",
+    "class": "searh-with-banner",
+    "settings": [
+      {
+        "type": "text",
+        "id": "header",
+        "label": "Titulo",
+        "default": "Búsqueda inteligente de partes"
+      }, {
+        "type": "image_picker",
+        "id": "banner",
+        "label": "Banner"
+      },  {
+        "type": "url",
+        "id": "video",
+        "label": "Url del video"
+      }
+    ],
+    "presets": [
+      {
+        "name": "Buscador con fondo"
+      }
+    ]
+  }
+{% endschema %}

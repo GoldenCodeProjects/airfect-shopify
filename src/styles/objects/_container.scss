@@ -32,13 +32,25 @@
   &.-large {
     padding-left: em(32px);
     padding-right: em(32px);
+    @include mq-down('xxs') {
+      padding-left: em(16px);
+      padding-right: em(16px);
+    }
   }
 
   &.-narrow {
     max-width: 30em;
   }
 
+  &.-smaller {
+    max-width: 55rem;
+  }
+
   &.-wide {
-    max-width: 50em;
+    max-width: 75rem;
+  }
+
+  &.-wide-lg {
+    max-width: 95rem;
   }
 }

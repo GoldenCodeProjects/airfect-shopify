@@ -1,0 +1,50 @@
+{{ 'section-image-with-text.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'component-parallax-banner.js' | asset_url }}" defer></script>
+
+<div class="image-with-text">
+  <parallax-banner class="image">
+    {{ section.settings.banner | image_url: width: 2048 | image_tag: class: 'primary' }}
+    {{ section.settings.object | image_url: width: 2048 | image_tag: class: 'object' }}
+  </parallax-banner>
+  <div class="o-container -wide-lg content">
+    <h2>{{ section.settings.header }}</h2>
+    {%- if section.settings.body != blank -%}
+      {{ section.settings.body }}
+    {%- endif -%}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Imagen con texto",
+  "class": "section--image-with-text",
+  "settings": [
+    {
+      "type": "text",
+      "id": "header",
+      "label": "Encabezado"
+    },
+    {
+      "type": "richtext",
+      "id": "body",
+      "label": "Cuerpo",
+      "default": "<p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Illum, sunt!</p>"
+    },
+    {
+      "type": "image_picker",
+      "id": "banner",
+      "label": "Fondo"
+    },
+    {
+      "type": "image_picker",
+      "id": "object",
+      "label": "Objeto flotante"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Imagen con texto"
+    }
+  ]
+}
+{% endschema %}

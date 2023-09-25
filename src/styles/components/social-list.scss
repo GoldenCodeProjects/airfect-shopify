@@ -1,0 +1,17 @@
+@import './../settings/colors';
+
+.c-social-list {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+  max-width: 350px;
+  gap: 0.5rem;
+  align-items: center;
+
+  &_item {
+    display: block;
+    width: 30px;
+    height: 30px;
+    color: $color-base-secondary;
+  }
+}

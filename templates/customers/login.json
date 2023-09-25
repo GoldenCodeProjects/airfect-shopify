@@ -1,15 +1,8 @@
 {
   "sections": {
     "main": {
-      "type": "main-login",
-      "settings": {
-        "title": "Iniciar sesión",
-        "goback": "¿No tienes una cuenta? Regístrate ahora",
-        "banner": "shopify:\/\/shop_images\/login.webp"
-      }
+      "type": "main-login"
     }
   },
-  "order": [
-    "main"
-  ]
+  "order": ["main"]
 }

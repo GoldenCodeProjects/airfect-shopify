@@ -1,0 +1,102 @@
+{{ 'component-menu-list.css' | asset_url | stylesheet_tag }}
+
+<script src="{{- 'component-details-disclosure.js' | asset_url -}}" defer></script>
+
+<nav class="o-container -medium u-pv-small navigation">
+  {%- for link in section.settings.menu.links -%}
+    {% if link.links != blank %}
+      <details-disclosure>
+        <details role="list" tabindex="-1">
+          <summary {% if link.child_active %} active {% endif %}>
+            <span class="c-navigation {% if link.child_active %}-active{% endif %}">
+              {{ link.title | escape }}
+            </span>
+            {%- render 'component-icon' icon: 'caret', icon_size: 15 -%}
+          </summary>
+          <ul class="details-list">
+            {%- for childlink in link.links -%}
+              <li>
+                {%- if childlink.links == blank -%}
+                  <a href="{{ childlink.url }}" class="c-navigation {% if childlink.current %}-active{% endif %}"
+                  {% if childlink.current %}aria-current="page"{% endif %}>
+                    {{ childlink.title | escape }}
+                  </a>
+                {%- else -%}
+                  <details class="submenu" role="list" tabindex="-1">
+                    <summary class="c-navigation {% if childlink.child_active %}-active{% endif %}">
+                      {{ childlink.title | escape }}
+                      {%- render 'component-icon' icon: 'caret', icon_size: 15 -%}
+                    </summary>
+                    <ul class="submenu__list">
+                      {%- for grandchildlink in childlink.links -%}
+                        <li>
+                          <a href="{{ grandchildlink.url }}" class="c-navigation {% if grandchildlink.current %}-active{% endif %}"
+                          {% if grandchildlink.current %} aria-current="page"{% endif %}>
+                            {{ grandchildlink.title | escape }}
+                          </a>
+                        </li>
+                      {%- endfor -%}
+                    </ul>
+                  </details>
+                {%- endif -%}
+              </li>
+            {%- endfor -%}
+          </ul>
+        </details>
+      </details-disclosure>
+    {%- else -%}
+      <a href="{{ link.url }}"
+      class="c-navigation {% if link.current %}-active{% endif %}"
+      {% if link.current %}aria-current="page"{% endif %}>
+        {{ link.title }}
+      </a>
+    {%- endif -%}
+  {%- endfor -%}
+
+  <!-- <cart-icon class="header_cart-icon">
+    <button class="cart-btn">
+      <span>{%- render 'component-icon' icon: 'cart', icon_size: 30 -%}</span>
+      <span class="data-quantity">0</span>
+    </button>
+  </cart-icon> -->
+
+  <!-- <div class="messages">
+    {%- if customer.accepts_marketing != true and template.name == 'index' -%}
+      <div class="message">
+        <open-modal target="#newsletter">
+          <button type="button">
+            <span>Subscribete a nuestra newsletter y recibe ofertas exclusivas.</span>
+          </button>
+        </open-modal>
+
+        <button class="message_close" close-message>&times;</button>
+      </div>
+    {%- endif -%}
+  </div> -->
+</nav>
+
+<!-- <script defer>
+  const messagesClose = document.querySelectorAll('.message_close');
+
+  messagesClose.forEach(message => {
+    message.addEventListener('click', () => {
+      message.parentElement.remove();
+    });
+  });
+</script> -->
+
+{% schema %}
+{
+  "name": "Navegación",
+  "tag": "section",
+  "class": "navigation u-hide-sm-down",
+  "settings": [
+    {
+      "type": "link_list",
+      "id": "menu",
+      "label": "Menu de navegacíon",
+      "default": "main-menu"
+    }
+  ]
+}
+{% endschema %}

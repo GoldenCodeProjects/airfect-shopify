@@ -1,10 +1,9 @@
 {% comment %}
     Renders facets (filtering and sorting)
     Accepts:
-    - results: {Object} Collection or Search object,
-    - menu: {Object} Menu navigation object
+    - results: {Object} Collection or Search object
     Usage:
-    {% render 'facets', results: collection, menu: main-menu %}
+    {% render 'facets', results: collection %}
 {% endcomment %}
 
 {%- liquid
@@ -18,8 +17,7 @@
 -%}
 
 <facet-filters-form>
-  <form id="FacetFiltersForm" action="#" onsubmit="return false" class="filters facets form-horizontal">
-    {%- comment -%}
+  <form id="FacetFiltersForm" action="#" class="filters facets form-horizontal">
     <div class="view_type u-hide">
       <span>Ver como</span>
       <view-type>
@@ -31,7 +29,6 @@
         </button>
       </view-type>
     </div>
-    {%- endcomment -%}
 
     <div class="sort_by">
       <label>Ordenar por</label>
@@ -56,50 +53,15 @@
     {% endif %}
 
     <div class="groups">
-      {%- if menu != blank -%}
-        {%- for link in menu.links -%}
-          <details class="filter-group">
-            <summary class="filter-group_summary">
-              <span>
-                {{ link.title }}
-              </span>
-              <span class="filter-group_summary-icons">
-                {%- render 'component-icon' icon: 'plus', icon_size: 15 -%}
-                {%- render 'component-icon' icon: 'minus', icon_size: 15 -%}
-              </span>
-            </summary>
-
-            <div class="filter-group_display group-display">
-              <div class="group-display_header">
-                <span class="group-display_header-selected">
-                  Lista de categorías
-                </span>
-              </div>
-
-              <ul class="group-display_list">
-                {%- for link in link.links -%}
-                  <li class="group-display__link-list">
-                    <a href="{{ link.url }}">
-                      <span>{{ link.title }}</span>
-                      {%- render 'component-icon' icon: 'arrow', icon_size: 15 -%}
-                    </a>
-                  </li>
-                {%- endfor -%}
-              </ul>
-            </div>
-          </details>
-        {%- endfor -%}
-      {%- endif -%}
-
       {%- for filter in results.filters -%}
-        <details input-type class="filter-group" data-index="{{ forloop.index }}">
+        <details class="filter-group" data-index="{{ forloop.index }}">
           <summary class="filter-group_summary">
             <span>
               {{ filter.label }}
               {%- if filter.type == 'price_range' -%}
-                <span class="filter-group_summary-selected">({{ cart.currency.iso_code }})</span>
+                <span class="filter-group_summary-selected u-hide-visually">({{ cart.currency.iso_code }})</span>
               {%- else -%}
-                <span class="filter-group_summary-selected">({{ filter.active_values.size }})</span>
+                <span class="filter-group_summary-selected u-hide-visually">({{ filter.active_values.size }})</span>
               {%- endif -%}
             </span>
             <span class="filter-group_summary-icons">
@@ -135,7 +97,12 @@
                       <dile-checkbox {% if filter_value.active -%}checked{%- endif %}
                       data-target="Filter-{{ filter.param_name }}-{{ forloop.index }}"
                       {% if filter_value.count == 0 and filter_value.active == false -%}disabled class=".js-facet-remove"{%- endif %}>
-                        {{ filter_value.label }}
+                        {%- if filter_value.param_name == 'filter.p.product_type' -%}
+                          {%- assign label_size = filter_value.label | size | minus: 5 -%}
+                          {{ filter_value.label | slice: 0, label_size }}
+                        {%- else -%}
+                          {{ filter_value.label }}
+                        {%- endif -%}
                       </dile-checkbox>
                       <input type="checkbox" class="u-hide-visually"
                         name="{{ filter_value.param_name }}"

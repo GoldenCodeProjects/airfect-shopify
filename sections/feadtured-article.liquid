@@ -1,0 +1,41 @@
+{%- if section.settings.article_selected != blank -%}
+  {{ 'section-feadtured-article.css' | asset_url | stylesheet_tag }}
+
+  {%- assign article = section.settings.article_selected -%}
+  <div class="o-container -wide -medium u-pv-medium">
+    <div class="featured-article">
+      <div class="featured-article_image">
+        {%- if article.image != blank -%}
+          <img src="{{ article.image.src | image_url: width: 800 }}"
+          alt="{{ article.image.alt }}"
+          width="800" height="500" loading="lazy">
+        {%- else -%}
+          {{ 'collection-1' | placeholder_svg_tag: 'featured-article_image' }}
+        {%- endif -%}
+      </div>
+      <div class="featured-article_content">
+        <h2 class="featured-article_title">{{ article.title }}</h2>
+        <p class="featured-article_excerpt">{{ article.excerpt | strip_html }}</p>
+        <a href="{{ article.url }}" class="c-button">
+          <span>Ver más</span>
+          <span>{%- render 'component-icon' icon: 'arrow', icon_size: 20 -%}</span>
+        </a>
+      </div>
+    </div>
+  </div>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Articulo destacado",
+  "tag": "section",
+  "class": "section--featured-article",
+  "settings": [
+    {
+      "type": "article",
+      "id": "article_selected",
+      "label": "Selecciona un artículo destacado"
+    }
+  ]
+}
+{% endschema %}

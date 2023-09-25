@@ -1,0 +1,35 @@
+{{ 'section-main-nosotros.css' | asset_url | stylesheet_tag }}
+
+<div class="nosotros o-container -wide -medium">
+  <div class="page-content">
+    <h1>{{ page.title }}</h1>
+    <div class="text">{{ page.content }}</div>
+  </div>
+
+  <div class="logo">
+    <img src="{{ section.settings.logo | img_url: '700x' }}" alt="{{ section.settings.logo.alt }}" width="{{ section.settings.logo.width }}" height="{{ section.settings.logo.height }}" loading="lazy">
+  </div>
+
+  <div class="bottom">
+    <img src="{{ section.settings.bg | img_url: '1200x' }}" alt="{{ section.settings.bg.alt }}" width="{{ section.settings.bg.width }}" height="{{ section.settings.bg.height }}" loading="lazy">
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Nosotros",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "logo",
+      "label": "Imagen derecha"
+    },
+    {
+      "type": "image_picker",
+      "id": "bg",
+      "label": "Imagen inferior"
+    }
+  ]
+}
+{% endschema %}

@@ -1,8 +1,20 @@
 {
   "sections": {
+    "banner": {
+      "type": "category-banner",
+      "settings": {
+        "banner": "shopify:\/\/shop_images\/banner.png"
+      }
+    },
     "main": {
-      "type": "main-collection"
+      "type": "main-collection",
+      "settings": {
+        "products_per_page": 12
+      }
     }
   },
-  "order": ["main"]
+  "order": [
+    "banner",
+    "main"
+  ]
 }

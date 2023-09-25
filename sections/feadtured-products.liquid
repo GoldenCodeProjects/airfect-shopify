@@ -1,8 +1,8 @@
-{{ 'component-cards-script.css' | asset_url | stylesheet_tag }}
-{{ 'component-product-card-style.css' | asset_url | stylesheet_tag }}
+{{ 'component-cards.css' | asset_url | stylesheet_tag }}
+{{ 'component-product-card.css' | asset_url | stylesheet_tag }}
 {{ 'section-feadtured-products.css' | asset_url | stylesheet_tag }}
 
-<script src="{{ 'component-cards-script.js' | asset_url }}" defer></script>
+<script src="{{ 'component-cards.js' | asset_url }}" defer></script>
 
 <h2>{{ section.settings.heading }}</h2>
 
@@ -22,6 +22,7 @@
     <div class="swiper-button-prev"></div>
     <div class="swiper-button-next"></div>
   </component-cards>
+
 </div>
 
 

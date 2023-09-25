@@ -7,69 +7,112 @@
 @import './../tools/mixins';
 @import './../tools/functions';
 
-.section--main-register{
+.section-login {
+  padding-bottom: 0px;
   display: grid;
-  min-height: calc(100vh - 85px);
-  height: max-content;
-  grid-template-columns: 1fr 1fr;
-  grid-template-areas: "form image";
+  grid-template-columns: 1fr 1.4fr;
+  gap: 0px rem(0px);
+  border-bottom: 10px solid $color-base-secondary;
+  @include mq-only('md') {
+    grid-template-columns: 1fr 1fr;
+  }
+  @include mq-down('sm') {
+    grid-template-columns: 1fr;
+  }
 
-  .title{
-    font-size: 2.5rem;
-    font-weight: 300;
-    letter-spacing: 4px;
-    text-transform: uppercase;
-    margin-bottom: 1.5rem;
-    @include mq-down(sm) {
-      font-size: 1.5rem;
+  .title {
+    grid-column: 1 / -1;
+    border-top: 10px solid $color-base-secondary;
+    border-bottom: 10px solid $color-base-secondary;
+    color: $color-base-primary;
+  }
+
+  .instruction {
+    font-size: rem(14px);
+    &.-light {
+      color: $color-base-background-primary;
     }
   }
 
-  .image{
-    grid-area: image;
-    overflow: hidden;
-    img{
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-  }
-
-  .form{
-    grid-area: form;
-    max-width: 750px;
-    justify-self: center;
-    align-self: center;
+  .login {
+    background-color: $color-base-secondary;
+    padding: rem(50px);
     display: flex;
     flex-direction: column;
-    align-items: center;
-    gap: 1rem;
-    padding: 3rem 2rem;
-    .c-button{
-      margin: 1rem 0;
+    gap: 2rem;
+    h2,
+    h3,
+    p,
+    li {
+      color: $color-base-background-primary;
     }
-
-    ul{
-      list-style: disc;
-      display: flex;
-      gap: 1rem;
-      li, a{
-        color: rgb(187, 18, 18);
-        font-size: 1.1rem;
-        font-weight: 300;
-        text-decoration: none;
-      }
-      a:hover{
-        text-decoration: underline;
-      }
+    @include mq-down('sm') {
+      padding: rem(15px);
+    }
+    .recover {
+      text-decoration: underline;
+      color: $color-base-background-primary;
     }
   }
 
-  @include mq-down(sm) {
-    grid-template-columns: 1fr;
-    grid-template-areas: "form";
-    .image{
-      display: none;
+  .register {
+    padding: rem(25px) rem(50px);
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    @include mq-down('sm') {
+      padding: rem(50px) rem(15px);
     }
+
+    .message {
+      color: $color-base-text;
+      font-size: 24px;
+      line-height: 28px;
+    }
+    .instruction {
+      margin-bottom: 16px;
+    }
+    input {
+      width: 350px;
+      @include mq-only('md') {
+        width: 95%;
+      }
+      @include mq-down('xs') {
+        width: 100%;
+      }
+    }
+
+    .labelRadio {
+      cursor: pointer;
+    }
+    .icon {
+      position: relative;
+      display: inline-block;
+      width: 18px;
+      height: 18px;
+      border: 1px solid $color-base-text;
+      border-radius: 50%;
+      cursor: pointer;
+      margin-left: 3px;
+    }
+    .radio:checked + .icon::after {
+      content: '';
+      background-color: $color-base-text;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+    }
+  }
+
+  .recover-form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 25px;
   }
 }
