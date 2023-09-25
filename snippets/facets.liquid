@@ -1,0 +1,255 @@
+{% comment %}
+    Renders facets (filtering and sorting)
+    Accepts:
+    - results: {Object} Collection or Search object,
+    - menu: {Object} Menu navigation object
+    Usage:
+    {% render 'facets', results: collection, menu: main-menu %}
+{% endcomment %}
+
+{%- liquid
+  assign sort_by = results.sort_by | default: results.default_sort_by
+  if results.url
+    assign results_url = results.url
+  else
+    assign terms = results.terms | escape
+    assign results_url = '?q=' | append: terms | append: '&options%5Bprefix%5D=last&sort_by=' | append: sort_by
+  endif
+-%}
+
+<facet-filters-form>
+  <form id="FacetFiltersForm" action="#" onsubmit="return false" class="filters facets form-horizontal">
+    {%- comment -%}
+    <div class="view_type u-hide">
+      <span>Ver como</span>
+      <view-type>
+        <button type="button" class="c-button -transparent" title="Cuadriculas" data-view-type="grid">
+          {%- render 'component-icon' icon: 'grid', icon_size: 15 -%}
+        </button>
+        <button type="button" class="c-button -transparent" title="Lista" data-view-type="list">
+          {%- render 'component-icon' icon: 'list', icon_size: 15 -%}
+        </button>
+      </view-type>
+    </div>
+    {%- endcomment -%}
+
+    <div class="sort_by">
+      <label>Ordenar por</label>
+      <div class="select">
+        {%- assign sort_by = results.sort_by | default: results.default_sort_by -%}
+        <select name="sort_by" class="facet-filters__sort select__select caption-large" id="SortBy" aria-describedby="a11y-refresh-page-message">
+          {%- for option in results.sort_options -%}
+            <option value="{{ option.value | escape }}"{% if option.value == sort_by %} selected="selected"{% endif %}>{{ option.name | escape }}</option>
+          {%- endfor -%}
+        </select>
+        {%- render 'component-icon' icon: 'caret', icon_size: 15 -%}
+      </div>
+    </div>
+
+    {%- if results.terms -%}
+      <input type="hidden" name="q" value="{{ results.terms | escape }}">
+      <input name="options[prefix]" type="hidden" value="last">
+    {%- endif -%}
+
+    {% if results.current_vendor or results.current_type %}
+      <input type="hidden" name="q" value="{{ results.current_vendor }}{{ results.current_type }}">
+    {% endif %}
+
+    <div class="groups">
+      {%- if menu != blank -%}
+        {%- for link in menu.links -%}
+          <details class="filter-group">
+            <summary class="filter-group_summary">
+              <span>
+                {{ link.title }}
+              </span>
+              <span class="filter-group_summary-icons">
+                {%- render 'component-icon' icon: 'plus', icon_size: 15 -%}
+                {%- render 'component-icon' icon: 'minus', icon_size: 15 -%}
+              </span>
+            </summary>
+
+            <div class="filter-group_display group-display">
+              <div class="group-display_header">
+                <span class="group-display_header-selected">
+                  Lista de categorías
+                </span>
+              </div>
+
+              <ul class="group-display_list">
+                {%- for link in link.links -%}
+                  <li class="group-display__link-list">
+                    <a href="{{ link.url }}">
+                      <span>{{ link.title }}</span>
+                      {%- render 'component-icon' icon: 'arrow', icon_size: 15 -%}
+                    </a>
+                  </li>
+                {%- endfor -%}
+              </ul>
+            </div>
+          </details>
+        {%- endfor -%}
+      {%- endif -%}
+
+      {%- for filter in results.filters -%}
+        <details input-type class="filter-group" data-index="{{ forloop.index }}">
+          <summary class="filter-group_summary">
+            <span>
+              {{ filter.label }}
+              {%- if filter.type == 'price_range' -%}
+                <span class="filter-group_summary-selected">({{ cart.currency.iso_code }})</span>
+              {%- else -%}
+                <span class="filter-group_summary-selected">({{ filter.active_values.size }})</span>
+              {%- endif -%}
+            </span>
+            <span class="filter-group_summary-icons">
+              {%- render 'component-icon' icon: 'plus', icon_size: 15 -%}
+              {%- render 'component-icon' icon: 'minus', icon_size: 15 -%}
+            </span>
+          </summary>
+
+          <div class="filter-group_display group-display">
+            <div class="group-display_header">
+              {%- if filter.active_values.size -%}
+                <span class="group-display_header-selected">
+                  {{ filter.active_values.size }} seleccionados
+                </span>
+              {%- else -%}
+                <span class="group-display_header-selected">
+                  Rango de precios
+                </span>
+              {%- endif -%}
+
+              {%- if filter.active_values.size > 0 or filter.type == 'price_range' -%}
+                <facet-remove class="restore">
+                  <a href="{{ filter.url_to_remove }}" class="group-display_header-reset">Eliminar</a>
+                </facet-remove>
+              {%- endif -%}
+            </div>
+
+            {%- case filter.type -%}
+              {%- when 'list' -%}
+                <ul class="group-display_list">
+                  {%- for filter_value in filter.values -%}
+                    <li class="group-display__list-item">
+                      <dile-checkbox {% if filter_value.active -%}checked{%- endif %}
+                      data-target="Filter-{{ filter.param_name }}-{{ forloop.index }}"
+                      {% if filter_value.count == 0 and filter_value.active == false -%}disabled class=".js-facet-remove"{%- endif %}>
+                        {{ filter_value.label }}
+                      </dile-checkbox>
+                      <input type="checkbox" class="u-hide-visually"
+                        name="{{ filter_value.param_name }}"
+                        value="{{ filter_value.value }}"
+                        id="Filter-{{ filter.param_name }}-{{ forloop.index }}"
+                        {% if filter_value.active -%}checked{%- endif %}
+                        {% if filter_value.count == 0 and filter_value.active == false -%}disabled{%- endif %}
+                      >
+                    </li>
+                  {%- endfor -%}
+                </ul>
+
+                <div class="group-display_submit">
+                  <input class="c-button -primary -small" type="submit" value="Aplicar">
+                </div>
+              {%- when 'price_range' -%}
+                <div class="group-display_price-range">
+                  {%- liquid
+                    assign min = 0
+                    assign max = 0
+                    assign step = 1
+                    assign high_value = filter.range_max | money_without_currency | replace: ',', ''
+                    if filter.min_value.value
+                      assign min = filter.min_value.value | money_without_currency | replace: ',', ''
+                    endif
+                    if filter.max_value.value
+                      assign max = filter.max_value.value | money_without_currency | replace: ',', ''
+                    else
+                      assign max = high_value
+                    endif
+                    assign step = high_value | divided_by: 200 | round
+                    if step < 1
+                      assign step = 1
+                    endif
+                  -%}
+
+                  <paper-range-slider snaps pin always-show-pin
+                  data-input-min="Filter-{{ filter.min_value.param_name }}"
+                  data-input-max="Filter-{{ filter.max_value.param_name }}"
+                  step='{{ step }}' min='0' max='{{ high_value }}'
+                  value-min='{{ min }}' value-max='{{ max }}'>
+                  </paper-range-slider>
+
+                  <div class="group-display_price-ranges">
+                    <div class="range">
+                      <span>{{ cart.currency.symbol }}</span>
+                      <input name="{{ filter.min_value.param_name }}"
+                      id="Filter-{{ filter.min_value.param_name }}"
+                      type="number" placeholder="0" value="{{ min }}"
+                      min="0" max="{{ high_value }}">
+                    </div>
+
+                    <div class="range">
+                      <span>{{ cart.currency.symbol }}</span>
+                      <input name="{{ filter.max_value.param_name }}"
+                      id="Filter-{{ filter.max_value.param_name }}"
+                      value="{{ max }}" type="number" placeholder="{{ high_value }}"
+                      min="0" max="{{ high_value }}">
+                    </div>
+                  </div>
+                </div>
+
+                <div class="group-display_submit">
+                  <input class="c-button -primary -small" type="submit" value="Aplicar">
+                </div>
+            {%- endcase -%}
+          </div>
+        </details>
+      {%- endfor -%}
+    </div>
+
+    <div class="active-filters">
+      <div class="active-filters_heading">
+        <h3>Filtros activos</h3>
+        <facet-remove>
+          <a href="{{ results_url }}"
+          class="active-filters_clear">
+            Eliminar todos
+          </a>
+        </facet-remove>
+      </div>
+
+      {%- for filter in collection.filters -%}
+        {%- if filter.type == "price_range" -%}
+          {%- if filter.min_value.value != nil or filter.max_value.value != nil -%}
+            <facet-remove>
+              <a class="active-filters_remove-filter" href="{{ filter.url_to_remove }}">
+                {%- assign min_value = filter.min_value.value | default: 0 -%}
+                {%- assign max_value = filter.max_value.value | default: filter.range_max -%}
+                <span>{{ min_value | money }} - {{ max_value | money }}</span>
+                {%- render 'component-icon' icon: 'close', icon_size: 10 -%}
+              </a>
+            </facet-remove>
+          {%- endif -%}
+        {%- else -%}
+          {%- for filter_value in filter.active_values -%}
+            <facet-remove>
+              <a class="active-filters_remove-filter" href="{{ filter_value.url_to_remove }}">
+                <span>{{ filter_value.label }}</span>
+                {%- render 'component-icon' icon: 'close', icon_size: 10 -%}
+              </a>
+            </facet-remove>
+          {%- endfor -%}
+        {%- endif- %}
+      {%- endfor -%}
+    </div>
+
+    <div class="buttons u-hide-md-up">
+      <open-filter>
+        <button type="button" class="c-button -secondary -small">Cancelar</button>
+      </open-filter>
+      <open-filter>
+        <button type="button" class="c-button -primary -small">Aplicar</button>
+      </open-filter>
+    </div>
+  </form>
+</facet-filters-form>

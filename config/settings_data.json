@@ -1,0 +1,49 @@
+{
+  "current": {
+    "social_facebook_link": "https:\/\/facebook.com\/shopify",
+    "social_instagram_link": "http:\/\/instagram.com\/shopify",
+    "social_tiktok_link": "https:\/\/tiktok.com\/@shopify",
+    "social_youtube_link": "https:\/\/www.youtube.com\/shopify",
+    "sections": {
+      "cart-collapse": {
+        "type": "cart-collapse",
+        "settings": {
+        }
+      },
+      "menu-navigation": {
+        "type": "menu-navigation",
+        "settings": {
+          "menu_list": "main-menu",
+          "special_url": ""
+        }
+      },
+      "header": {
+        "type": "header",
+        "settings": {
+          "logo": "shopify:\/\/shop_images\/6387659.jpg",
+          "img_width": 50,
+          "menu": "main-menu"
+        }
+      },
+      "footer": {
+        "type": "footer",
+        "settings": {
+          "logo-light": "shopify:\/\/shop_images\/6387659.jpg",
+          "address_text": "<p>São Paulo 1912, Providencia, 44630 Guadalajara, Jal.<\/p>",
+          "address_link": "https:\/\/goo.gl\/maps\/iUa9tyD52Cc5LjAJ6",
+          "follow_text": "Sígueme en mis redes",
+          "whatsapp_text": "300 300 0000",
+          "contact_email": "tuCorreo@service.com",
+          "phone_text": "300 300 0000"
+        }
+      }
+    },
+    "content_for_index": [
+
+    ]
+  },
+  "presets": {
+    "Default": {
+    }
+  }
+}

@@ -1,0 +1,184 @@
+{{ 'section-carousel.css' | asset_url | stylesheet_tag }}
+{{ 'component-carousel-script.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'component-carousel-script.js' | asset_url }}" defer></script>
+<script src="{{ 'component-video-link-script.js' | asset_url }}" defer></script>
+
+<component-carousel {% if section.settings.size == '-large' %}dinamic-height=true {% endif %} class="{{ section.settings.size }} {% if section.settings.filter_enabled %}-filter{% endif %}">
+  <div class="swiper">
+    <div class="swiper-wrapper">
+      {%- for block in section.blocks -%}
+        {%- if block.type == 'image' -%}
+          {%- assign image = block.settings.image -%}
+          {%- if image != blank -%}
+            <div class="swiper-slide swiper-lazy">
+              <img src="{{ image | img_url: '2048x' }}"
+              alt="{{ image.alt }}"
+              width="{{ image.width }}"
+              height="{{ image.height }}"
+              loading="lazy">
+              <div class="swiper-lazy-preloader"></div>
+              <div class="text {{ block.settings.pos_x }} {{ block.settings.pos_y }}">
+                {{ block.settings.description }}
+                {%- if block.settings.button_text != blank and block.settings.button_url != blank -%}
+                  <a href="{{ block.settings.button_url }}" class="c-button -primary u-mt-small">
+                    {{ block.settings.button_text }}
+                  </a>
+                {%- endif -%}
+              </div>
+            </div>
+          {%- endif -%}
+        {%- elsif block.type == 'video' -%}
+          {%- if block.settings.video_link != blank -%}
+            <div class="swiper-slide swiper-lazy">
+              <video-link video-type="{{ block.settings.video_link.type }}"
+              video-id="{{ block.settings.video_link.id }}"
+              cover-url="{{ block.settings.video_poster | image_url: width: 1400 }}">
+                <button slot="btn">
+                  {%- render 'component-icon', icon: 'play', icon_size: 80 -%}
+                </button>
+                <div slot="placeholder">
+                  {{ 'collection-2' | placeholder_svg_tag: 'placeholder-svg placeholder' }}
+                </div>
+              </video-link>
+            </div>
+          {%- endif -%}
+        {%- endif -%}
+      {%- endfor -%}
+    </div>
+    <div class="swiper-pagination"></div>
+    <div class="swiper-button-prev"></div>
+    <div class="swiper-button-next"></div>
+  </div>
+</component-carousel>
+
+
+{% schema %}
+{
+  "name": "Carrusel de imagenes",
+  "tag": "section",
+  "class": "u-mb-small",
+  "blocks": [
+    {
+      "type": "image",
+      "name": "Imagen",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Insertar imagen"
+        },
+        {
+          "type": "html",
+          "id": "description",
+          "label": "Texto",
+          "info": "Escribe contenido solo en HTML [Puedes usar usar un editor HTML online, despues copiar y pegar el codigo generado aqui.](https://onlinehtmleditor.dev/)"
+        },
+        {
+          "type": "select",
+          "id": "pos_x",
+          "label": "Posicion del texto horizontal",
+          "options": [
+            {
+              "value": "-left",
+              "label": "Izquierda"
+            },
+            {
+              "value": "-center-x",
+              "label": "Centro"
+            },
+            {
+              "value": "-right",
+              "label": "Derecha"
+            }
+          ],
+          "default": "-center-x"
+        },
+        {
+          "type": "select",
+          "id": "pos_y",
+          "label": "Posicion del texto vertical",
+          "options": [
+            {
+              "value": "-top",
+              "label": "Arriba"
+            },
+            {
+              "value": "-center-y",
+              "label": "Centro"
+            },
+            {
+              "value": "-bottom",
+              "label": "Abajo"
+            }
+          ],
+          "default": "-center-y"
+        },
+        {
+          "type": "text",
+          "id": "button_text",
+          "label": "Texto del boton"
+        },
+        {
+          "type": "url",
+          "id": "button_url",
+          "label": "Url del boton"
+        }
+      ]
+    },
+    {
+      "type": "video",
+      "name": "Video",
+      "settings": [
+        {
+          "type": "video_url",
+          "id": "video_link",
+          "accept": [
+            "youtube",
+            "vimeo"
+          ],
+          "label": "Link de video"
+        },
+        {
+          "type": "image_picker",
+          "id": "video_poster",
+          "label": "Imagen de portada"
+        }
+      ]
+    }
+  ],
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "filter_enabled",
+      "label": "Filtro",
+      "default": true,
+      "info": "Habilitar degradado"
+    },
+    {
+      "type": "select",
+      "id": "size",
+      "label": "Tamaño del carrusel",
+      "options": [
+        {
+          "value": "-large",
+          "label": "Grande"
+        },
+        {
+          "value": "-medium",
+          "label": "Mediano"
+        },
+        {
+          "value": "-small",
+          "label": "Pequeño"
+        }
+      ],
+      "default": "-medium"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Carrusel de imagenes"
+    }
+  ]
+}
+{% endschema %}

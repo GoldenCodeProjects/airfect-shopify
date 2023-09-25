@@ -1,0 +1,81 @@
+{{ 'section-text.css' | asset_url | stylesheet_tag }}
+
+<div class="o-container -wide">
+  {%- for block in section.blocks -%}
+    {%- case block.type -%}
+      {%- when 'heading' -%}
+        <h2 class="c-heading">{{ block.settings.title }}</h2>
+
+      {%- when 'text' -%}
+        <div class="text">
+          {{ block.settings.text }}
+        </div>
+
+      {%- when 'image' -%}
+        <img src="{{ block.settings.image | img_url: 'master' }}" alt="{{ block.settings.image.alt }}">
+    {%- endcase -%}
+  {%- endfor -%}
+</div>
+
+
+{% schema %}
+  {
+    "name": "Texto personalizado",
+    "tag": "section",
+    "class": "section--text",
+    "blocks": [
+      {
+        "type": "heading",
+        "name": "Título",
+        "settings": [
+          {
+            "type": "text",
+            "id": "title",
+            "label": "Título",
+            "default": "Título"
+          }
+        ]
+      },
+      {
+        "type": "text",
+        "name": "Texto",
+        "settings": [
+          {
+            "type": "richtext",
+            "id": "text",
+            "label": "Texto",
+            "default": "<p>Texto</p>"
+          }
+        ]
+      },
+      {
+        "type": "image",
+        "name": "Imagen",
+        "settings": [
+          {
+            "type": "image_picker",
+            "id": "image",
+            "label": "Imagen"
+          }
+        ]
+      }
+    ],
+    "presets": [
+      {
+        "name": "Texto personalizado",
+        "category": "Texto",
+        "blocks": [
+          {
+            "type": "heading"
+          },
+          {
+            "type": "text"
+          },
+          {
+            "type": "image"
+          }
+        ]
+      }
+    ]
+  }
+{% endschema %}

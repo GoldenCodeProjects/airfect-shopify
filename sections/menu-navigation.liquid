@@ -1,0 +1,56 @@
+<script src="{{- 'component-menu-navigation-script.js' | asset_url -}}" defer></script>
+
+<menu-navigation>
+  <div class="menu">
+    <nav>
+      <div class="wrapper">
+        {% for link in section.settings.menu_list.links %}
+          {% if link.links == blank %}
+            <a href="{{ link.url }}"
+              class="{% if link.current %}-active{% endif %}"
+              {% if link.current %}aria-current="page"{% endif %}>
+                {{ link.title }}
+              </a>
+          {%- else -%}
+            <div role="list" class="list">
+              <p {% if link.child_active %} active {% endif %} class="list_label {% if link.child_active %}-active{% endif %}">
+                {{ link.title | escape }}
+              </p>
+              <ul class="list_details">
+                {%- for childlink in link.links -%}
+                  <li>
+                    {%- if childlink.links == blank -%}
+                      <a href="{{ childlink.url }}" class="list_item {% if childlink.current %}-active{% endif %}"
+                      {% if childlink.current %}aria-current="page"{% endif %}>
+                        {{ childlink.title | escape }}
+                      </a>
+                    {%- endif -%}
+                  </li>
+                {%- endfor -%}
+              </ul>
+            </div>
+          {%- endif -%}
+        {% endfor %}
+      </div>
+    </nav>
+  </div>
+</menu-navigation>
+
+{% schema %}
+{
+  "name": "Navigation menu",
+  "settings": [
+    {
+      "type": "link_list",
+      "id": "menu_list",
+      "label": "Select a menu",
+      "default": "main-menu"
+    },
+    {
+      "type": "url",
+      "id": "special_url",
+      "label": "Especial link"
+    }
+  ]
+}
+{% endschema %}

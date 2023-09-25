@@ -1,0 +1,52 @@
+<div class="o-container -wide">
+  <h2 class="c-heading -h1">{{ section.settings.title }}</h2>
+
+  <nav class="collections">
+    {%- for block in section.blocks -%}
+      {%- assign collection = block.settings.category -%}
+      <div class="collection">
+        <div class="collection_image">
+          <a href="{{ collection.url | within: collection }}" title="{{ collection.title }}">
+            <img src="{{ collection.image | img_url: 'master' }}" alt="{{ collection.title }}">
+          </a>
+        </div>
+        <span class="collection_title">{{ collection.title }}</span>
+      </div>
+    {%- endfor -%}
+  </nav>
+</div>
+
+{% schema %}
+  {
+    "name": "Categorias selecionadas",
+    "tag": "section",
+    "class": "section--selected-categories",
+    "settings": [
+      {
+        "type": "text",
+        "id": "title",
+        "label": "Título"
+      }
+    ],
+    "blocks": [
+      {
+        "type": "category",
+        "name": "Categoria",
+        "settings": [
+          {
+            "type": "collection",
+            "id": "category",
+            "label": "Categoria",
+            "info": "Selecione a categoria que deseja exibir"
+          }
+        ]
+      }
+    ],
+    "presets": [
+      {
+        "name": "Categorias selecionadas",
+        "category": "Categorias"
+      }
+    ]
+  }
+{% endschema %}

@@ -1,0 +1,192 @@
+@import './../settings/breakpoints';
+@import './../settings/fonts';
+@import './../settings/colors';
+@import './../tools/mixins';
+@import './../tools/functions';
+
+.section--main-adresses {
+  background-color: $color-base-background-secondary;
+  min-height: calc(100vh - 85px);
+  height: max-content;
+  .addresses{
+    padding-top: 3rem;
+    padding-bottom: 3rem;
+    display: grid;
+    grid-template-columns: 300px 1fr;
+    align-items: start;
+    gap: 3rem;
+    grid-template-areas:
+      "head head"
+      "nav  main"
+    ;
+
+    @include mq-down(sm) {
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+      grid-template-areas:
+        "head"
+        "main"
+      ;
+    }
+
+    .title{
+      font-size: 2.5rem;
+      font-weight: 300;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      margin-bottom: 1.5rem;
+      @include mq-down(sm) {
+        font-size: 1.5rem;
+        margin-bottom: 0;
+        text-align: center;
+        width: 100%;
+      }
+    }
+
+    .head{
+      grid-area: head;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      @include mq-down(sm) {
+        flex-direction: column;
+        align-items: center;
+        .logout{
+          display: none;
+        }
+      }
+    }
+
+    .menu{
+      grid-area: nav;
+      background-color: $color-base-background-primary;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      padding: 1.25rem 0;
+      box-shadow: 2px 3px 5px 0px rgba(0,0,0,.2);
+      border-radius: .5rem;
+      @include mq-down(sm) {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        z-index: 100;
+        width: 100%;
+        flex-direction: row;
+        padding: 0;
+        border-radius: 0;
+        box-shadow: -2px -3px 5px 0px rgba(0,0,0,.2);
+      }
+
+      &_link{
+        padding:  0 1rem;
+        font-size: 1rem;
+        font-weight: 400;
+        letter-spacing: 1px;
+        color: $color-base-secondary;
+        border-left: 3px solid transparent;
+        transition: color .3s ease-in-out;
+        margin-bottom: 1rem;
+        &:last-child{
+          margin-bottom: 0;
+        }
+        &:hover{
+          text-decoration: none;
+          color: $color-base-text
+        }
+        &.-active{
+          font-weight: 500;
+          color: $color-base-primary;
+          border-left: 3px solid $color-base-primary;
+        }
+        svg{
+          display: none;
+        }
+        @include mq-down(sm) {
+          display: grid;
+          grid-template-rows: 1fr auto;
+          padding: 0.75rem 0;
+          gap: 0.5rem;
+          margin-bottom: 0;
+          width: 33%;
+          border-left: none;
+          justify-items: center;
+          border-bottom: 3px solid transparent;
+          &.-active{
+            border-left: none;
+            border-bottom: 3px solid $color-base-primary;
+          }
+          svg{
+            display: inline-block;
+            margin-right: 0.5rem;
+          }
+          span{
+            white-space: nowrap;
+            font-size: 0.8rem;
+          }
+        }
+      }
+    }
+
+    .main{
+      grid-area: main;
+      .actions{
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        @include mq-down(sm) {
+          justify-content: center;
+        }
+      }
+      .list{
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        gap: 2rem;
+        margin-top: 2rem;
+        @include mq-down(sm) {
+          grid-template-columns: 1fr;
+        }
+      }
+      .address{
+        background-color: rgba(var(--color-base-accent-primary), 0.15);
+        position: relative;
+        padding: 1rem;
+        padding-right: 3rem;
+        border-radius: .5rem;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+        align-items: flex-start;
+        &_title{
+          font-size: 1rem;
+          font-weight: 400;
+          letter-spacing: 1px;
+          color: $color-base-secondary;
+        }
+        p{
+          font-size: 1rem;
+          font-weight: 400;
+          color: $color-base-primary;
+        }
+        &_buttons{
+          position: absolute;
+          top: 1rem;
+          right: 1rem;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: 0.5rem;
+          button, a{
+            width: 30px !important;
+            height: 30px !important;
+            border-radius: 50%;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+          }
+        }
+      }
+    }
+  }
+}

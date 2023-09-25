@@ -1,0 +1,176 @@
+{{ 'section-main-account.css' | asset_url | stylesheet_tag }}
+
+<div class="account o-container -wide -medium">
+  <div class="head">
+    <h1 class="title c-heading -h1">Mi cuenta</h1>
+
+    <a href="/account/logout" class="c-button -secondary logout">
+      Cerrar sesión
+    </a>
+  </div>
+
+  <div class="menu">
+    <a href="/account" class="menu_link">
+      {% render 'component-icon' icon: 'history', icon_size: 25 %}
+      <span>Pedidos</span>
+    </a>
+    <a href="/account/addresses" class="menu_link -active">
+      {% render 'component-icon' icon: 'map-marker', icon_size: 25 %}
+      <span>Direcciones</span>
+    </a>
+    <a href="/account/details" class="menu_link u-hide-sm-down">
+      {% render 'component-icon' icon: 'checkmark', icon_size: 25 %}
+      <span>Ayuda</span>
+    </a>
+    <a href="/account/logout" class="menu_link u-hide-md-up">
+      {% render 'component-icon' icon: 'signout', icon_size: 25 %}
+      <span>Cerrar sesión</span>
+    </a>
+  </div>
+
+  <div class="main">
+    {% paginate customer.orders by 20 %}
+      <div class="responsive-table u-hide-sm-down">
+        <table role="table" class="order-history">
+          <caption class="u-hide-visually">Ordenes de compra</caption>
+          <thead role="rowgroup">
+            <tr role="row">
+              <th id="ColumnOrder" scope="col" role="columnheader">Pedido</th>
+              <th id="ColumnDate" scope="col" role="columnheader">Fecha</th>
+              <th id="ColumnState" scope="col" role="columnheader">Estado del pago</th>
+              <th id="ColumnFulfilment" scope="col" role="columnheader">Estado de entrega</th>
+              <th id="ColumnTotal" scope="col" role="columnheader">Total</th>
+              <th id="ColumnDetails" scope="col" role="columnheader">Detalles</th>
+            </tr>
+          </thead>
+          {%- if customer.orders.size > 0 -%}
+            <tbody role="rowgroup">
+              {%- for order in customer.orders -%}
+                <tr role="row">
+                  <td
+                    id="RowOrder"
+                    role="cell"
+                    headers="ColumnOrder"
+                    data-label="Numero de orden"
+                  >
+                    {{ order.name }}
+                  </td>
+                  <td headers="RowOrder ColumnDate" role="cell" data-label="Fecha">
+                    {{ order.created_at | time_tag: format: 'date' }}
+                  </td>
+                  <td headers="RowOrder ColumnPayment" role="cell" data-label="Pago">
+                    {{ order.financial_status_label }}
+                  </td>
+                  <td headers="RowOrder ColumnFulfillment" role="cell" data-label="Envio">
+                    {{ order.fulfillment_status_label }}
+                  </td>
+                  <td headers="RowOrder ColumnTotal" role="cell" data-label="Total">
+                    {{ order.total_price | money_without_trailing_zeros }}
+                  </td>
+                  <td>
+                    <a href="{{ order.customer_url }}">
+                      Ver más
+                    </a>
+                  </td>
+                </tr>
+              {%- endfor -%}
+            </tbody>
+          {%- else -%}
+            <tfoot>
+              <tr>
+                <td colspan="5" class="u-text-center">
+                  <p>No tienes ordenes de compra</p>
+                </td>
+              </tr>
+            </tfoot>
+          {%- endif -%}
+        </table>
+      </div>
+
+      <div class="cards-list u-hide-md-up">
+        {%- for order in customer.orders -%}
+          <div class="order-card">
+            <p class="order-card_detail">
+              <span>Pedido: </span>
+              {{ order.name }}
+            </p>
+            <p class="order-card_detail">
+              <span>Fecha: </span>
+              {{ order.created_at | time_tag: format: 'date' }}
+            </p>
+            <p class="order-card_detail">
+              <span>Estado del pago: </span>
+              {{ order.financial_status_label }}
+            </p>
+            <p class="order-card_detail">
+              <span>Estado de entrega: </span>
+              {{ order.fulfillment_status_label }}
+            </p>
+            <p class="order-card_detail">
+              <span>Total: </span>
+              {{ order.total_price | money_without_trailing_zeros }}
+            </p>
+            <a class="order-card_link" href="{{ order.customer_url }}">
+              Ver más
+            </a>
+          </div>
+        {%- else -%}
+          <p class="c-body -h3 u-text-center">No tienes ordenes de compra</p>
+        {%- endfor -%}
+      </div>
+
+      {%- if paginate.pages > 1 -%}
+        {%- if paginate.parts.size > 0 -%}
+            <nav class="pagination" role="navigation">
+              <ul role="list">
+              {%- if paginate.previous -%}
+                <li>
+                  <a href="{{ paginate.previous.url }}">
+                    <svg aria-hidden="true" focusable="false" viewBox="0 0 10 6">
+                      <path fill-rule="evenodd" clip-rule="evenodd" d="M9.354.646a.5.5 0 00-.708 0L5 4.293 1.354.646a.5.5 0 00-.708.708l4 4a.5.5 0 00.708 0l4-4a.5.5 0 000-.708z" fill="currentColor">
+                    </svg>
+                  </a>
+                </li>
+              {%- endif -%}
+
+              {%- for part in paginate.parts -%}
+                <li>
+                  {%- if part.is_link -%}
+                    <a href="{{ part.url }}">{{ part.title }}</a>
+                  {%- else -%}
+                    {%- if part.title == paginate.current_page -%}
+                      <span aria-current="page">{{ part.title }}</span>
+                    {%- else -%}
+                      <span>{{ part.title }}</span>
+                    {%- endif -%}
+                  {%- endif -%}
+                </li>
+              {%- endfor -%}
+
+              {%- if paginate.next -%}
+                <li>
+                  <a href="{{ paginate.next.url }}">
+                    <svg aria-hidden="true" focusable="false" viewBox="0 0 10 6">
+                      <path fill-rule="evenodd" clip-rule="evenodd" d="M9.354.646a.5.5 0 00-.708 0L5 4.293 1.354.646a.5.5 0 00-.708.708l4 4a.5.5 0 00.708 0l4-4a.5.5 0 000-.708z" fill="currentColor">
+                    </svg>
+                  </a>
+                </li>
+              {%- endif -%}
+              </ul>
+            </nav>
+        {%- endif -%}
+      {%- endif -%}
+    {% endpaginate %}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Cuenta",
+  "tag": "section",
+  "class": "section--main-account",
+  "settings": [
+
+  ]
+}
+{% endschema %}

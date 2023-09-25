@@ -1,0 +1,49 @@
+{
+  "sections": {
+    "main": {
+      "type": "contact-form",
+      "blocks": {
+        "8fa7e44e-4c1d-469e-8259-f500f380f4d2": {
+          "type": "field",
+          "settings": {
+            "name": "name",
+            "placeholder": "Juan",
+            "info": "Nombre",
+            "required": true
+          }
+        },
+        "41faf2ad-6f40-42fd-b220-824951cf2829": {
+          "type": "field",
+          "settings": {
+            "name": "phone",
+            "placeholder": "33 1717 1717",
+            "info": "Teléfono",
+            "required": true
+          }
+        },
+        "f3112a68-aa5d-4cd9-a024-715c906bc791": {
+          "type": "field",
+          "settings": {
+            "name": "city",
+            "placeholder": "Guadalajara",
+            "info": "Ciudad",
+            "required": false
+          }
+        }
+      },
+      "block_order": [
+        "8fa7e44e-4c1d-469e-8259-f500f380f4d2",
+        "41faf2ad-6f40-42fd-b220-824951cf2829",
+        "f3112a68-aa5d-4cd9-a024-715c906bc791"
+      ],
+      "settings": {
+        "type_form": "contact",
+        "banner": "shopify:\/\/shop_images\/Vinos_Boutique_18_Feb_2022-27.jpg",
+        "color": "-primary"
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

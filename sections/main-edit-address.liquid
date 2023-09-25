@@ -1,0 +1,251 @@
+{{ 'section-main-edit-address.css' | asset_url | stylesheet_tag }}
+
+<svg style="display: none">
+  <symbol id="icon-caret" viewBox="0 0 10 6">
+    <path fill-rule="evenodd" clip-rule="evenodd" d="M9.354.646a.5.5 0 00-.708 0L5 4.293 1.354.646a.5.5 0 00-.708.708l4 4a.5.5 0 00.708 0l4-4a.5.5 0 000-.708z" fill="currentColor">
+  </symbol>
+</svg>
+
+{%- capture contentForQuerystring -%}{{ content_for_header }}{%- endcapture -%}
+{%- assign pageUrl = contentForQuerystring | split:'"pageurl":"' | last | split:'"' | first | split:'.myshopify.com' | last |
+    replace:'\/','/' |
+    replace:'%20',' ' |
+    replace:'\u0026','&'
+-%}
+{%- assign pageQuerystring = pageUrl | split:'?' | last -%}
+
+{% form 'customer_address', customer.new_address, class: 'edit-address o-container -narrow' %}
+  <a href="/account/addresses" class="return">
+    {% render 'component-icon' icon: 'arrow', icon_size: 20 %}
+    Regresar
+  </a>
+
+  <div class="wrapper">
+    <h1 class="title -full">Editar dirección</h1>
+
+    <div class="c-field -middle">
+      <input class="c-field_input"
+        type="text" name="address[first_name]"
+        placeholder="Nombre" required
+        autocomplete="given-name"
+        value="{{ form.first_name }}"
+        id="address_first_name"
+      >
+      <label class="c-field_label" for="address_first_name">Nombre</label>
+    </div>
+
+    <div class="c-field -middle">
+      <input class="c-field_input"
+        type="text" name="address[last_name]"
+        placeholder="Apellido" required
+        autocomplete="family-name"
+        value="{{ form.last_name }}"
+        id="address_last_name"
+      >
+      <label class="c-field_label" for="address_last_name">Apellido</label>
+    </div>
+
+    <div class="c-field -full">
+      <input class="c-field_input"
+        type="text" name="address[company]"
+        placeholder="Empresa"
+        autocomplete="organization"
+        value="{{ form.company }}"
+        id="address_company"
+      >
+      <label class="c-field_label" for="address_company">
+        Empresa
+        <span class="c-field_label_optional">(opcional)</span>
+      </label>
+    </div>
+
+    <div class="c-field -full">
+      <input class="c-field_input"
+        type="text" name="address[address1]"
+        placeholder="Dirección" required
+        autocomplete="address-line1"
+        value="{{ form.address1 }}"
+        id="address_address1"
+      >
+      <label class="c-field_label" for="address_address1">Dirección y colonia</label>
+    </div>
+
+    <div class="c-field -middle">
+      <input class="c-field_input"
+        type="text" name="address[city]"
+        placeholder="Ciudad" required
+        autocomplete="address-level2"
+        value="{{ form.city }}"
+        id="address_city"
+      >
+      <label class="c-field_label" for="address_city">Ciudad</label>
+    </div>
+
+    <div class="c-field -middle">
+      <input class="c-field_input"
+        type="tel" name="address[phone]"
+        placeholder="Teléfono" required
+        value="{{ form.phone }}"
+        autocomplete="tel"
+        id="address_phone"
+      >
+      <label class="c-field_label" for="address_phone">Teléfono</label>
+    </div>
+
+    <div class="c-field">
+      <select class="c-field_input"
+        name="address[country]" required
+        data-default="{{ form.country }}"
+        autocomplete="country"
+        id="address_country"
+        data-address-country-select
+      >
+        {{ all_country_option_tags }}
+      </select>
+      <label class="c-field_label" for="address_country">País</label>
+      <svg class="c-field_icon" aria-hidden="true" focusable="false" viewBox="0 0 10 6">
+        <use href="#icon-caret" />
+      </svg>
+    </div>
+
+    <div class="c-field" id="address_province-container">
+      <select class="c-field_input"
+        name="address[province]" required
+        data-default="{{ form.province }}"
+        autocomplete="address-level1"
+        id="address_province"
+      ></select>
+      <label class="c-field_label" for="address_province">Provincia</label>
+      <svg class="c-field_icon" aria-hidden="true" focusable="false" viewBox="0 0 10 6">
+        <use href="#icon-caret" />
+      </svg>
+    </div>
+
+    <div class="c-field">
+      <input class="c-field_input"
+        type="text" name="address[zip]"
+        placeholder="Código postal" required
+        value="{{ form.zip }}"
+        autocapitalize="characters"
+        autocomplete="postal-code"
+        id="address_zip"
+      >
+      <label class="c-field_label" for="address_zip">Código postal</label>
+    </div>
+
+    <label class="c-check -full u-mt-small" for="address_default_address_new">
+      {{ form.set_as_default_checkbox }}
+      <div box></div>
+      <span class="c-check_label">
+        Establecer como dirección predeterminada
+      </span>
+    </label>
+
+    <div class="buttons -full">
+      <a class="c-button -secondary" href="{{ routes.account_url }}/addresses">Cancelar</a>
+      <input class="c-button -primary" type="submit" value="Guardar">
+    </div>
+  </div>
+{% endform %}
+
+<script id="list" type="application/json">
+  {{ customer.addresses | json }}
+</script>
+
+<script defer>
+  const form = document.querySelector('#address_form_new');
+  const inputs = {
+    first_name: document.querySelector('#address_first_name'),
+    last_name: document.querySelector('#address_last_name'),
+    company: document.querySelector('#address_company'),
+    address1: document.querySelector('#address_address1'),
+    city: document.querySelector('#address_city'),
+    phone: document.querySelector('#address_phone'),
+    country: document.querySelector('#address_country'),
+    province: document.querySelector('#address_province'),
+    zip: document.querySelector('#address_zip'),
+    default: document.querySelector('#address_default_address_new')
+  };
+
+  const getQueryParams = () => {
+    const params = {};
+    const search = window.location.search;
+    const regex = /[?&]([^=#]+)=([^&#]*)/g;
+    let match;
+
+    while (match = regex.exec(search)) {
+      params[match[1]] = match[2];
+    }
+
+    return params;
+  };
+
+  const getAddress = (id) => {
+    const addresses = JSON.parse(document.querySelector('#list').innerHTML);
+    const address = addresses.find(address => address.id === parseInt(id));
+    return address;
+  };
+
+  const replaceValues = ({
+    address1, address2, city, company, country,
+    country_code, country_name, customer_id,
+    isDefault, first_name, id, last_name, name,
+    phone, province, province_code, zip
+  }) => {
+    inputs.first_name.value = first_name;
+    inputs.last_name.value = last_name;
+    inputs.company.value = company;
+    inputs.address1.value = address1;
+    inputs.city.value = city;
+    inputs.phone.value = phone;
+    inputs.zip.value = zip;
+    inputs.default.checked = isDefault;
+
+    const countryOption = inputs.country.querySelector(`option[value="${country}"]`);
+    countryOption.selected = true;
+    inputs.country.dispatchEvent(new Event('change'));
+
+    const provinceOption = inputs.province.querySelector(`option[value="${province}"]`);
+    provinceOption.selected = true;
+  };
+
+  window.addEventListener('load', () => {
+    typeof CustomerAddresses !== 'undefined' && new CustomerAddresses();
+    if (Shopify && Shopify.CountryProvinceSelector) {
+      new Shopify.CountryProvinceSelector('address_country', 'address_province', {
+        hideElement: 'address_province-container',
+      });
+    }
+
+    const params = getQueryParams();
+    const addressId = params.id;
+    const address = getAddress(addressId);
+    address.isDefault = address.default;
+    replaceValues(address)
+
+    form.action = `/account/addresses/${addressId}`;
+    form.id = `address_form_${addressId}`;
+
+    const hiddenMethod = document.createElement('input');
+    hiddenMethod.type = 'hidden';
+    hiddenMethod.name = '_method';
+    hiddenMethod.value = 'put';
+    form.appendChild(hiddenMethod);
+
+    const returnBack = document.createElement('input');
+    returnBack.type = 'hidden';
+    returnBack.name = 'return_to';
+    returnBack.value = '/account/addresses';
+    form.appendChild(returnBack);
+  });
+</script>
+
+{% schema %}
+{
+  "name": "Agregar dirección",
+  "class": "section--main-edit-address",
+  "settings": [
+
+  ]
+}
+{% endschema %}

@@ -1,0 +1,126 @@
+{{ 'section-main-login.css' | asset_url | stylesheet_tag }}
+<script src="{{- 'component-modal-script.js' | asset_url -}}" defer></script>
+
+<div class="image">
+  <img src="{{ section.settings.banner | image_url: width: 1000 }}" alt="" width="{{ section.settings.banner.width }}" height="{{ section.settings.banner.height }}" loading="lazy">
+</div>
+
+{% form 'customer_login', class: 'form' %}
+  <h1 class="title c-heading -h2">{{ section.settings.title }}</h1>
+
+  <div class="c-field -full -white">
+    <input class="c-field_input" type="email" name="customer[email]" placeholder="correo@mail.com" required>
+    <label class="c-field_label" for="customer_email">Correo eléctronico</label>
+  </div>
+
+  <div class="c-field -full -white">
+    <input class="c-field_input" type="password" name="customer[password]" placeholder="pass" required>
+    <label class="c-field_label" for="customer_password">Contraseña</label>
+  </div>
+
+  {%- if form.posted_successfully? -%}
+    <h3 class="form_status c-body -bold -h3 -success u-mb-small" tabindex="-1" autofocus>
+      {% render 'component-icon' icon: 'success', icon_size: 15 %}
+      Usted a iniciado sesión.
+    </h3>
+  {%- elsif form.errors -%}
+    <div class="errors">
+      <h3 class="form_status c-body -bold -h3 -error u-mb-small" role="alert" tabindex="-1" autofocus>
+        {% render 'component-icon' icon: 'error', icon_size: 15 %}
+        Datos incorrectos, revise bien los datos.
+      </h3>
+    </div>
+  {%- endif -%}
+
+  <open-modal target="#recover">
+    <button type="button" class="recover" data-product="/account/login">
+      ¿Olvidaste tu contraseña?
+    </button>
+  </open-modal>
+
+  <button class="c-button -primary" type="submit" value="Sign In">Ingresar</button>
+
+  <a href="/account/register" class="goback">
+    {{ section.settings.goback }}
+  </a>
+{% endform %}
+
+<component-modal id="recover">
+  {% form 'recover_customer_password', class: 'form-recover' %}
+    <h3 class="c-heading -h2">Recuperar contraseña</h3>
+
+    <input type="hidden" name="return_to" value="/account/login#recover">
+    <div class="c-field -full -white">
+      <input class="c-field_input" type="email" name="email" placeholder="Correo"
+        {%- if form.errors -%}
+          value="{{ form.email }}"
+        {%- endif -%}
+        required>
+      <label class="c-field_label" for="email">Correo eléctronico</label>
+    </div>
+
+    <button class="c-button -primary" type="submit" value="Submit">Enviar</button>
+  {% endform %}
+</component-modal>
+
+<script defer>
+  // Url has #recover
+  window.addEventListener('load', () => {
+    if (window.location.hash === '#recover') {
+      document.querySelector('#recover').open()
+
+      // add success message
+      const form = document.querySelector('.form-recover')
+      form.innerHTML = ''
+      const success = document.createElement('h3')
+      success.classList.add('form_status', 'c-body', '-bold', '-h3', '-success', 'u-mb-small')
+      success.setAttribute('tabindex', '-1')
+      success.setAttribute('autofocus', '')
+      success.innerHTML = `
+        {% render 'component-icon' icon: 'success', icon_size: 15 %}
+        Se ha enviado un correo con las instrucciones para recuperar tu contraseña.
+      `
+      form.prepend(success)
+
+      // Add close button
+      const close = document.createElement('button')
+      close.classList.add('c-button', '-primary')
+      close.setAttribute('type', 'button')
+      close.setAttribute('data-close', '')
+      close.innerHTML = 'Cerrar'
+      form.appendChild(close)
+
+      // Close modal
+      close.addEventListener('click', () => {
+        document.querySelector('#recover').close()
+      })
+    }
+  })
+</script>
+
+{% schema %}
+{
+  "name": "Inicio de sesión",
+  "tag": "section",
+  "class": "section--main-login",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Título",
+      "default": "Iniciar sesión"
+    },
+    {
+      "type": "text",
+      "id": "goback",
+      "label": "Texto regresar a inicio de sesión",
+      "default": "¿No tienes una cuenta? Regístrate ahora"
+    },
+    {
+      "type": "image_picker",
+      "id": "banner",
+      "label": "Banner"
+    }
+  ]
+}
+{% endschema %}

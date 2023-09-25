@@ -1,0 +1,15 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-register",
+      "settings": {
+        "title": "Crear una cuenta",
+        "goback": "¿Ya tienes una cuenta? Inicia sesión",
+        "banner": "shopify:\/\/shop_images\/signup.webp"
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

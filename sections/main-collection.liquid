@@ -1,0 +1,55 @@
+{{ 'component-facets-style.css' | asset_url | stylesheet_tag }}
+{{ 'component-product-card-style.css' | asset_url | stylesheet_tag }}
+
+{{ 'section-main-collection.css' | asset_url | stylesheet_tag }}
+
+<script src="{{ 'component-facets-script.js' | asset_url }}" type="module" defer="defer"></script>
+
+{%- render 'facets', results: collection, menu: section.settings.category_links -%}
+
+<div id="products-grid" data-id="{{ section.id }}" class="products-grid o-container -large u-pv-medium">
+  <span id="ProductCount" class="u-hide-visually"></span>
+
+  <open-filter class="u-hide-md-up">
+    <button class="c-button -transparent filter-open -small">
+      Filtrar productos
+      {%- render 'component-icon' icon: 'filter', icon_size: 30 -%}
+    </button>
+  </open-filter>
+
+  {%- paginate collection.products by section.settings.products_per_page -%}
+    {%- for product in collection.products -%}
+      {%- render 'component-product-card' product: product -%}
+    {%- else -%}
+      <h4 class="no-products c-heading -h2">No hay productos</h4>
+    {%- endfor -%}
+
+    {%- if paginate.pages > 1 -%}
+      {% render 'pagination', paginate: paginate, anchor: '' %}
+    {%- endif -%}
+  {%- endpaginate -%}
+</div>
+
+{% schema %}
+{
+  "name": "t:sections.collection.name",
+  "tag": "section",
+  "class": "collection",
+  "settings": [
+    {
+      "type": "range",
+      "id": "products_per_page",
+      "min": 12,
+      "max": 32,
+      "step": 4,
+      "default": 24,
+      "label": "Productos mostrados por pagina"
+    },
+    {
+      "type": "link_list",
+      "id": "category_links",
+      "label": "Menu de categorias"
+    }
+  ]
+}
+{% endschema %}

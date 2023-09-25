@@ -1,0 +1,79 @@
+{{ 'component-modal-style.css' | asset_url | stylesheet_tag }}
+
+{{ 'section-main-register.css' | asset_url | stylesheet_tag }}
+
+<script src="{{ 'component-modal-script.js' | asset_url }}" defer=defer></script>
+
+{% form 'create_customer', class: 'form' %}
+    <h1 class="title c-heading -h2">
+      {{ section.settings.title }}
+    </h1>
+
+    <div class="c-field -full">
+      <input id="first_name" class="c-field_input" type="text" value="" name="customer[first_name]" placeholder="Ingrese su nombre">
+      <label class="c-field_label" for="first_name">Nombre(s)</label>
+    </div>
+
+    <div class="c-field -full">
+      <input id="email" class="c-field_input" type="email" value="" name="customer[email]" placeholder="Ingrese su correo electrónico">
+      <label class="c-field_label" for="email">Correo electrónico</label>
+    </div>
+
+    <div class="c-field -full">
+      <input id="password" class="c-field_input" type="password" value="" name="customer[password]" placeholder="Ingrese su contraseña">
+      <label class="c-field_label" for="password">Contraseña</label>
+    </div>
+
+    {% if form.posted_successfully? %}
+      <p class="c-body -small -success">Cuenta creada exitosamente.</p>
+    {%- elsif form.errors -%}
+      <div class="errors">
+        <h3 class="form_status c-body -bold -h3 -error u-mb-small" role="alert" tabindex="-1" autofocus>
+          {% render 'component-icon' icon: 'error', icon_size: 15 %}
+          Datos incorrectos, revise bien los datos.
+        </h3>
+        <nav class="form_status c-body -bold -h3 -error">
+          {{ form.errors | default_errors }}
+        </nav>
+      </div>
+    {%- endif -%}
+
+    <button type="submit" class="c-button -primary">
+      Registrarme
+    </button>
+
+    <a href="/account/login" class="goback">
+      {{ section.settings.goback }}
+    </a>
+{% endform %}
+
+<div class="image">
+  <img src="{{ section.settings.banner | image_url: width: 1000 }}" alt="" width="{{ section.settings.banner.width }}" height="{{ section.settings.banner.height }}" loading="lazy">
+</div>
+
+{% schema %}
+{
+  "name": "Inicio de sesión",
+  "tag": "section",
+  "class": "section--main-register",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Título",
+      "default": "Crear una cuenta"
+    },
+    {
+      "type": "text",
+      "id": "goback",
+      "label": "Texto regresar a inicio de sesión",
+      "default": "¿Ya tienes una cuenta? Inicia sesión"
+    },
+    {
+      "type": "image_picker",
+      "id": "banner",
+      "label": "Banner"
+    }
+  ]
+}
+{% endschema %}

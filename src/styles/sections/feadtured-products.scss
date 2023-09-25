@@ -1,0 +1,75 @@
+@import './../settings/colors';
+@import './../settings/fonts';
+@import './../settings/breakpoints';
+@import './../tools/functions';
+@import './../tools/mixins';
+
+.section--featured-products {
+  background-color: $color-base-background-secondary;
+  clip-path: polygon(0 8%, 100% 0, 100% 100%, 0% 100%);
+  margin-top: -3.5rem;
+
+  h2 {
+    text-align: center;
+    color: $color-base-secondary;
+    text-transform: uppercase;
+    font-size: 2.25rem;
+    margin-top: 5rem;
+    @include mq-down(sm) {
+      font-size: 1.75rem;
+    }
+  }
+
+  .swiper {
+    padding: 5rem 1rem;
+    @include mq-down(sm) {
+      padding: 3rem 1rem 1rem 1rem;
+    }
+  }
+  .swiper-button-prev,
+  .swiper-button-next {
+    display: flex !important;
+    justify-content: center;
+    align-items: center;
+    color: $color-base-secondary;
+    background-color: $color-base-background-secondary;
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 50%;
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.1),
+      0 0 1rem rgba(0, 0, 0, 0.15) inset;
+    transition: box-shadow 0.3s ease-in-out, transform 0.3s ease-in-out;
+    will-change: transform, box-shadow;
+    &:hover {
+      box-shadow: 0 0 1rem rgba(0, 0, 0, 0.2),
+        0 0 1rem rgba(0, 0, 0, 0.15) inset;
+    }
+    &::after {
+      font-size: 1.5rem;
+    }
+  }
+  .swiper-button-prev {
+    left: -5%;
+  }
+
+  .swiper-button-next {
+    right: -5%;
+  }
+
+  .products {
+    padding: 0rem 0 2rem 0;
+    width: 100%;
+    max-width: 60rem;
+    margin: auto;
+
+    .swiper-slide-active .c-product-card {
+      transform: scale(1.2);
+      &:hover {
+        transform: scale(1.2);
+      }
+      @include mq-down(sm) {
+        transform: scale(1);
+      }
+    }
+  }
+}

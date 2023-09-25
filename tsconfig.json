@@ -1,0 +1,13 @@
+{
+  "compilerOptions": {
+    "experimentalDecorators": true,
+    "lib": ["es2020", "dom"],
+    "outDir": "./assets/",
+    "noImplicitAny": false,
+    "module": "es2020",
+    "target": "es2020",
+    "allowJs": true,
+    "moduleResolution": "node",
+    "allowSyntheticDefaultImports": true
+  }
+}

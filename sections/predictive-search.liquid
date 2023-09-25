@@ -1,0 +1,127 @@
+{%- if predictive_search.performed -%}
+  <div id="predictive-search-results" class="search_results">
+    {%- if predictive_search.resources.collections.size > 0 -%}
+      <div class="search_type">
+        <h3 id="predictive-search-collections" class="search_heading">
+          Categorias
+        </h3>
+        <ul id="predictive-search-results-collections" class="search_collections" role="listbox" aria-labelledby="predictive-search-collections">
+          {%- for collection in predictive_search.resources.collections -%}
+            <li class="search_list-item" role="option">
+              <a href="{{ collection.url }}" class="search_link" tabindex="-1">
+                <span>{{ collection.title }}</span>
+                {%- render 'component-icon' icon: 'arrow', icon_size: 15 -%}
+              </a>
+            </li>
+          {%- endfor -%}
+        </ul>
+      </div>
+    {%- endif -%}
+
+    {%- if predictive_search.resources.products.size > 0 -%}
+      <div class="search_type">
+        <h3 id="predictive-search-products" class="search_heading">
+          Productos
+        </h3>
+        <ul id="predictive-search-results-products" class="search_products" role="listbox" aria-labelledby="predictive-search-products">
+          {%- for product in predictive_search.resources.products -%}
+            <li class="search_list-item" role="option">
+              <a href="{{ product.url }}" class="search_product product" tabindex="-1">
+                {%- if product.featured_media != blank -%}
+                  <img class="product_image"
+                    src="{{ product.featured_media | img_url: '350x' }}"
+                    alt="{{ product.featured_media.alt }}"
+                    width="350"
+                    loading="lazy"
+                    height="{{ 350 | divided_by: product.featured_media.preview_image.aspect_ratio }}"
+                  >
+                {%- endif -%}
+
+                <div class="product_text">
+                  <h3 class="product_title">{{ product.title }}</h3>
+                  <div class="product_price">
+                    {% if product.compare_at_price > product.price %}
+                      <span class="percent">
+                        -{{ product.compare_at_price | minus: product.price | times: 100 | divided_by: product.compare_at_price }}%
+                      </span>
+                    {% endif %}
+                    {% if product.compare_at_price > product.price %}
+                      {%- assign compare_with_iva = product.compare_at_price | times: 1.16 | round: 0 | remove: '.01' | remove: '.99' -%}
+                      <span class="compare">{{ compare_with_iva | round: 0 | money_without_trailing_zeros }}.00</span>
+                    {% endif %}
+                    {%- if product.price -%}
+                      {%- assign price_with_iva = product.price | times: 1.16 | round: 0 | remove: '.01' | remove: '.99' -%}
+                      <span class="original">{{ price_with_iva | round: 0 | money_without_trailing_zeros }}.00</span>
+                    {%- endif -%}
+                  </div>
+                  <div class="product_excerpt">
+                    {%- assign content = product.content | strip_html -%}
+                    {%- if product.excerpt != blank -%}
+                      {{ product.excerpt | strip_html | truncate: 150 }}
+                    {%- elsif content != blank -%}
+                      {{ product.content | strip_html | truncate: 150 }}
+                    {%- else -%}
+                      Visualice el producto completo
+                    {%- endif -%}
+                  </div>
+                </div>
+              </a>
+            </li>
+          {%- endfor -%}
+        </ul>
+      </div>
+    {%- endif -%}
+
+    {%- if predictive_search.resources.articles.size > 0 -%}
+      <div class="search_type">
+        <h3 id="predictive-search-articles" class="search_heading">
+          Artículos
+        </h3>
+        <ul id="predictive-search-results-articles" class="search_articles" role="listbox" aria-labelledby="predictive-search-articles">
+          {%- for article in predictive_search.resources.articles -%}
+            <li class="search_list-item" role="option">
+              <a href="{{ article.url }}" class="search_article article" tabindex="-1">
+                {%- if article.image != blank -%}
+                  <img class="article_image"
+                    src="{{ article.image.src | image_url: width: 500 }}"
+                    alt="{{ article.image.alt }}"
+                    width="350"
+                    loading="lazy"
+                    height="{{ 350 | divided_by: article.featured_media.preview_image.aspect_ratio }}"
+                  >
+                {%- endif -%}
+
+                <div class="article_text">
+                  <h3 class="article_title">{{ article.title | strip_html | truncate: 80 }}</h3>
+                  <p class="article_excerpt">
+                    {%- assign content = article.content | strip_html -%}
+                    {%- if article.excerpt != blank -%}
+                      {{ article.excerpt | strip_html | truncate: 150 }}
+                    {%- elsif content != blank -%}
+                      {{ article.content | strip_html | truncate: 150 }}
+                    {%- else -%}
+                      Visualice el artículo completo
+                    {%- endif -%}
+                  </p>
+                  <span class="article_date">{{ article.published_at | date: "%d de %B de %Y" }}</span>
+                </div>
+              </a>
+            </li>
+          {%- endfor -%}
+        </ul>
+      </div>
+    {%- endif -%}
+
+    {%- if predictive_search.resources.collections.size == 0 and predictive_search.resources.products.size == 0 and predictive_search.resources.articles.size == 0 -%}
+      <div class="search_item">
+        <h3 id="predictive-search-no-results" class="search_heading">
+          No se encontraron resultados
+        </h3>
+      </div>
+    {%- endif -%}
+  </div>
+{%- else -%}
+  <h3 id="predictive-search-no-results" class="search_heading">
+    Ingrese un término de búsqueda
+  </h3>
+{%- endif -%}

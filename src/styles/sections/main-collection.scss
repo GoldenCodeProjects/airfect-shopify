@@ -1,0 +1,75 @@
+@import './../settings/colors';
+@import './../settings/fonts';
+@import './../settings/breakpoints';
+@import './../tools/functions';
+@import './../tools/mixins';
+
+.collection {
+  display: grid;
+  grid-template-columns: 350px 1fr;
+  min-height: 100%;
+  align-items: start;
+  position: relative;
+  @include mq-down('sm') {
+    grid-template-columns: 1fr;
+  }
+
+  facet-filters-form {
+    height: 100%;
+    max-height: calc(100vh - 64px);
+    position: sticky;
+    top: 64px;
+  }
+
+  .products-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 2.5rem;
+    transition: all 0.7s ease-in-out;
+    &.-full {
+      grid-column: 1 / -1;
+    }
+    @include mq-down('xs') {
+      grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    }
+    &.-loading {
+      opacity: 0.25;
+    }
+    h2 {
+      margin-bottom: 1rem;
+      grid-column: 1 / -1;
+      color: $color-base-primary;
+      font-size: 1.7rem;
+      @include mq-down('xxs') {
+        font-size: 1.35rem;
+      }
+    }
+    .pagination-wrapper {
+      grid-column: 1 / -1;
+      width: 100%;
+      background-color: $color-base-background-primary;
+    }
+    open-filter {
+      grid-column: 1 / -1;
+      width: 100%;
+      .filter-open {
+        justify-self: start;
+        margin-bottom: 2rem;
+        justify-content: start;
+        gap: 0.5rem;
+        font-weight: 600;
+        color: $color-base-text;
+        width: fit-content;
+      }
+    }
+    .no-products {
+      grid-column: 1 / -1;
+      grid-row: span 6;
+      text-align: center;
+      padding: 2rem;
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: $color-base-primary;
+    }
+  }
+}

@@ -1,0 +1,40 @@
+@import './../settings/colors';
+@import './../settings/fonts';
+@import './../settings/breakpoints';
+@import './../tools/functions';
+@import './../tools/mixins';
+
+.c-product-card {
+  display: grid;
+  gap: 0.5rem;
+  font-size: 1rem;
+  grid-template-columns: 1fr;
+  align-items: start;
+  transition: all 0.7s ease-in-out;
+  &_featured_image {
+    position: relative;
+    aspect-ratio: 1 / 1;
+    display: block;
+    border: 1px solid rgba(var(--color-base-text), 0.2);
+    img {
+      width: 100%;
+      height: auto;
+      aspect-ratio: 1 / 1;
+      object-fit: cover;
+      object-position: center;
+      background-color: $color-base-background-secondary;
+    }
+  }
+  &_title {
+    font-size: rem(16px);
+    letter-spacing: 2px;
+    font-weight: 600;
+    text-align: left;
+    color: $color-base-text;
+    text-transform: capitalize;
+    @include truncate;
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}

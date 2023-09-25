@@ -1,0 +1,195 @@
+// ==========================================================================
+// ## SHOPIFY STATIC SECTION: MAIN PRODUCT
+// ==========================================================================
+@import './../settings/colors';
+@import './../settings/fonts';
+@import './../settings/breakpoints';
+@import './../tools/functions';
+@import './../tools/mixins';
+
+.product {
+  > div {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem 7%;
+    align-items: start;
+    @include mq-only('sm') {
+      grid-template-columns: 1fr 1.25fr;
+    }
+    @include mq-down('xs') {
+      grid-template-columns: 1fr;
+    }
+  }
+  &_media {
+    position: sticky;
+    top: 128px;
+    width: 100%;
+    overflow: hidden;
+    @include mq-down('xs') {
+      position: relative;
+      top: 0px;
+      margin-bottom: 2rem;
+    }
+    .previews {
+      margin-bottom: 1rem;
+    }
+    .previews img {
+      aspect-ratio: 4 / 3;
+    }
+    .previews.-box img {
+      aspect-ratio: 16 / 9;
+    }
+    [preview] {
+      display: block;
+    }
+    .thumbs img {
+      cursor: pointer;
+      aspect-ratio: 4 / 3;
+    }
+    img {
+      width: 100%;
+      height: auto;
+      object-fit: contain;
+      object-position: center;
+      vertical-align: top;
+    }
+    .previews,
+    img {
+      border-radius: rem(14px);
+      border: 1px solid $color-base-background-secondary;
+      overflow: hidden;
+    }
+    .swiper-button-prev,
+    .swiper-button-next {
+      display: block !important;
+      color: $color-base-background-primary;
+      @include mq-down('xxs') {
+        display: none !important;
+      }
+    }
+    .swiper-button-disabled {
+      opacity: 0 !important;
+    }
+  }
+  &_content {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+    font-size: 1rem;
+  }
+  &_title {
+    font-weight: 900;
+    color: $color-base-primary;
+    font-size: rem(32px);
+    text-transform: capitalize;
+    @include mq-down('xs') {
+      font-size: rem(24px);
+    }
+  }
+  &_price {
+    display: flex;
+    flex-direction: column;
+    span {
+      font-size: 1.5rem;
+      font-weight: 700;
+      @include mq-down('xs') {
+        font-size: 1.25rem;
+      }
+    }
+    .compare {
+      font-size: 1.3rem;
+      font-weight: 500;
+      color: rgba(var(--color-base-text), 0.6);
+      text-decoration: line-through;
+    }
+  }
+  &_point-title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: $color-base-primary;
+  }
+  &_point-data {
+    font-size: 1rem;
+    font-weight: 400;
+    color: $color-base-text;
+    span {
+      font-weight: 600;
+    }
+    p{
+      line-break: anywhere;
+    }
+  }
+  &_download-pdf {
+    display: flex;
+    grid-column: 1 / -1;
+    color: $color-base-primary;
+    text-decoration: none;
+    &:hover {
+      text-decoration: none;
+    }
+    span {
+      color: $color-base-text;
+    }
+  }
+  &_wine {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 1.5rem;
+  }
+  &_rating {
+    align-self: start;
+    font-size: rem(24px);
+    color: #f2a842;
+    letter-spacing: 0.5rem;
+  }
+  &_vendor {
+    font-weight: 500;
+    a {
+      text-decoration: underline;
+      text-transform: capitalize;
+    }
+  }
+  &_description {
+    font-size: 1.1rem;
+    line-height: 1.65rem;
+    letter-spacing: 0px;
+    color: rgba(var(--color-base-text), 0.85);
+  }
+  &_variants {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    padding: 0.75rem 0;
+  }
+  &_input {
+    display: grid;
+    align-items: center;
+    grid-template-columns: 100px 1fr;
+  }
+  &_label {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: $color-base-text;
+    @include truncate;
+  }
+  &_form,
+  .product-form {
+    &__error-message-wrapper {
+      display: grid;
+      grid-template-columns: 20px 1fr;
+      margin-bottom: 1.5rem;
+      gap: 1rem;
+    }
+    &__buttons {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      align-items: flex-start;
+      justify-content: center;
+      @include mq-down('xxs') {
+        grid-template-columns: 1fr;
+      }
+    }
+  }
+}

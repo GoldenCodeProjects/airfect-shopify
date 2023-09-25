@@ -1,0 +1,7 @@
+@import './../vendors/fancybox.css';
+
+.fancybox__container {
+  *:empty {
+    display: unset !important;
+  }
+}

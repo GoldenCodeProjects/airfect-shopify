@@ -1,0 +1,18 @@
+@import './../settings/colors';
+@import './../settings/fonts';
+@import './../settings/breakpoints';
+@import './../tools/functions';
+@import './../tools/mixins';
+
+.section--selected-categories .o-container{
+  padding-top: 3rem;
+  padding-bottom: 3rem;
+  h2{
+    text-align: center;
+  }
+
+  .collections{
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  }
+}

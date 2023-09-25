@@ -1,0 +1,81 @@
+{
+  "sections": {
+    "56deeea7-a573-493b-8593-aeacf53dc825": {
+      "type": "carousel",
+      "blocks": {
+        "a2495587-9ae1-4673-9ea2-8a81d3b7e74f": {
+          "type": "image",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/cat-enjoying-the-view.jpg",
+            "description": "<h3><span style=\"font-family:Verdana,Geneva,sans-serif\">Agrega aqui lo que quieras<\/span><\/h3>",
+            "pos_x": "-center-x",
+            "pos_y": "-center-y",
+            "button_text": "Un enlace",
+            "button_url": "shopify:\/\/collections\/all"
+          }
+        },
+        "65f4302a-f0b0-4c82-ba03-c3fa49207f50": {
+          "type": "video",
+          "settings": {
+            "video_link": "https:\/\/www.youtube.com\/watch?v=J---aiyznGQ",
+            "video_poster": "shopify:\/\/shop_images\/a-small-black-and-white-street-cat.jpg"
+          }
+        }
+      },
+      "block_order": [
+        "a2495587-9ae1-4673-9ea2-8a81d3b7e74f",
+        "65f4302a-f0b0-4c82-ba03-c3fa49207f50"
+      ],
+      "settings": {
+        "filter_enabled": false,
+        "size": "-large"
+      }
+    },
+    "8ad4be35-0f6a-42ba-9ff4-e11258e94c28": {
+      "type": "last-seen",
+      "settings": {
+        "heading": "Vistos recientemente"
+      }
+    },
+    "f7864bd3-4ec2-4573-bd52-d03b641126d8": {
+      "type": "feadtured-products",
+      "blocks": {
+        "f8617ce9-884e-43ba-a61d-0d471a8ac700": {
+          "type": "products",
+          "settings": {
+            "product_selected": "example-t-shirt"
+          }
+        }
+      },
+      "block_order": [
+        "f8617ce9-884e-43ba-a61d-0d471a8ac700"
+      ],
+      "settings": {
+        "heading": "Más vendidos"
+      }
+    },
+    "bd7fbfff-064b-4ee9-922c-39a48a566ee2": {
+      "type": "selected-categories",
+      "blocks": {
+        "71b6facf-b5b6-4eee-9d1c-1608a7e01689": {
+          "type": "category",
+          "settings": {
+            "category": "frontpage"
+          }
+        }
+      },
+      "block_order": [
+        "71b6facf-b5b6-4eee-9d1c-1608a7e01689"
+      ],
+      "settings": {
+        "title": ""
+      }
+    }
+  },
+  "order": [
+    "56deeea7-a573-493b-8593-aeacf53dc825",
+    "8ad4be35-0f6a-42ba-9ff4-e11258e94c28",
+    "f7864bd3-4ec2-4573-bd52-d03b641126d8",
+    "bd7fbfff-064b-4ee9-922c-39a48a566ee2"
+  ]
+}

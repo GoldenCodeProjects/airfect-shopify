@@ -1,0 +1,96 @@
+@import './../settings/breakpoints';
+@import './../settings/fonts';
+@import './../settings/colors';
+@import './../tools/mixins';
+@import './../tools/functions';
+
+.product-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  justify-content: center;
+  position: relative;
+  remove-product-button {
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    button {
+      font-size: rem(28px);
+      width: rem(28px);
+      height: rem(28px);
+      padding: 0;
+      border: none;
+      background: none;
+      color: var(--color-base-accent-secondary);
+      cursor: pointer;
+    }
+  }
+  &_featured-image {
+    height: auto;
+    max-height: 150px;
+    max-width: 65%;
+    object-fit: contain;
+    object-position: center;
+    margin-bottom: rem(7px);
+  }
+  &_title {
+    font-size: rem(18px);
+    margin-bottom: rem(7px);
+  }
+  &_sku {
+    font-size: rem(14px);
+    color: rgba(var(--color-base-accent-primary), 0.6);
+    margin-bottom: rem(7px);
+    &::before {
+      content: 'SKU: ';
+    }
+  }
+
+  update-quantity {
+    margin-top: rem(7px);
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    grid-template-rows: 1fr 1fr;
+    gap: rem(7px);
+    align-items: center;
+    justify-items: center;
+    label {
+      font-weight: 600;
+      grid-row: span 2;
+      font-size: rem(18px);
+      color: #433828;
+      width: max-content;
+    }
+    input {
+      font-weight: 500;
+      grid-row: span 2;
+      font-size: rem(22px);
+      color: #433828;
+      width: 50px;
+      text-align: center;
+      border: 2px solid #433828;
+      border-radius: 4px;
+      -moz-appearance: textfield;
+      &::-webkit-inner-spin-button,
+      &::-webkit-outer-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+      }
+    }
+    button {
+      color: #433828;
+      width: 20px;
+      height: 20px;
+      min-width: 20px !important;
+      font-size: rem(18px) !important;
+      font-weight: 900;
+      &[up]::after {
+        content: '+';
+      }
+      &[down]::after {
+        content: '-';
+      }
+    }
+  }
+}

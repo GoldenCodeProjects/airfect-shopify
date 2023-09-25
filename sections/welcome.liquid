@@ -1,0 +1,47 @@
+{{ 'section-welcome.css' | asset_url | stylesheet_tag }}
+
+<div class="welcome o-container -medium u-align-center">
+  <div class="welcome_wrapper u-mv-medium" style="max-width: 45rem;">
+    <h1 class="c-heading -h1 -bold u-mb-small">{{ section.settings.heading }}</h1>
+    <h2 class="c-heading -h2 u-mb-small">{{ section.settings.subheading }}</h2>
+    <a class="c-button -primary u-mv-small"
+      href="https://workflow.younessidbakkasse.com/docs/introduction/overview/"
+      target="_blank">{{ section.settings.link_label }}
+      {%- render 'component-icon'
+        icon: 'arrow',
+        icon_size: 20
+      -%}</a>
+    <p class="c-body -h3">
+      Open-source MIT Licensed. <a href="https://github.com/younessidbakkasse/workflow" target="_blank">GitHub v1.2.2</a>
+    </p>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "t:sections.welcome.name",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "textarea",
+      "id": "heading",
+      "label": "t:sections.welcome.settings.heading.label"
+    },
+    {
+      "type": "textarea",
+      "id": "subheading",
+      "label": "t:sections.welcome.settings.subheading.label"
+    },
+    {
+      "type": "text",
+      "id": "link_label",
+      "label": "t:sections.welcome.settings.link_label.label"
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:sections.welcome.presets.name"
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,114 @@
+<div class="footer">
+  <div class="footer-top o-container -medium -wide">
+    <div class="findUs">
+      {%- if section.settings.address_text != blank -%}
+        {%- if section.settings.address_link != blank -%}
+          <a
+            href="{{ section.settings.address_link }}"
+            class="address maps_ubicacion"
+            target="_blank">
+            {{- section.settings.address_text | strip_html -}}
+          </a>
+        {%- else -%}
+          <div class="address">{{ section.settings.address_text }}</div>
+        {%- endif -%}
+      {%- endif -%}
+      <a
+        class="link"
+        href="https://wa.me/{{ section.settings.whatsapp_text | handleize | replace: '-', '' }}"
+        target="_blank">
+        {% render 'component-icon', icon: 'whatsapp', icon_size: 20 %}
+        <span>{{ section.settings.whatsapp_text }}</span>
+        <b class="whatsapp"></b>
+      </a>
+      <a href="mailto:{{ section.settings.contact_email }}" class="link">
+        {% render 'component-icon', icon: 'email', icon_size: 20 %}
+        <span>
+          {{ section.settings.contact_email }}
+        </span>
+        <b class="email"></b>
+      </a>
+      <a href="tel:{{ section.settings.phone_text }}" class="link">
+        {% render 'component-icon', icon: 'phone', icon_size: 20 %}
+        <span>
+          {{ section.settings.phone_text }}
+        </span>
+        <b class="phone"></b>
+      </a>
+    </div>
+
+    <div class="logo">
+      <img
+        src="{{ section.settings.logo-light | image_url: width: 350 }}"
+        alt="{{ section.settings.alt }}"
+        width="350"
+        height="200"
+        loading="lazy">
+    </div>
+
+    <div class="info">
+      <h6>{{ section.settings.follow_text }}</h6>
+      <div class="social">
+        {% render 'component-social-list' %}
+      </div>
+    </div>
+  </div>
+
+  <nav class="footer-bottom">
+    <a href="{{ shop.url }}" class="copyright">
+      © 2022, {{ shop.name }}
+    </a>
+    <p>Todos los derechos reservados</p>
+    {% for policy in shop.policies %}
+      <a href="{{ policy.url }}">{{ policy.title }}</a>
+    {% endfor %}
+    <a href="https://goldencode.co/en" target="_blank">Desarrollado por Golden Code</a>
+  </nav>
+</div>
+
+{% schema %}
+  {
+    "name": "t:sections.footer.name",
+    "tag": "footer",
+    "class": "section--footer",
+    "settings": [
+      {
+        "type": "image_picker",
+        "id": "logo-light",
+        "label": "Logo"
+      },
+      {
+        "type": "richtext",
+        "id": "address_text",
+        "label": "Dirección",
+        "default": "<p></p>"
+      },
+      {
+        "type": "url",
+        "id": "address_link",
+        "label": "Dirección URL",
+        "info": "La dirección se convertirá en un enlace si se proporciona una URL."
+      }, {
+        "type": "text",
+        "id": "follow_text",
+        "label": "Sígueme en mis redes",
+        "default": "Sígueme en mis redes"
+      }, {
+        "type": "text",
+        "id": "whatsapp_text",
+        "label": "WhatsApp",
+        "default": "300 300 0000"
+      }, {
+        "type": "text",
+        "id": "contact_email",
+        "label": "Correo electrónico",
+        "default": "tuCorreo@service.com"
+      }, {
+        "type": "text",
+        "id": "phone_text",
+        "label": "Teléfono",
+        "default": "300 300 0000"
+      }
+    ]
+  }
+{% endschema %}

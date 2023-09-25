@@ -1,0 +1,13 @@
+@import './../settings/colors';
+@import './../settings/fonts';
+@import './../settings/breakpoints';
+@import './../tools/functions';
+@import './../tools/mixins';
+
+.section--featured-category{
+  padding: 5rem 0;
+  .o-container{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+  }
+}

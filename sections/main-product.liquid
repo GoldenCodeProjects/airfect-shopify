@@ -1,0 +1,302 @@
+{{ 'component-gallery-style.css' | asset_url | stylesheet_tag }}
+{{ 'component-gallery-script.css' | asset_url | stylesheet_tag }}
+{{ 'section-main-product.css' | asset_url | stylesheet_tag }}
+
+{{ 'section-main-product.css' | asset_url | stylesheet_tag }}
+
+<script src="{{ 'component-gallery-script.js' | asset_url }}" defer=defer></script>
+<script src="{{ 'component-product-form-script.js' | asset_url }}" defer=defer></script>
+<script src="{{ 'component-variant-selects-script.js' | asset_url }}" defer=defer></script>
+
+<div class="o-container -medium -wide u-pv-medium">
+  <div class="product_media">
+    <div class="swiper previews">
+      <div class="swiper-wrapper">
+        {% assign images = product.media | where: "media_type", "image" %}
+        {% for image in images %}
+          <div class="swiper-slide">
+            <a preview href="{{ image | image_url: width: 2048 }}">
+              <img src="{{ image | image_url: width: 850 }}"
+              alt="{{ image.alt }}" width="{{ image.width }}"
+              height="{{ image.height }}" loading="lazy">
+            </a>
+          </div>
+        {% endfor %}
+      </div>
+
+      <div class="swiper-button-prev"></div>
+      <div class="swiper-button-next"></div>
+    </div>
+
+    <div class="swiper thumbs">
+      <div class="swiper-wrapper">
+        {% assign images = product.media | where: "media_type", "image" %}
+        {% for image in images %}
+          <div class="swiper-slide">
+            <img src="{{ image | image_url: width: 200 }}"
+            alt="{{ image.alt }}" width="{{ image.width }}"
+            height="{{ image.height }}" loading="lazy">
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+
+  <div class="product_content">
+    {%- assign product_form_id = 'product-form-' | append: section.id -%}
+
+    {%- for block in section.blocks -%}
+      {%- case block.type -%}
+        {%- when '@app' -%}
+          {% render block %}
+
+        {%- when 'title' -%}
+          <h1 class="product_title" {{ block.shopify_attributes }}>{{ product.title }}</h1>
+
+        {%- when 'vendor' -%}
+          <p class="product_vendor" {{ block.shopify_attributes }}>
+            por
+            <a href="/collections/all?filter.p.vendor={{ product.vendor | replace: ' ', '+' }}">
+              {{ product.vendor }}
+            </a>
+          </p>
+
+        {%- when 'price' -%}
+          {%- if product.price != 0 -%}
+            <div class="product_price" id="price-{{ section.id }}" role="status" {{ block.shopify_attributes }}>
+              {% if product.compare_at_price_max > product.price %}
+                <span class="compare">{{ product.compare_at_price_max | money_without_trailing_zeros }}</span>
+              {% endif %}
+              <span>{{ product.price | money_with_currency }}</span>
+            </div>
+          {% endif %}
+
+        {%- when 'description' -%}
+          {%- if product.description != blank -%}
+            <div class="product_description c-body">
+              <h4 class="product_point-title c-body">Maridaje</h4>
+              {{ product.description }}
+            </div>
+          {%- endif -%}
+
+        {%- when 'variant_picker' -%}
+          {%- unless product.has_only_default_variant -%}
+            <variant-selects class="product_variants" data-section="{{ section.id }}" data-url="{{ product.url }}" {{ block.shopify_attributes }}>
+              {%- for option in product.options_with_values -%}
+                <div class="product_input">
+                  <label class="product_label" for="Option-{{ section.id }}-{{ forloop.index0 }}">
+                    {{ option.name }}
+                  </label>
+                  <div class="product_select select">
+                    <select id="Option-{{ section.id }}-{{ forloop.index0 }}"
+                      class="select_select"
+                      name="options[{{ option.name | escape }}]"
+                      form="{{ product_form_id }}"
+                    >
+                      {%- for value in option.values -%}
+                        <option value="{{ value | escape }}" {% if option.selected_value == value %}selected="selected"{% endif %}>
+                          {{ value }}
+                        </option>
+                      {%- endfor -%}
+                    </select>
+                    {% render 'component-icon' icon: 'caret', icon_size: 15 %}
+                  </div>
+                </div>
+              {%- endfor -%}
+
+              <script type="application/json">
+                {{ product.variants | json }}
+              </script>
+            </variant-selects>
+          {%- endunless -%}
+
+        {%- when 'buy_buttons' -%}
+          <div class="product_form product-form" {{ block.shopify_attributes }}>
+            <product-form>
+              <div class="product-form__error-message-wrapper c-body -error u-hide" role="alert">
+                {% render 'component-icon' icon: 'error', icon_size: 20 %}
+                <span class="product-form__error-message"></span>
+              </div>
+
+              {%- form 'product', product, id: product_form_id, class: 'form', novalidate: 'novalidate', data-type: 'add-to-cart-form' -%}
+                <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}" disabled>
+                <div class="product-form__buttons">
+                  <button
+                    type="submit"
+                    name="add"
+                    class="c-button"
+                  {% if product.selected_or_first_available_variant.available == false %}disabled{% endif %}
+                  >
+                      <span>
+                        Agregar al carrito
+                      </span>
+                      <div class="loading-overlay__spinner u-hide">
+                        <svg aria-hidden="true" focusable="false" role="presentation" class="spinner" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg">
+                          <circle class="path" fill="none" stroke-width="6" cx="33" cy="33" r="30"></circle>
+                        </svg>
+                      </div>
+                  </button>
+                  {%- if block.settings.show_dynamic_checkout -%}
+                    <div onclick="fbq('track', 'AddPaymentInfo')">
+                      {{ form | payment_button }}
+                    </div>
+                    <style>
+                      [role=button]{
+                        padding: 0.5rem 1.25rem !important;
+                      }
+                      .shopify-payment-button__button {
+                        font-weight: 300 !important;
+                        font-size: 1.25rem !important;
+                      }
+                    </style>
+                  {%- endif -%}
+                </div>
+              {%- endform -%}
+            </product-form>
+          </div>
+
+        {%- when 'custom_liquid' -%}
+          <div class="product_custom c-body" {{ block.shopify_attributes }}>
+            {{ block.settings.custom_liquid }}
+          </div>
+      {%- endcase -%}
+    {%- endfor -%}
+  </div>
+</div>
+
+<script id="product-json" type="application/json">
+  {{ product | json }}
+</script>
+
+<script defer=defer>
+  const product = JSON.parse(document.querySelector('#product-json').textContent);
+  const id = product.id;
+  const url = '{{ product.url }}';
+  if (localStorage.getItem('visited')) {
+    const visited = JSON.parse(localStorage.getItem('visited'));
+    const was_visited = visited.last_seen.find(item => item.id === id) ? true : false;
+    if (!was_visited) {
+      visited.last_seen.push({ id, url });
+      visited.last_seen = visited.last_seen.slice(-6);
+      localStorage.setItem('visited', JSON.stringify(visited));
+    } else {
+      const index = visited.last_seen.findIndex(item => item.id === id);
+      visited.last_seen.splice(index, 1);
+      visited.last_seen.push({ id, url });
+      localStorage.setItem('visited', JSON.stringify(visited));
+    }
+  } else {
+    localStorage.setItem('visited', JSON.stringify({ last_seen: [{ id, url }] }));
+  }
+</script>
+
+{%- liquid
+  if product.selected_or_first_available_variant.featured_media
+    assign seo_media = product.selected_or_first_available_variant.featured_media
+  else
+    assign seo_media = product.featured_media
+  endif
+-%}
+
+<script type="application/ld+json">
+  {
+    "@context": "http://schema.org/",
+    "@type": "Product",
+    "name": {{ product.title | json }},
+    "url": {{ shop.url | append: product.url | json }},
+    {% if seo_media -%}
+      {%- assign media_size = seo_media.preview_image.width | append: 'x' -%}
+      "image": [
+        {{ seo_media | img_url: media_size | prepend: "https:" | json }}
+      ],
+    {%- endif %}
+    "description": {{ product.description | strip_html | json }},
+    {% if product.selected_or_first_available_variant.sku != blank -%}
+      "sku": {{ product.selected_or_first_available_variant.sku | json }},
+    {%- endif %}
+    "brand": {
+      "@type": "Thing",
+      "name": {{ product.vendor | json }}
+    },
+    "offers": [
+      {%- for variant in product.variants -%}
+        {
+          "@type" : "Offer",
+          {%- if variant.sku != blank -%}
+            "sku": {{ variant.sku | json }},
+          {%- endif -%}
+          "availability" : "http://schema.org/{% if variant.available %}InStock{% else %}OutOfStock{% endif %}",
+          "price" : {{ variant.price | divided_by: 100.00 | json }},
+          "priceCurrency" : {{ cart.currency.iso_code | json }},
+          "url" : {{ shop.url | append: variant.url | json }}
+        }{% unless forloop.last %},{% endunless %}
+      {%- endfor -%}
+    ]
+  }
+</script>
+
+{% schema %}
+{
+  "name": "t:sections.product.name",
+  "tag": "section",
+  "class": "product",
+  "blocks": [
+    {
+      "type": "@app"
+    },
+    {
+      "type": "title",
+      "name": "Titulo del producto",
+      "limit": 1
+    },
+    {
+      "type": "vendor",
+      "name": "Vendedor o fabricante",
+      "limit": 1
+    },
+    {
+      "type": "price",
+      "name": "Precio del producto",
+      "limit": 1
+    },
+    {
+      "type": "description",
+      "name": "Descripción del producto",
+      "limit": 1
+    },
+    {
+      "type": "variant_picker",
+      "name": "Variantes del producto",
+      "limit": 1
+    },
+    {
+      "type": "buy_buttons",
+      "name": "Botonera de compra",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "checkbox",
+          "id": "show_dynamic_checkout",
+          "default": true,
+          "label": "Agregar botonera de compra dinámica",
+          "info": "Agrega un botón de compra dinámica a la página de producto"
+        }
+      ]
+    },
+    {
+      "type": "custom_liquid",
+      "name": "Liquid personalizado",
+      "settings": [
+        {
+          "type": "liquid",
+          "id": "custom_liquid",
+          "label": "Liquid personalizado"
+        }
+      ]
+    }
+  ],
+  "settings": [
+
+  ]
+}
+{% endschema %}

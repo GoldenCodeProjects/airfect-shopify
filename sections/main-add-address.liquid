@@ -1,0 +1,163 @@
+{{ 'section-main-add-address.css' | asset_url | stylesheet_tag }}
+
+<svg style="display: none">
+  <symbol id="icon-caret" viewBox="0 0 10 6">
+    <path fill-rule="evenodd" clip-rule="evenodd" d="M9.354.646a.5.5 0 00-.708 0L5 4.293 1.354.646a.5.5 0 00-.708.708l4 4a.5.5 0 00.708 0l4-4a.5.5 0 000-.708z" fill="currentColor">
+  </symbol>
+</svg>
+
+{% form 'customer_address', customer.new_address, class: 'add-address o-container -narrow' %}
+  <a href="/account/addresses" class="return">
+    {% render 'component-icon' icon: 'arrow', icon_size: 20 %}
+    Regresar
+  </a>
+
+  <div class="wrapper">
+    <h1 class="title -full">Agregar dirección</h1>
+
+    <div class="c-field -middle">
+      <input class="c-field_input"
+        type="text" name="address[first_name]"
+        placeholder="Nombre" required
+        autocomplete="given-name"
+        value="{{ form.first_name }}"
+        id="address_first_name"
+      >
+      <label class="c-field_label" for="address_first_name">Nombre</label>
+    </div>
+
+    <div class="c-field -middle">
+      <input class="c-field_input"
+        type="text" name="address[last_name]"
+        placeholder="Apellido" required
+        autocomplete="family-name"
+        value="{{ form.last_name }}"
+        id="address_last_name"
+      >
+      <label class="c-field_label" for="address_last_name">Apellido</label>
+    </div>
+
+    <div class="c-field -full">
+      <input class="c-field_input"
+        type="text" name="address[company]"
+        placeholder="Empresa"
+        autocomplete="organization"
+        value="{{ form.company }}"
+        id="address_company"
+      >
+      <label class="c-field_label" for="address_company">
+        Empresa
+        <span class="c-field_label_optional">(opcional)</span>
+      </label>
+    </div>
+
+    <div class="c-field -full">
+      <input class="c-field_input"
+        type="text" name="address[address1]"
+        placeholder="Dirección" required
+        autocomplete="address-line1"
+        value="{{ form.address1 }}"
+        id="address_address1"
+      >
+      <label class="c-field_label" for="address_address1">Dirección y colonia</label>
+    </div>
+
+    <div class="c-field -middle">
+      <input class="c-field_input"
+        type="text" name="address[city]"
+        placeholder="Ciudad" required
+        autocomplete="address-level2"
+        value="{{ form.city }}"
+        id="address_city"
+      >
+      <label class="c-field_label" for="address_city">Ciudad</label>
+    </div>
+
+    <div class="c-field -middle">
+      <input class="c-field_input"
+        type="tel" name="address[phone]"
+        placeholder="Teléfono" required
+        value="{{ form.phone }}"
+        autocomplete="tel"
+        id="address_phone"
+      >
+      <label class="c-field_label" for="address_phone">Teléfono</label>
+    </div>
+
+    <div class="c-field">
+      <select class="c-field_input"
+        name="address[country]" required
+        data-default="{{ form.country }}"
+        autocomplete="country"
+        id="address_country"
+        data-address-country-select
+      >
+        {{ all_country_option_tags }}
+      </select>
+      <label class="c-field_label" for="address_country">País</label>
+      <svg class="c-field_icon" aria-hidden="true" focusable="false" viewBox="0 0 10 6">
+        <use href="#icon-caret" />
+      </svg>
+    </div>
+
+    <div class="c-field" id="address_province-container">
+      <select class="c-field_input"
+        name="address[province]" required
+        data-default="{{ form.province }}"
+        autocomplete="address-level1"
+        id="address_province"
+      ></select>
+      <label class="c-field_label" for="address_province">Provincia</label>
+      <svg class="c-field_icon" aria-hidden="true" focusable="false" viewBox="0 0 10 6">
+        <use href="#icon-caret" />
+      </svg>
+    </div>
+
+    <div class="c-field">
+      <input class="c-field_input"
+        type="text" name="address[zip]"
+        placeholder="Código postal" required
+        value="{{ form.zip }}"
+        autocapitalize="characters"
+        autocomplete="postal-code"
+        id="address_zip"
+      >
+      <label class="c-field_label" for="address_zip">Código postal</label>
+    </div>
+
+    <label class="c-check -full u-mt-small" for="address_default_address_new">
+      {{ form.set_as_default_checkbox }}
+      <div box></div>
+      <span class="c-check_label">
+        Establecer como dirección predeterminada
+      </span>
+    </label>
+
+    <div class="buttons -full">
+      <a class="c-button -secondary" href="{{ routes.account_url }}/addresses">Cancelar</a>
+      <input class="c-button -primary" type="submit" value="Guardar">
+    </div>
+  </div>
+{% endform %}
+
+<script defer>
+  window.addEventListener('load', () => {
+    typeof CustomerAddresses !== 'undefined' && new CustomerAddresses();
+    console.log(Shopify)
+    if (Shopify && Shopify.CountryProvinceSelector) {
+      new Shopify.CountryProvinceSelector('address_country', 'address_province', {
+        hideElement: 'address_province-container',
+      });
+    }
+  });
+</script>
+
+{% schema %}
+{
+  "name": "Agregar dirección",
+  "class": "section--main-add-address",
+  "settings": [
+
+  ]
+}
+{% endschema %}

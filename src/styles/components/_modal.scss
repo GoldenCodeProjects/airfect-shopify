@@ -1,0 +1,62 @@
+component-modal {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  background: rgba(var(--color-base-text), 0.2);
+  backdrop-filter: blur(9px) saturate(1.1);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+  visibility: hidden;
+  opacity: 0;
+  transition: opacity 0.35s ease-in;
+  z-index: 1001;
+  &.-open {
+    visibility: visible;
+    opacity: 1;
+  }
+  .modal-dialog {
+    position: relative;
+    width: 100%;
+    min-height: 2rem;
+    max-width: 500px;
+    max-height: 80vh;
+    border-radius: 5px;
+    background: $color-base-background-primary;
+    overflow: auto;
+    cursor: auto;
+    > * {
+      padding: 1rem;
+    }
+    p + p {
+      margin-top: 1rem;
+    }
+    .modal-close {
+      position: absolute;
+      top: 0.5rem;
+      right:  0.5rem;
+      padding: 0.5rem;
+      line-height: 0.5;
+      font-size: 1.5rem;
+    }
+    [title] {
+      font-size: 1.35rem;
+      font-weight: bold;
+      margin-bottom: 1rem;
+      padding-right: 1.25rem;
+      color: $color-base-primary;
+    }
+    [buttons] {
+      display: flex;
+      justify-content: flex-end;
+      margin-top: 1rem;
+      gap: 1rem;
+    }
+  }
+  &[size='small'] .modal-dialog {
+    max-width: 450px;
+    max-height: calc(100vh - 4rem);
+  }
+}

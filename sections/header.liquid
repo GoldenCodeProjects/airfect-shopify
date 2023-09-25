@@ -1,0 +1,134 @@
+{{ 'component-dark-mode-button.css' | asset_url | stylesheet_tag }}
+<script src="{{- 'component-dark-mode-button-script.js' | asset_url -}}" defer></script>
+
+{% style %}
+  .header_logo img{
+    min-width: 20px;
+    width: {{ section.settings.img_width }}px;
+  }
+
+  @media (max-width: 767px) {
+    .header_logo img{
+      width: {{ section.settings.img_width | times: 0.7 | floor }}px;
+    }
+  }
+{% endstyle %}
+
+<header class="header">
+  <a class="header_logo c-heading -bold" href="{{ shop.url }}" aria-label="Home">
+    {%- if section.settings.logo != blank -%}
+      <img
+        src="{{ section.settings.logo | image_url: width: 350 }}"
+        alt="{{ section.settings.logo.alt }}" loading="lazy"
+        width="{{ section.settings.logo.width }}"
+        height="{{ section.settings.logo.height }}"
+      >
+    {%- else -%}
+      {{ shop.name }}
+    {%- endif -%}
+  </a>
+
+  <nav class="header_nav" role="navigation" aria-label="Main navigation">
+    {%- for link in section.settings.menu.links -%}
+      {%- if link.links == blank -%}
+        <a href="{{ link.url }}"
+          class="header_nav_item c-navigation {% if link.current %}-active{% endif %}"
+          {% if link.current %}aria-current="page"{% endif %}
+        >
+          {{ link.title }}
+        </a>
+      {%- else -%}
+        <div class="header_sublist" role="list" tabindex="-1">
+          <a class="header_sublist-title c-navigation">
+            {{ link.title | escape }}
+            {% render 'component-icon' icon: 'caret', icon_size: 15 %}
+          </a>
+
+          <ul class="header_sublist-elements {% if link.handle == 'products' %}-products{% endif %}">
+            {%- for childlink in link.links -%}
+              <li>
+                {%- if childlink.links == blank -%}
+                  <a href="{{ childlink.url }}" class="header_sublist-item c-navigation">{{ childlink.title | escape }}</a>
+                {%- else -%}
+                  <div class="header_deepsublist" role="list" tabindex="-1">
+                    <span class="header_deepsublist-title c-navigation">{{ childlink.title | escape }}</span>
+                    <ul class="header_deepsublist-elements">
+                      {%- for grandchildlink in childlink.links -%}
+                        <li class="header_deepsublist-item">
+                          <a href="{{ grandchildlink.url }}" class="c-navigation {% if grandchildlink.current %}-active{% endif %}"
+                          {% if grandchildlink.current %} aria-current="page"{% endif %}>
+                            {{ grandchildlink.title | escape }}
+                          </a>
+                        </li>
+                      {%- endfor -%}
+                    </ul>
+                  </div>
+                {%- endif -%}
+              </li>
+            {%- endfor -%}
+          </ul>
+        </div>
+      {%- endif -%}
+    {%- endfor -%}
+  </nav>
+
+  <div class="header_buttons">
+    <dark-mode-button>
+      <span slot="moon">{%- render 'component-icon' icon: 'moon', icon_size: 18 -%}</span>
+      <span slot="sun">{%- render 'component-icon' icon: 'sun', icon_size: 18 -%}</span>
+    </dark-mode-button>
+
+    <open-search>
+      <button class="header_buttons_btn">
+        {%- render 'component-icon' icon: 'search', icon_size: 18 -%}
+      </button>
+    </open-search>
+
+    <cart-icon class="header_cart-icon">
+      <button class="header_buttons_btn -cart">
+        {%- render 'component-icon' icon: 'cart', icon_size: 18 -%}
+        <span class="data-quantity">0</span>
+      </button>
+    </cart-icon>
+
+    {%- if shop.customer_accounts_enabled -%}
+      {%- if customer -%}
+        <a class="header_buttons_btn" href="/account/">
+          {%- render 'component-icon' icon: 'account', icon_size: 18 -%}
+        </a>
+      {%- else -%}
+        <a class="header_buttons_btn" href="/account/login">
+          {%- render 'component-icon' icon: 'account', icon_size: 18 -%}
+        </a>
+      {%- endif -%}
+    {%- endif -%}
+  </div>
+</header>
+
+{% schema %}
+{
+  "name": "t:sections.header.name",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "logo",
+      "label": "Logo"
+    },
+    {
+      "type": "range",
+      "id": "img_width",
+      "label": "Logo size",
+      "unit": "px",
+      "min": 50,
+      "max": 300,
+      "step": 10,
+      "default": 200
+    },
+    {
+      "type": "link_list",
+      "id": "menu",
+      "label": "Navigation menu"
+    }
+  ]
+}
+{% endschema %}

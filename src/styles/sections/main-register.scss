@@ -1,0 +1,75 @@
+// ==========================================================================
+// ## SHOPIFY STATIC SECTION: MAIN REGISTER
+// ==========================================================================
+@import './../settings/breakpoints';
+@import './../settings/fonts';
+@import './../settings/colors';
+@import './../tools/mixins';
+@import './../tools/functions';
+
+.section--main-register{
+  display: grid;
+  min-height: calc(100vh - 85px);
+  height: max-content;
+  grid-template-columns: 1fr 1fr;
+  grid-template-areas: "form image";
+
+  .title{
+    font-size: 2.5rem;
+    font-weight: 300;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+    @include mq-down(sm) {
+      font-size: 1.5rem;
+    }
+  }
+
+  .image{
+    grid-area: image;
+    overflow: hidden;
+    img{
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+
+  .form{
+    grid-area: form;
+    max-width: 750px;
+    justify-self: center;
+    align-self: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    padding: 3rem 2rem;
+    .c-button{
+      margin: 1rem 0;
+    }
+
+    ul{
+      list-style: disc;
+      display: flex;
+      gap: 1rem;
+      li, a{
+        color: rgb(187, 18, 18);
+        font-size: 1.1rem;
+        font-weight: 300;
+        text-decoration: none;
+      }
+      a:hover{
+        text-decoration: underline;
+      }
+    }
+  }
+
+  @include mq-down(sm) {
+    grid-template-columns: 1fr;
+    grid-template-areas: "form";
+    .image{
+      display: none;
+    }
+  }
+}

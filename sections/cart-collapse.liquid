@@ -1,0 +1,38 @@
+{{ 'component-cart-style.css' | asset_url | stylesheet_tag }}
+{{ 'component-product-item-style.css' | asset_url | stylesheet_tag }}
+
+<script src="{{- 'component-cart-script.js' | asset_url -}}" defer></script>
+
+{%- assign page_handle = page.handle | handle -%}
+
+<cart-component>
+  <div class="cart">
+    <h2 class="c-heading -h2">
+      <button close>
+        {% render 'component-icon' icon: 'close', icon_size: 20 %}
+      </button>
+      <span>Carrito de compra</span>
+    </h2>
+    <nav id="items"></nav>
+    <div class="subtotal">
+      <p class="final-price">
+        <span class="label">Subtotal</span>
+        <span id="total" class="value"></span>
+      </p>
+      <a id="buynow" class="c-button -primary {% if cart.item_count == 0 %}-disabled{% endif %} comprar_carrito"
+        href="{% if cart.item_count == 0 %}#{% else %}/checkout{% endif %}"
+      >
+        Comprar carrito
+      </a>
+    </div>
+  </div>
+</cart-component>
+
+<quantity-modal></quantity-modal>
+
+{% schema %}
+{
+  "name": "Shopping cart",
+  "class": "cart"
+}
+{% endschema %}

@@ -1,0 +1,170 @@
+{{ 'section-contact-form.css' | asset_url | stylesheet_tag }}
+
+{%- if section.settings.type_form != blank -%}
+  <div class="image">
+    {%- if section.settings.banner != blank -%}
+      <img src="{{ section.settings.banner | img_url: '1540x' }}"
+      alt="{{ section.settings.banner.alt }}"
+      width="{{ section.settings.banner.width }}"
+      height="{{ section.settings.banner.height }}"
+      loading="lazy">
+    {%- else -%}
+      {{ 'collection-1' | placeholder_svg_tag }}
+    {%- endif -%}
+  </div>
+
+  {% form 'contact', return_to: 'back', class: section.settings.color %}
+    {%- if section.settings.type_form -%}
+      <h1>
+        {%- if page.title != blank -%}
+          {{ page.title }}
+        {%- else -%}
+          {{ section.settings.type_form | capitalize }}
+        {%- endif -%}
+      </h1>
+    {%- endif -%}
+
+    {%- if page.content != blank -%}
+      <div class="content">
+        {{ page.content }}
+      </div>
+    {%- endif -%}
+
+    {%- if form.posted_successfully? -%}
+      {%- comment -%}<---< - See with: "?contact_posted=true#contact_form" - >--->{%- endcomment -%}
+      <h3 class="form_status c-body -bold -h3 -success" tabindex="-1" autofocus>
+        {% render 'component-icon' icon: 'success', icon_size: 15 %}
+        Datos enviados correctamente. Nos pondremos en contacto con usted en breve.
+      </h3>
+    {%- elsif form.errors -%}
+      {%- comment -%}<---< - See with: "?contact?contact%5Bbody%5D=&contact%5Bphone%5D=&form_type=contact" - >--->{%- endcomment -%}
+      <h3 class="form_status c-body -bold -h3 -error" role="alert" tabindex="-1" autofocus>
+        {% render 'component-icon' icon: 'error', icon_size: 15 %}
+        Datos incorrectos, debes corregir los siguientes errores:
+      </h3>
+      <ul class="form_status -list" role="list">
+        {% for field in form.errors %}
+          <li class="c-body -bold -h3 -error">
+            {% if field == 'form' %}
+              {{ form.errors.messages[field] | capitalize }}
+            {% else %}
+              {{ form.errors.translated_fields[field] | upcase }}: {{ form.errors.messages[field] | capitalize }}
+            {% endif %}
+          </li>
+        {% endfor %}
+      </ul>
+    {%- endif -%}
+
+    <input type="hidden" name="contact[type]" value="{{ section.settings.type_form | escape }}">
+
+    {%- for block in section.blocks -%}
+      {%- if block.settings.name != blank and block.settings.info != blank -%}
+        {%- assign name = block.settings.name | handleize -%}
+        <div class="c-field">
+          <input type="text" name="contact[{{ name }}]"
+          id="{{ name }}" class="c-field_input"
+          placeholder="{{ block.settings.placeholder | escape }}"
+          value="{% if form[name] %}{{ form[name] }}{% endif %}"
+          {% if block.settings.required %}required{% endif %}>
+          <label class="c-field_label" for="{{ name }}">
+            {{ block.settings.info | capitalize }}
+          </label>
+        </div>
+      {%- endif -%}
+    {%- endfor -%}
+
+    {%- assign blocks_size = section.blocks.size | modulo: 2 -%}
+    <div class="c-field {% if blocks_size == 0 %}-full{% endif %}">
+      <input type="email" name="contact[email]" id="email"
+      value="{% if form.email %}{{ form.email }}{% elsif customer %}{{ customer.email }}{% endif %}"
+      placeholder="mail@correo.com" required class="c-field_input">
+      <label for="email" class="c-field_label">Correo electrónico</label>
+    </div>
+
+    <div class="c-field -full">
+      <textarea name="contact[body]" id="body" rows="5"
+      placeholder="¡Hola!" required class="c-field_input">{{- form.body -}}</textarea>
+      <label for="body" class="c-field_label">Mensaje</label>
+    </div>
+
+    <button type="submit" class="c-button -dark formulario">
+      Enviar
+    </button>
+  {% endform %}
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Formulario de contacto",
+  "tag": "section",
+  "class": "section-form",
+  "settings": [
+    {
+      "type": "text",
+      "id": "type_form",
+      "label": "Tipo de formulario",
+      "info": "Nombre del formulario para distinguirlo en los correos"
+    },
+    {
+      "type": "image_picker",
+      "id": "banner",
+      "label": "Imagen de decoración"
+    },
+    {
+      "type": "radio",
+      "id": "color",
+      "label": "Tipo de color",
+      "default": "-primary",
+      "info": "Color que se usara en campos y texto",
+      "options": [
+        {
+          "value": "-primary",
+          "label": "Color primario"
+        },
+        {
+          "value": "-secondary",
+          "label": "Color secundario"
+        }
+      ]
+    }
+  ],
+  "blocks": [
+    {
+      "type": "field",
+      "name": "Campo de formulario",
+      "settings": [
+        {
+          "type": "text",
+          "id": "name",
+          "label": "Nombre del campo",
+          "info": "Nombre del campo para distinguirlo en los correos [Solo una palabra]."
+        },
+        {
+          "type": "text",
+          "id": "placeholder",
+          "label": "Placeholder",
+          "info": "Texto que se muestra en el campo hasta que el usuario escribe algo"
+        },
+        {
+          "type": "text",
+          "id": "info",
+          "label": "Info",
+          "info": "Texto que se muestra al lado del campo"
+        },
+        {
+          "type": "checkbox",
+          "id": "required",
+          "label": "label",
+          "label": "Requerido",
+          "info": "¿El campo es requerido?"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Formulario de contacto"
+    }
+  ]
+}
+{% endschema %}

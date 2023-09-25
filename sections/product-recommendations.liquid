@@ -1,0 +1,99 @@
+{{ 'component-product-card.css' | asset_url | stylesheet_tag }}
+{{ 'section-product-recommendations.css' | asset_url | stylesheet_tag }}
+
+<div
+  class="product-recommendations o-container -medium -wide"
+  data-url="{{ routes.product_recommendations_url }}?section_id={{ section.id }}&limit={{ section.settings.limit }}"
+  data-product="{{ product.id }}"
+>
+  {%- if recommendations.performed and recommendations.products_count > 0 -%}
+    <h2 class="c-heading -h2">{{ section.settings.title }}</h2>
+
+    <nav>
+      {%- for recommended in recommendations.products -%}
+        {%- render 'component-product-card' product: recommended -%}
+      {%- endfor -%}
+    </nav>
+  {%- endif -%}
+</div>
+
+<script defer>
+  const dinamicRecomendations = () => new Promise((resolve, reject) => {
+    const last_seen = localStorage.getItem('visited') ? JSON.parse(localStorage.getItem('visited')).last_seen.reverse()[0].id : false;
+    if (last_seen) {
+      resolve(last_seen);
+    } else {
+      const url = '/collections/all?sort_by=best-selling&section_id=best-selling&limit=1';
+      fetch(url)
+        .then(response => response.text())
+        .then(data => {
+          const product = new DOMParser().parseFromString(data, 'text/html').querySelector('.shopify-section').innerHTML;
+          resolve(product);
+        })
+        .catch(error => reject(error));
+    }
+  })
+  const handleIntersection = async (entries, observer) => {
+    if (!entries[0].isIntersecting) return;
+    observer.unobserve(productRecommendationsSection);
+    const recommendations = document.querySelector('.product-recommendations');
+    let product = recommendations.dataset.product;
+    console.log(product);
+    if(!recommendations.dataset.product) {
+      product = await dinamicRecomendations();
+      !product && document.querySelector('.recommendations').remove();
+      if(!product) return;
+    }
+    const url = `${recommendations.dataset.url}&product_id=${product}`;
+    fetch(url)
+      .then(response => response.text())
+      .then(text => {
+        const html = document.createElement('div');
+        html.innerHTML = text;
+        const recommendations = html.querySelector('.product-recommendations');
+        if (recommendations && recommendations.innerHTML.trim().length) {
+          document.querySelector('.product-recommendations').innerHTML = recommendations.innerHTML;
+        }
+      })
+      .catch(e => {
+        console.error(e);
+      });
+  };
+  const productRecommendationsSection = document.querySelector('.recommendations');
+  const observer = new IntersectionObserver(handleIntersection, {
+    rootMargin: '0px 0px -50px 0px',
+    threshold: 0.1
+  });
+  observer.observe(productRecommendationsSection);
+</script>
+
+{% schema %}
+  {
+    "name": "Productos Recomendados",
+    "tag": "section",
+    "class": "recommendations u-pb-large",
+    "settings": [
+      {
+        "label": "Título",
+        "id": "title",
+        "type": "text",
+        "default": "TE PUEDE INTERESAR"
+      },
+      {
+        "type": "number",
+        "id": "limit",
+        "label": "Límite de productos",
+        "default": 4
+      }
+    ],
+    "presets": [
+      {
+        "name": "Productos Recomendados",
+        "settings": {
+          "title": "Productos Recomendados",
+          "limit": 4
+        }
+      }
+    ]
+  }
+{% endschema %}
