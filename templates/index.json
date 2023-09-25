@@ -4,7 +4,7 @@
       "type": "banner-with-search",
       "settings": {
         "header": "Búsqueda inteligente de partes",
-        "banner": "shopify:\/\/shop_images\/Captura_de_pantalla_2023-03-08_130450.png",
+        "banner": "shopify:\/\/shop_images\/forest-road.jpg",
         "video": "https:\/\/cdn.shopify.com\/videos\/c\/o\/v\/c74cc88edb30457a835db9745152e1b8.webm"
       }
     },
@@ -131,8 +131,6 @@
       ],
       "settings": {
         "heading": "Busca partes por marca",
-        "bg": "shopify:\/\/shop_images\/Mask_Group_4.jpg",
-        "card_bg": "shopify:\/\/shop_images\/Mask_Group_24.png",
         "columns": 5
       }
     },
@@ -142,25 +140,21 @@
         "755a7f16-b13d-4659-b993-eaddd16c8be1": {
           "type": "images",
           "settings": {
-            "image": "shopify:\/\/shop_images\/servicio-mecanico-debajo-camion.jpg"
           }
         },
         "231daa55-8ddf-46fe-955f-2fcba00d7b9a": {
           "type": "images",
           "settings": {
-            "image": "shopify:\/\/shop_images\/stock-photo-truck-air-suspension-trailers.jpg"
           }
         },
         "9695ec54-7f73-4cf9-b964-27318cb35aa1": {
           "type": "images",
           "settings": {
-            "image": "shopify:\/\/shop_images\/stock-photo-semi-trailer-truck-spare-parts.jpg"
           }
         },
         "e6b824b0-cc37-431f-9fda-00fb530d239f": {
           "type": "images",
           "settings": {
-            "image": "shopify:\/\/shop_images\/Foto_KAT_WEB1.jpg"
           }
         }
       },
@@ -171,9 +165,7 @@
         "e6b824b0-cc37-431f-9fda-00fb530d239f"
       ],
       "settings": {
-        "logo": "shopify:\/\/shop_images\/KAT_LogoWeb-Medium-Positiv-1.png",
-        "body": "<p>KISTENMACHER AUTO + TECHNIK ha sido un aliado confiable en el mercado independiente de accesorios por más de 40 años, caracterizado por sus altos estándares. Con la marca KAT, se puede confiar en KISTENMACHER para proveer la calidad por la cual Alemania a adquirido una reputación mundial.<\/p>",
-        "bg": "shopify:\/\/shop_images\/Group_791.png"
+        "body": "<p>KISTENMACHER AUTO + TECHNIK ha sido un aliado confiable en el mercado independiente de accesorios por más de 40 años, caracterizado por sus altos estándares. Con la marca KAT, se puede confiar en KISTENMACHER para proveer la calidad por la cual Alemania a adquirido una reputación mundial.<\/p>"
       }
     },
     "1664473885f436c5ed": {
@@ -182,7 +174,6 @@
         "318aa7d9-2f8f-4a89-81dd-9aa62a9b13c7": {
           "type": "Beneficios",
           "settings": {
-            "icon": "shopify:\/\/shop_images\/Group_805.png",
             "head": "Nuestra pasión por las piezas",
             "des": "<p>Las personas detrás de KISTENMACHER son un equipo con muchos años de experiencia práctica y con una cosa en común: el amor por las “piezas”.<\/p>"
           }
@@ -190,7 +181,6 @@
         "ab1b865e-c0ad-4fd2-adbe-1ae28290d2cc": {
           "type": "Beneficios",
           "settings": {
-            "icon": "shopify:\/\/shop_images\/2pr2GI.png",
             "head": "Calidad desde nuestros empaques",
             "des": "<p>Todas nuestras cajas tienen el diseño que nos identifica así como una calidad superior que mantiene seguros nuestros productos para que lleguen sin defectos hasta ti<\/p>"
           }
@@ -198,7 +188,6 @@
         "26eefe5b-36e2-474a-880c-b1d9dfbf8f8c": {
           "type": "Beneficios",
           "settings": {
-            "icon": "shopify:\/\/shop_images\/oDvBif.png",
             "head": "Experiencia, confiabilidad y logística",
             "des": "<p>Difícilmente hay un problema que no podamos resolver o una pieza que no podamos proveer. La estrecha colaboración con nuestros logistas garantiza una entrega rápida, flexible y totalmente confiable.<\/p>"
           }
@@ -206,7 +195,6 @@
         "33d8dbf7-c1d5-473a-95a6-919837dfc564": {
           "type": "Beneficios",
           "settings": {
-            "icon": "shopify:\/\/shop_images\/ZKSf0G.png",
             "head": "Realmente entendemos  a nuestros clientes",
             "des": "<p>Nuestros viajes regulares al extranjero crean nuevas relaciones con clientes y proveedores para mantener los estándares de calidad que nuestros clientes esperan y merecen.<\/p>"
           }
@@ -219,9 +207,7 @@
         "33d8dbf7-c1d5-473a-95a6-919837dfc564"
       ],
       "settings": {
-        "heading": "<p>“Si se puede hacer,<br\/><strong>¡Podemos hacerlo!<\/strong><\/p>",
-        "decotive_image_1": "shopify:\/\/shop_images\/Group_795.png",
-        "decotive_image_2": "shopify:\/\/shop_images\/Group_796.png"
+        "heading": "<p>“Si se puede hacer,<br\/><strong>¡Podemos hacerlo!<\/strong><\/p>"
       }
     },
     "16644822199c81854a": {
@@ -242,7 +228,6 @@
         "14d54acb-df39-43ce-b6ad-1ad32ac21ddb": {
           "type": "image",
           "settings": {
-            "image": "shopify:\/\/shop_images\/Mask_Group_2.png"
           }
         }
       },
