@@ -26,6 +26,7 @@
       "footer": {
         "type": "footer",
         "settings": {
+          "logo-light": "shopify:\/\/shop_images\/KAT_LogoWeb-Medium-Positiv-1_350x_a7dd7974-f99a-412f-b7ea-77215f44d8ae.png",
           "phone": "+52 26 2819 1134",
           "email": "hey@goldensub.com",
           "map_url": "",
