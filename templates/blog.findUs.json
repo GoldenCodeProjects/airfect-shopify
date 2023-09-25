@@ -1,8 +1,12 @@
 {
   "sections": {
     "main": {
-      "type": "main-findUs"
+      "type": "main-findUs",
+      "settings": {
+      }
     }
   },
-  "order": ["main"]
+  "order": [
+    "main"
+  ]
 }

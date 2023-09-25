@@ -5,11 +5,13 @@
       "blocks": {
         "04da44e0-b1b0-4002-a4e2-a3f087982e3f": {
           "type": "title",
-          "settings": {}
+          "settings": {
+          }
         },
         "5957557a-bbb8-495b-bbda-3b7ec8fbcf4e": {
           "type": "description",
-          "settings": {}
+          "settings": {
+          }
         },
         "dfa1472c-fbab-4064-bf99-03909a2dc318": {
           "type": "custom_liquid",
@@ -30,11 +32,13 @@
         "dfa1472c-fbab-4064-bf99-03909a2dc318",
         "ea85fe2a-ba41-484f-a6ac-617907606bc7"
       ],
-      "settings": {}
+      "settings": {
+      }
     },
     "metafields": {
       "type": "product-metafield",
-      "settings": {}
+      "settings": {
+      }
     }
   },
   "order": [

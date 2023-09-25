@@ -1,7 +1,9 @@
 {
   "sections": {
     "filters": {
-      "type": "events-filter"
+      "type": "events-filter",
+      "settings": {
+      }
     },
     "main": {
       "type": "main-blog",

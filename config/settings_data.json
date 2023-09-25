@@ -26,13 +26,11 @@
       "footer": {
         "type": "footer",
         "settings": {
-          "logo-light": "shopify:\/\/shop_images\/KAT_LogoWeb-Medium-Positiv-1_8873f004-1b0b-4dde-b690-d5789ea7e9c2.png",
-          "bg": "shopify:\/\/shop_images\/Mask_Group_5.png",
-          "phone": "+52 (55) 540 47 864",
-          "email": "ventas.mex@kat-germany.de",
-          "map_url": "https:\/\/www.google.com\/maps\/place\/Av.+Paseo+de+la+Reforma+296,+Col.+Renacimiento,+Ju%C3%A1rez,+Cuauht%C3%A9moc,+06500+Ciudad+de+M%C3%A9xico,+CDMX\/@19.4305696,-99.1613011,17z\/data=!3m1!4b1!4m6!3m5!1s0x85d1ff334271ca6b:0x25d26be57c1db206!8m2!3d19.4305696!4d-99.1613011!16s%2Fg%2F11tt8lbtsg",
-          "extern_text": "www.kat-germany.de",
-          "extern_url": "https:\/\/www.kat-germany.de"
+          "phone": "+52 26 2819 1134",
+          "email": "hey@goldensub.com",
+          "map_url": "",
+          "extern_text": "",
+          "extern_url": ""
         }
       },
       "main-age": {
