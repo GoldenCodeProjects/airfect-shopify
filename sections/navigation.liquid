@@ -1,6 +1,6 @@
-{{ 'component-menu-list.css' | asset_url | stylesheet_tag }}
+{{ 'component-menu-list-style.css' | asset_url | stylesheet_tag }}
 
-<script src="{{- 'component-details-disclosure.js' | asset_url -}}" defer></script>
+<script src="{{- 'component-details-disclosure-script.js' | asset_url -}}" defer></script>
 
 <nav class="o-container -medium u-pv-small navigation">
   {%- for link in section.settings.menu.links -%}

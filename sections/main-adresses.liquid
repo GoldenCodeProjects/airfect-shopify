@@ -1,6 +1,6 @@
 {{ 'section-main-adresses.css' | asset_url | stylesheet_tag }}
 
-<script src="{{ 'component-customer.js' | asset_url }}" type="module" defer></script>
+<script src="{{ 'component-customer-script.js' | asset_url }}" type="module" defer></script>
 
 {%- paginate customer.addresses by 5 -%}
   <div class="customer addresses" data-customer-addresses>

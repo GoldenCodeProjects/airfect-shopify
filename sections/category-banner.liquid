@@ -1,6 +1,6 @@
 {{ 'section-category-banner.css' | asset_url | stylesheet_tag }}
 
-<script src="{{ 'component-view-as.js' | asset_url }}" defer=defer></script>
+<script src="{{ 'component-view-as-script.js' | asset_url }}" defer=defer></script>
 
 {% if section.settings.banner != blank %}
   {{ section.settings.banner | image_url: width: 2048 | image_tag }}
