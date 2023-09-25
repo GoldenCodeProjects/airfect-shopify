@@ -141,21 +141,25 @@
         "755a7f16-b13d-4659-b993-eaddd16c8be1": {
           "type": "images",
           "settings": {
+            "image": "shopify:\/\/shop_images\/chrome-engine-close-up.jpg"
           }
         },
         "231daa55-8ddf-46fe-955f-2fcba00d7b9a": {
           "type": "images",
           "settings": {
+            "image": "shopify:\/\/shop_images\/scooter-parking-rows.jpg"
           }
         },
         "9695ec54-7f73-4cf9-b964-27318cb35aa1": {
           "type": "images",
           "settings": {
+            "image": "shopify:\/\/shop_images\/black-sports-car-spoiler.jpg"
           }
         },
         "e6b824b0-cc37-431f-9fda-00fb530d239f": {
           "type": "images",
           "settings": {
+            "image": "shopify:\/\/shop_images\/classic-sports-car-interior.jpg"
           }
         }
       },
